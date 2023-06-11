@@ -15,17 +15,37 @@ body, html{
 	margin: 0;
 	padding: 0;
 	scroll-behavior: smooth;
-	font-family: VistolSans;
+	font-family: Sans-serif;
+	font-weight: 600;
 }
 
 /* LEFT MENU */
 
 .side_menu{
-	background-color: #eeeeee;
+	background-color: #eee;
 	width: 220px;
 	height: 100vh;
 	float: left;
+
+	.search_box{
+		width: 100px;
+		height: 25px;
+		background-color: #d4d4d4;
+		border-radius: 20px;
+		margin: 15px 0 20px 0;
+		outline: none;
+		border: 0;
+		padding: 0 10px 0 10px;
+		color: #a7a7a7;
+	}
+
+	.search_box::placeholder{
+		color: #a7a7a7;
+		font-size: .9em;
+	}
+
 }
+
 .logo_box{
 	display: flex;
 	flex-direction: column;
@@ -34,20 +54,216 @@ body, html{
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
+
+	.logo{
+		width: clamp(70px, 7.2vw, 100px);
+		cursor: pointer;
+		/*&:hover{
+			animation: .7s rotate ease-in-out;
+		}*/
+	}
+
 	.underLogo_line{
 		margin-top: 17px;
 		width: clamp(90px, 9vw, 120px);
 		border: 2px solid #dcdcdc;
 	}
+
 }
-.logo{
-	width: clamp(70px, 7.2vw, 100px);
-}
+
 .logo_box h3{
 	font-family: AquireBold;
 	margin: clamp(-10px, 2vw, -15px);
 	padding: 0;
 	font-size: clamp(1.2em, 2vw, 1.6em);
+}
+
+.game_selection{
+	display: grid;
+	flex-direction: column;
+	align-items: center;
+	overflow-y: scroll;
+	height: clamp(78% - 100px, 2vw, 74% - 100px);
+	padding-left: 14px;
+
+	.game{
+		position: relative;
+		color: #999;
+		font-size: .9em;
+		width: 190px;
+		height: 45px;
+		margin-bottom: 3px;
+		background-color: #e2e2e2;
+		border-radius: 5px;
+		display: flex;
+		cursor: pointer;
+		transition: .2s;
+		overflow: hidden;
+
+		.hover{
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background-color: #d4d4d4;
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			right: 5px;
+			z-index: 0;
+			transition: .2s ease;
+		}
+
+		&:hover{
+			color: #3f3f3f;
+			.arrow, .fade{
+				display: none;
+			}
+			.hover{
+				transform: scale(7);
+			}
+		}
+
+		&:active{
+			color: #3f3f3f;
+			.arrow, .fade{
+				display: none;
+			}
+			.hover{
+				background: radial-gradient(#dcc3ad, #d4d4d4, #d4d4d4);
+			}
+		}
+
+		.logo{
+			width: 45px;
+			height: 45px;
+			background-color: #fff;
+			border-radius: inherit;
+			margin-right: 8px;
+			background-size: cover;
+		}
+
+		.arrow{
+			width: 21px;
+			height: 21px;
+			border-radius: 50%;
+			background-color: #d4d4d4;
+			position: absolute;
+			top: 50%;
+			transform: translate(0, -50%);
+			right: 5px;
+			background-image: url(../images/materials/arrow.png);
+			background-repeat: no-repeat;
+			background-position: 60% center;
+			background-size: 35%;
+			z-index: 1;
+			transition: .2s;
+		}
+
+		.fade{
+			position: absolute;
+			background: linear-gradient(0.25turn, rgba(0,0,0,0), #e2e2e2, #e2e2e2);
+			width: 30%;
+			height: 100%;
+			right: 0;
+			border-radius: 0 5px 5px 0;
+			z-index: 0;
+		}
+
+	}
+
+	.game p{
+		z-index: 1;
+	}
+
+	.game:has(p[game="Apex Legends"]){
+		.logo{
+			background-image: url('../images/materials/game icons/apex_icon.jpg');
+		}
+	}
+	.game:has(p[game="Cyberpunk 2077"]){
+		.logo{
+			background-image: url('../images/materials/game icons/cyberpunk_2077_icon.webp');
+		}
+	}
+	.game:has(p[game="Metro 2033"]){
+		.logo{
+			background-image: url('../images/materials/game icons/metro_2033_icon.png');
+		}
+	}
+	.game:has(p[game="Minecraft"]){
+		.logo{
+			background-image: url('../images/materials/game icons/minecraft_icon.png');
+		}
+	}
+	.game:has(p[game="Overwatch 2"]){
+		.logo{
+			background-image: url('../images/materials/game icons/overwatch_icon.png');
+		}
+	}
+	.game:has(p[game="Red dead redemption 2"]){
+		.logo{
+			background-image: url('../images/materials/game icons/rdr2_icon.png');
+		}
+	}
+	.game:has(p[game="Sims 4"]){
+		.logo{
+			background-image: url('../images/materials/game icons/sims_4_icon.png');
+		}
+	}
+	.game:has(p[game="The witcher 3: Wild hunt"]){
+		.logo{
+			background-image: url('../images/materials/game icons/witcher_3_icon.jpg');
+		}
+	}
+
+}
+
+.game_selection::-webkit-scrollbar {
+  display: none;
+}
+
+.auth_box{
+	position: absolute;
+	width: inherit;
+	height: 100px;
+	background-color: #eee;
+	bottom: 0;
+	z-index: 2;
+	color: #2a2927;
+	font-size: 1.2em;
+	font-family: VistolSans;
+	display: flex;
+	.fade{
+		width: inherit;
+		height: 40px;
+		background: linear-gradient(rgba(0,0,0,0), #eee, #eee);
+		position: absolute;
+		top: -25%;
+	}
+	.more_box{
+		display: flex;
+		align-items: center;
+		position: absolute;
+		left: 50%;
+		top: 10%;
+		transform: translate(-50%, 0)
+	}
+	.more_box img{
+		width: 25px;
+	}
+	.login_icon{
+		position: absolute;
+		left: 10px;
+		bottom: 20px;
+		width: 30px;
+		height: 26px;
+	}
+	.login span{
+		position: absolute;
+		left: 50%;
+		bottom: 22px;
+		transform: translate(-50%, 0);
+	}
 }
 
 /* END OF LEFT MENU */
@@ -60,28 +276,54 @@ body, html{
 	left: 220px;
 	width: calc(100% - 220px);
 	height: 65px;
-	z-index: 1;
+	z-index: 4;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-}
-.search_box{
-	background-color: rgba(150, 150, 150, 0.2);
-	width: 270px;
-	height: 35px;
-	border-radius: 20px;
-	margin-left: 80px;
-	font-size: .7em;
-	display: flex;
-	padding-left: 40px;
-	align-items: center;
-	color: #a7a7a7;
+
+	.search_container{
+		position: relative;
+		width: clamp(175px, 25vw, 270px);
+		margin-left: 70px;
+
+		.search{
+			background-color: rgba(150, 150, 150, 0.2);
+			width: inherit;
+			height: 35px;
+			border-radius: 20px;
+			font-size: .7em;
+			padding-left: 40px;
+			color: #a0a0a0;
+			font-weight: 600;
+			outline: none;
+			border: 0;
+		}
+
+		.search::placeholder{
+			color: #a0a0a0;
+		}
+
+		.search_icon{
+			width: 20px;
+			position: absolute;
+		  top: 50%;
+		  left: 10px;
+		  transform: translateY(-50%);
+		}
+
+	}
+
+	.theme{
+		position: absolute;
+		right: 20px;
+	}
+
 }
 
 /* END OF TOP PANEL */
 /* CONTENT */
 
-.content{
+.background{
 	background-color: #dbd9d9;
 	background-image: url(../images/backgrounds/content_bg.png);
 	background-repeat: no-repeat;
@@ -92,5 +334,14 @@ body, html{
 	left: 220px;
 	width: calc(100% - 220px);
 	height: 100vh;
-	z-index: 0;
+	z-index: 3;
+
+	.content{
+		margin-top: 80px;
+		width: inherit;
+		height: calc(100% - 120px);
+		padding: 20px;
+		color: #3f3f3f;
+		font-family: VistolSans;
+	}
 }

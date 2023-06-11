@@ -1,0 +1,22 @@
+@keyframes pulse{
+	0% {
+		box-shadow: 0 0 0 0 rgba(150, 150, 150, 0.7);
+	}
+
+	70% {
+		box-shadow: 0 0 0 5px rgba(150, 150, 150, 0);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(150, 150, 150, 0);
+	}
+}
+
+@keyframes rotate{
+	from{
+		transform: rotate3d(0,0,0,0);
+	}
+	to{
+		transform: rotate3d(0,1,0,360deg);
+	}
+}
