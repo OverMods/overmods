@@ -61,10 +61,9 @@
 				<div class="logo">
 					
 				</div>
-				<p game="Red dead redemption 2">Red dead red...</p>
+				<p game="Red dead redemption 2">Red dead redemption 2</p>
 				<div class="hover"></div>
-				<div class="arrow"></div>
-				<div class="fade"></div>	
+				<div class="arrow"></div>	
 			</div>
 			<div class="game">
 				<div class="logo">
@@ -78,10 +77,9 @@
 				<div class="logo">
 					
 				</div>
-				<p game="The witcher 3: Wild hunt">The witcher 3:...</p>
+				<p game="The witcher 3: Wild hunt">The witcher 3: Wild hunt</p>
 				<div class="hover"></div>
-				<div class="arrow"></div>
-				<div class="fade"></div>	
+				<div class="arrow"></div>	
 			</div>
 			<div class="game">
 				<div class="logo">
@@ -129,10 +127,10 @@
 		<div class="auth_box">
 			<div class="fade"></div>
 			<div class="more_box">
-				<img src="images/materials/more.png" alt="">
+				<img src="images/icons/more.png" alt="">
 			</div>
 			<div class="login">
-				<img src="images/materials/login_icon.png" alt="" class="login_icon">
+				<img src="images/icons/login_icon.png" alt="" class="login_icon">
 				<span>Log in</span>
 			</div>
 		</div>
@@ -140,17 +138,73 @@
 	<div class="top_panel">
 		<div class="search_container">
 			<input type="text" class="search" placeholder="Type here what you want to find">
-			<img src="images/materials/search_icon.png" alt="" class="search_icon">
+			<img src="images/icons/search_icon.png" alt="" class="search_icon">
 		</div>
 		<div class="theme">
-			<div class="dark">dark</div>
-			<div class="light">light</div>
+			<div class="dark">dark
+				<img class="icon" src="images/icons/moon_icon.png" alt="">
+			</div>
+			<div class="light">light
+				<img class="icon" src="images/icons/sun_icon.png" alt="">
+			</div>
 		</div>
 	</div>
 	<div class="background">
 		<div class="content">
-			<div>In trend</div>
+			<br>
+			<div class="title">
+				<img src="images/icons/trend_icon.png" alt="">
+				<p>In trend</p>
+				<div class="line"></div>
+			</div>
+			<div class="trending_gallery">
+				<div class="slide">
+					<h2>Overwatch</h2>
+					<p>A popular mod for overwatch game</p>
+					<span>hover here</span>
+					<div over class="picture"></div>
+					<button></button>
+				</div>
+				<div class="slide">
+					<h2>Metro 2033</h2>
+					<p>A popular mod for metro 2033 game</p>
+					<span>hover here</span>
+					<div metro class="picture"></div>
+					<button></button>
+				</div>
+				<div class="slide">
+					<h2>Minecraft Le...</h2>
+					<p>A popular mod for minecraft legends game</p>
+					<span>hover here</span>
+					<div mine class="picture"></div>
+					<button></button>
+				</div>
+				<div class="slide">
+					<h2>Overwatch</h2>
+					<p>A popular mod for overwatch game</p>
+					<span>hover here</span>
+					<div over class="picture"></div>
+					<button></button>
+				</div>
+			</div>
+			<div class="title">
+				<img src="images/icons/info_icon.png" alt="">
+				<p aaa>Information</p>
+				<div class="line"></div>
+			</div>
 		</div>
 	</div>
 </body>
+
+
+<!-- Видалиш це потім. Зробив, щоб видно було всі елементи галереї -->
+<script>
+	var container = document.querySelector('.trending_gallery');
+
+	container.addEventListener('wheel', function(event) {
+	  var delta = Math.sign(event.deltaY);
+	  container.scrollLeft += delta * 480;
+	});
+</script>
+<script src="js/shorten-gameTitle.js"></script>
 </html>

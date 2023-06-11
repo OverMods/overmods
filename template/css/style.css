@@ -151,11 +151,11 @@ body, html{
 			top: 50%;
 			transform: translate(0, -50%);
 			right: 5px;
-			background-image: url(../images/materials/arrow.png);
+			background-image: url(../images/icons/arrow.png);
 			background-repeat: no-repeat;
 			background-position: 60% center;
 			background-size: 35%;
-			z-index: 1;
+			z-index: 2;
 			transition: .2s;
 		}
 
@@ -166,7 +166,7 @@ body, html{
 			height: 100%;
 			right: 0;
 			border-radius: 0 5px 5px 0;
-			z-index: 0;
+			z-index: 1;
 		}
 
 	}
@@ -177,42 +177,42 @@ body, html{
 
 	.game:has(p[game="Apex Legends"]){
 		.logo{
-			background-image: url('../images/materials/game icons/apex_icon.jpg');
+			background-image: url('../images/icons/game icons/apex_icon.jpg');
 		}
 	}
 	.game:has(p[game="Cyberpunk 2077"]){
 		.logo{
-			background-image: url('../images/materials/game icons/cyberpunk_2077_icon.webp');
+			background-image: url('../images/icons/game icons/cyberpunk_2077_icon.webp');
 		}
 	}
 	.game:has(p[game="Metro 2033"]){
 		.logo{
-			background-image: url('../images/materials/game icons/metro_2033_icon.png');
+			background-image: url('../images/icons/game icons/metro_2033_icon.png');
 		}
 	}
 	.game:has(p[game="Minecraft"]){
 		.logo{
-			background-image: url('../images/materials/game icons/minecraft_icon.png');
+			background-image: url('../images/icons/game icons/minecraft_icon.png');
 		}
 	}
 	.game:has(p[game="Overwatch 2"]){
 		.logo{
-			background-image: url('../images/materials/game icons/overwatch_icon.png');
+			background-image: url('../images/icons/game icons/overwatch_icon.png');
 		}
 	}
 	.game:has(p[game="Red dead redemption 2"]){
 		.logo{
-			background-image: url('../images/materials/game icons/rdr2_icon.png');
+			background-image: url('../images/icons/game icons/rdr2_icon.png');
 		}
 	}
 	.game:has(p[game="Sims 4"]){
 		.logo{
-			background-image: url('../images/materials/game icons/sims_4_icon.png');
+			background-image: url('../images/icons/game icons/sims_4_icon.png');
 		}
 	}
 	.game:has(p[game="The witcher 3: Wild hunt"]){
 		.logo{
-			background-image: url('../images/materials/game icons/witcher_3_icon.jpg');
+			background-image: url('../images/icons/game icons/witcher_3_icon.jpg');
 		}
 	}
 
@@ -316,6 +316,43 @@ body, html{
 	.theme{
 		position: absolute;
 		right: 20px;
+		display: flex;
+		background-color: rgba(180, 180, 180, 0.5);
+		border-radius: 15px;
+		font-size: .7em;
+
+		.dark{
+			position: relative;
+			left: 0;
+			color: #a0a0a0;
+			padding: 7px;
+			padding-left: 35px;
+
+			.icon{
+				filter: invert(74%) sepia(1%) saturate(0%) hue-rotate(87deg) brightness(88%) contrast(88%);
+			}
+
+		}
+
+		.light{
+			position: relative;
+			right: 0;
+			background-color: #ebebeb;
+			color: #000;
+			padding: 7px;
+			padding-left: 35px;
+			border-radius: 15px;
+		}
+
+		.icon{
+			width: 17px;
+			position: absolute;
+			left: 7px;
+			top: 49%;
+			transform: translateY(-49%);
+			border-radius: 50%;
+		}
+
 	}
 
 }
@@ -337,11 +374,197 @@ body, html{
 	z-index: 3;
 
 	.content{
-		margin-top: 80px;
-		width: inherit;
-		height: calc(100% - 120px);
-		padding: 20px;
+		overflow-x: hidden;
+		margin-top: 60px;
+		width: 100%;
+		height: calc(100% - 60px);
 		color: #3f3f3f;
 		font-family: VistolSans;
+
+		.title{
+			position: relative;
+			width: 48%;
+			height: 50px;
+			display: flex;
+			align-items: center;
+			margin: 0 0 0 40px;
+			font-size: 1.6em;
+
+			& img{
+				min-width: 20px;
+				max-width: 25px;
+				height: 33px;
+				object-fit: contain;
+				margin-bottom: 3px;
+			}
+
+			& p{
+				margin-left: 20px;
+			}
+
+			.line{
+				height: 3px;
+				border-radius: 3px;
+				margin-left: 20px;
+				flex-grow: 3;
+			  background-color: #ff7a00;
+			}
+
+		}
+
+		& .title:nth-child(3) p[aaa]{
+			margin-left: 17px;
+		}
+
+		.trending_gallery{
+			display: grid;
+			grid-auto-flow: column;
+			align-items: center;
+			width: 100%;
+			height: 250px;
+			overflow-x: scroll;
+			scroll-behavior: smooth;
+
+			.slide{
+				left: 0;
+				position: relative;
+/*				min-width: 430px;
+				height: 180px;*/
+				width: 430px;
+				height: 180px;
+				padding: 10px;
+				background-color: rgba(92, 92, 92, 0.7);
+				overflow: hidden;
+				border-radius: 20px;
+				margin: 0 20px 0 20px;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+
+				& h2{
+					z-index: 10;
+					position: absolute;
+					bottom: 0;
+					right: 80px;
+					color: #fff;
+					transition: .2s ease;
+				}
+
+				& p{
+					z-index: 10;
+					position: absolute;
+					bottom: 30px;
+					right: 0;
+					color: #fff;
+					text-align: right;
+					font-family: Sans-serif;
+					letter-spacing: 1px;
+					font-weight: 400;
+					font-size: .9em;
+					width: 180px;
+					opacity: 0;
+					transition: .2s ease;
+				}
+
+				& span{
+					z-index: 10;
+					position: absolute;
+					top: 60px;
+					right: 27px;
+					writing-mode: vertical-lr;
+					transition: .2s ease;
+					color: #fff;
+					font-size: .8em;
+					letter-spacing: 1px;
+					opacity: .7;
+				}
+
+				.picture{
+					z-index: 11;
+					width: 375px;
+					height: 180px;
+					background-size: cover;
+					border-radius: 14px;
+					transition: .2s ease;
+				}
+
+				.picture[over]{
+					background-image: url('../images/materials/game previews/overwatch.png');
+
+					+ button{
+						background-color: #cd9e98;
+					}
+
+				}
+				.picture[metro]{
+					background-image: url('../images/materials/game previews/metro2033.jpg');
+
+					+ button{
+						background-color: #595b5e;
+					}
+
+				}
+				.picture[mine]{
+					background-image: url('../images/materials/game previews/minecraftleg.avif');
+
+					+ button{
+						background-color: #79bfe5;
+					}
+
+				}
+
+				& button{
+					position: absolute;
+					right: 20px;
+					bottom: 18px;
+					width: 30px;
+					height: 30px;
+					border: none;
+					border-radius: 50%;
+					cursor: pointer;
+					outline: none;
+					opacity: 1;
+					transition: .3s ease;
+				}
+
+				&:hover{
+					& button{
+						transform: scale(13.5);
+						opacity: .5;
+					}
+					& .picture[over] + button{
+						box-shadow: -2px -2px 1px #cd9e98;
+					}
+					& .picture[metro] + button{
+						box-shadow: -2px -2px 1px #595b5e;
+					}
+					& .picture[mine] + button{
+						box-shadow: -2px -2px 1px #79bfe5;
+					}
+					& h2{
+						bottom: 80px;
+						right: 50px;
+					}
+
+					& p{
+						opacity: 1;
+						right: 50px;
+					}
+
+					& span{
+						opacity: 0;
+						top: 80px;
+					}
+
+					.picture{
+						width: 100%;
+					}
+
+				}
+
+			}
+
+		}
+		.trending_gallery::-webkit-scrollbar{
+			display: none;
+		}
 	}
 }
