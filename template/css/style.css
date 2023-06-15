@@ -30,9 +30,15 @@ body, html{
 	font-weight: 600;
 }
 
-/*[hidden]{
-  display: none !important;
-}*/
+a{
+	text-decoration: none;
+}
+
+/*
+-----------------------
+-------MAIN PAGE-------
+-----------------------
+*/
 
 /* LEFT MENU */
 
@@ -183,6 +189,17 @@ body, html{
 
 	}
 
+	.active{
+		color: #3f3f3f;
+		.arrow, .fade{
+			display: none;
+		}
+		.hover{
+			transform: scale(7);
+			background: radial-gradient(#dcc3ad, #d4d4d4, #d4d4d4);
+		}
+	}
+
 	& p{
 		z-index: 1;
 	}
@@ -294,6 +311,21 @@ body, html{
 	flex-direction: row;
 	align-items: center;
 	/*	backdrop-filter: blur(10px);*/
+
+	.back{
+		position: absolute;
+		width: 35px;
+		height: 35px;
+		background-color: rgba(150, 150, 150, 0.2);
+		background-image: url('../images/icons/arrow_back.png');
+		background-repeat: no-repeat;
+		background-position: 43%;
+		background-size: 36%;
+		top: 50%;
+		left: 20px;
+		transform: translateY(-50%);
+		border-radius: 50%;
+	}
 
 	.search_container{
 		position: relative;
@@ -441,6 +473,7 @@ body, html{
 		overflow-x: scroll;
 		scroll-behavior: smooth;
 		padding-left: 12px;
+		user-select: none;
 
 		.slide{
 			left: 0;
@@ -453,6 +486,7 @@ body, html{
 			border-radius: 20px;
 			margin: 0 20px 0 20px;
 			box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+			cursor: pointer;
 
 			& h2{
 				z-index: 10;
@@ -533,7 +567,6 @@ body, html{
 				height: 30px;
 				border: none;
 				border-radius: 50%;
-				cursor: pointer;
 				outline: none;
 				opacity: 1;
 				transition: .3s ease;
@@ -737,26 +770,46 @@ body, html{
 				.stars{
 					position: relative;
 					display: flex;
-					flex-direction: row;
+					flex-direction: row-reverse;
 					width: 100%;
 					justify-content: center;
 
-					.star{
-						width: 25px;
-						height: 25px;
-						margin-right: 4px;
-						filter: invert(96%) sepia(19%) saturate(4654%) hue-rotate(300deg) brightness(105%) contrast(80%);
+					& input{
+						display: none;
 					}
 
-					.selected{
-						filter: invert(52%) sepia(8%) saturate(6970%) hue-rotate(351deg) brightness(107%) contrast(105%);
-					}
+					& label{
+						cursor: pointer;
 
+						&:before{
+							margin-right: 4px;
+							display: inline-block;
+							content: '';
+							width: 25px;
+							height: 25px;
+							background: url('../images/icons/star.png');
+							background-size: cover;
+							background-repeat: no-repeat;
+							filter: invert(96%) sepia(19%) saturate(4654%) hue-rotate(300deg) brightness(105%) contrast(80%);
+						}
+					}
 				}
+
+				.stars > input:checked ~ label,
+				.stars:not(:checked) > label:hover,
+				.stars:not(:checked) > label:hover ~ label {
+					filter: sepia(8%) saturate(900%) brightness(100%) contrast(98%);
+				}
+				.stars > input:checked + label:hover,
+				.stars > input:checked ~ label:hover,
+				.stars > label:hover ~ input:checked ~ label,
+				.stars > input:checked ~ label:hover ~ label {
+					filter: sepia(8%) saturate(900%) brightness(130%) contrast(98%);
+				} 
 
 			}
 
-			& img:not(.star){
+			& img{
 				position: absolute;
 				left: 50%;
 				top: -20px;
@@ -955,3 +1008,11 @@ body, html{
 	}
 
 }
+
+/*
+-----------------------
+-------MODS LIST-------
+-----------------------
+*/
+
+
