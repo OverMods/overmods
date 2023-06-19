@@ -20,3 +20,18 @@
 		transform: rotate3d(0,1,0,360deg);
 	}
 }
+
+
+@keyframes descDisplay{
+	0%{
+		margin-bottom: -500%;
+		opacity: 0;
+	}
+	50%{
+		margin-bottom: inherit;
+	}
+	100%{
+		opacity: 1;
+		margin-bottom: inherit;
+	}
+}
