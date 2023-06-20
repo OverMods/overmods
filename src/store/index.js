@@ -25,6 +25,9 @@ export default createStore({
                 state.gameList.push({
                     id: game.id,
                     title: game.title,
+                    shortTitle: game.title.replace(/[:\s]/g, '').length > 13
+                        ? game.title.substring(0,13) + "..."
+                        : game.title,
                     logo: getUploadUrl(game.logo)
                 });
             }
