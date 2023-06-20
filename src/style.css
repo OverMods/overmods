@@ -204,46 +204,7 @@ a{
       z-index: 1;
   }
 
-.game:has(p[game="Apex Legends"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/apex_icon.jpg');
-}
-}
-.game:has(p[game="Cyberpunk 2077"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/cyberpunk_2077_icon.webp');
-}
-}
-.game:has(p[game="Metro 2033"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/metro_2033_icon.png');
-}
-}
-.game:has(p[game="Minecraft"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/minecraft_icon.png');
-}
-}
-.game:has(p[game="Overwatch 2"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/overwatch_icon.png');
-}
-}
-.game:has(p[game="Red dead redemption 2"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/rdr2_icon.png');
-}
-}
-.game:has(p[game="Sims 4"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/sims_4_icon.png');
-}
-}
-.game:has(p[game="The witcher 3: Wild hunt"]){
-.logo{
-    background-image: url('assets/images/icons/game icons/witcher_3_icon.jpg');
-}
-}
+
 
 }
 
