@@ -5,12 +5,12 @@
     <p>In trend</p>
     <div class="line"></div>
   </div>
+  <TrendingGallery></TrendingGallery>
   <div class="title">
     <img src="../assets/images/icons/info_icon.png" alt="">
     <p aaa>Information</p>
     <div class="line"></div>
   </div>
-  <TrendingGallery></TrendingGallery>
   <div class="info_box">
     <div class="site_overview">
       <h3>Overmods</h3>
