@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div class="side_menu">
     <div class="logo_box">
@@ -132,3 +129,122 @@
 
 <style scoped>
 </style>
+
+<script setup>
+import { onMounted } from "vue";
+
+onMounted(() => {
+  // betterScrollbar.js
+  let content = document.querySelector('.content');
+  let scrollbar = document.createElement('div');
+  let thumb = document.createElement('div');
+  let isDragging = false;
+  let startPosition;
+  let startScrollTop;
+
+  scrollbar.classList.add('scrollbar');
+  thumb.classList.add('thumb');
+
+  scrollbar.appendChild(thumb);
+  content.appendChild(scrollbar);
+
+  updateScrollbar();
+
+  content.addEventListener('scroll', function() {
+    updateScrollbar();
+  });
+
+  window.addEventListener('resize', function() {
+    updateScrollbar();
+  });
+
+  thumb.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    startPosition = e.clientY;
+    startScrollTop = content.scrollTop;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (isDragging) {
+      let deltaY = e.clientY - startPosition;
+      let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
+      content.scrollTop = startScrollTop + scrollDelta;
+    }
+  });
+
+  document.addEventListener('mouseup', function() {
+    isDragging = false;
+  });
+
+  function updateScrollbar() {
+    let scrollTop = content.scrollTop;
+    let maxScrollTop = content.scrollHeight - content.clientHeight;
+
+    let scrollbarHeight = content.clientHeight * 0.92;
+    scrollbar.style.height = `${scrollbarHeight}px`;
+
+    let thumbHeight = (content.clientHeight / content.scrollHeight) * scrollbarHeight;
+    thumb.style.height = `${thumbHeight}px`;
+
+    if (scrollTop >= maxScrollTop) {
+      thumb.style.top = `${scrollbarHeight - thumbHeight}px`;
+    } else {
+      let thumbTop = (scrollTop / maxScrollTop) * (scrollbarHeight - thumbHeight);
+      thumb.style.top = `${thumbTop}px`;
+    }
+
+    if (content.scrollHeight <= content.clientHeight) {
+      scrollbar.classList.add('scrollbar-hidden');
+    } else {
+      scrollbar.classList.remove('scrollbar-hidden');
+    }
+  }
+  
+  // shorten-gameTitle.js
+  let gameTitles = document.querySelectorAll('.game_selection .game p');
+
+  gameTitles.forEach(function(titleElement) {
+    let maxLength = 13;
+    let title = titleElement.textContent;
+    let filteredTitle = title.replace(/[:\s]/g, '');
+
+    if (filteredTitle.length > maxLength) {
+      let shortenedTitle = title.substring(0, maxLength) + '...';
+      titleElement.textContent = shortenedTitle;
+
+      let gameElement = titleElement.closest('.game');
+      let fadeElement = document.createElement('div');
+      fadeElement.classList.add('fade');
+      gameElement.appendChild(fadeElement);
+    }
+  });
+
+  
+  // gameSearch.js
+  let input = document.getElementById('gameSearch');
+  let games = document.querySelectorAll(".game");
+  let gameNotFound = document.getElementById('gameNotFound');
+
+  input.addEventListener('input', function() {
+    let searchTerm = input.value.toLowerCase();
+    let gameFound = false;
+
+    games.forEach(function(game) {
+      let gameTitle = game.querySelector("p").getAttribute("game");
+
+      if (gameTitle.toLowerCase().includes(searchTerm)) {
+        game.style.display = 'flex';
+        gameFound = true;
+      } else {
+        game.style.display = 'none';
+      }
+    });
+
+    if (gameFound) {
+      gameNotFound.style.display = 'none';
+    } else {
+      gameNotFound.style.display = 'block';
+    }
+  });
+})
+</script>
