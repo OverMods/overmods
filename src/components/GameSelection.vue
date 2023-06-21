@@ -17,13 +17,24 @@
 </style>
 
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 
+const searchPrompt = ref(null);
 const gameList = computed(() => {
-  return store.getters.getGameList;
+  return searchPrompt.value
+      ? store.getters.getGameList.filter(game => game.title.match(new RegExp(searchPrompt.value, "i")))
+      : store.getters.getGameList;
 })
+
+function doSearch(prompt) {
+  searchPrompt.value = prompt;
+}
+
+defineExpose({
+  doSearch
+});
 
 onMounted(() => {
   store.dispatch("fetchGameList");
