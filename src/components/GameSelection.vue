@@ -1,9 +1,14 @@
 <template>
   <div class="game_selection" id="gameSelection">
-    <div id="gameNotFound" style="display: none;">Ніхуя не знайшов</div>
+    <div id="gameNotFound" style="display: none;">
+      <p>Game over!</p>
+      <p>No results found.</p>
+      <p>Keep exploring!</p>
+      <img src="images/icons/gray_logo.png" alt="">
+    </div>
     <div v-for="game in gameList" class="game" :key="game.id" :class="{fade: game.title !== game.shortTitle}">
       <div class="logo" :style="`background-image: url(${game.logo})`"></div>
-      <p>{{ game.shortTitle }}</p>
+      <p :game="game.shortTitle">{{ game.shortTitle }}</p>
       <div class="hover"></div>
       <div class="arrow"></div>
     </div>
@@ -38,5 +43,7 @@ defineExpose({
 
 onMounted(() => {
   store.dispatch("fetchGameList");
+  import('../assets/js/gameSearch.js');
+  import('../assets/js/shorten-gameTitle.js');
 });
 </script>
