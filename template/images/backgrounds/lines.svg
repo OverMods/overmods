@@ -1,0 +1,89 @@
+<svg id="Група_1" data-name="Група 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="543" height="87" viewBox="0 0 543 87">
+  <defs>
+    <style>
+      .cls-1, .cls-10, .cls-2, .cls-3, .cls-4, .cls-7, .cls-8, .cls-9 {
+        fill-rule: evenodd;
+      }
+
+      .cls-1, .cls-3 {
+        opacity: 0.07;
+      }
+
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2, .cls-5 {
+        opacity: 0.03;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-4 {
+        opacity: 0.11;
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-5, .cls-6 {
+        fill: #d0760a;
+      }
+
+      .cls-6, .cls-7 {
+        opacity: 0.05;
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-5);
+      }
+
+      .cls-10, .cls-8 {
+        opacity: 0.06;
+      }
+
+      .cls-8 {
+        fill: url(#linear-gradient-6);
+      }
+
+      .cls-9 {
+        opacity: 0.16;
+        fill: url(#linear-gradient-7);
+      }
+
+      .cls-10 {
+        fill: url(#linear-gradient-8);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="462" y1="20.5" x2="95" y2="20.5" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d37809"/>
+      <stop offset="0.297" stop-color="#d37809"/>
+      <stop offset="1" stop-color="#d1770a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="295" y1="9.5" x2="-83" y2="9.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="345" y1="33.5" x2="-33" y2="33.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-4" x1="391" y1="50.5" x2="13" y2="50.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-5" x1="453" y1="40.5" x2="75" y2="40.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-6" x1="482" y1="62.5" x2="104" y2="62.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-7" x1="411" y1="12" x2="37" y2="12" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-8" x1="534" y1="72.5" x2="22.063" y2="72.5" xlink:href="#linear-gradient"/>
+  </defs>
+  <path id="Прямокутник_1" data-name="Прямокутник 1" class="cls-1" d="M95,17H462.01v7H95V17Z"/>
+  <path id="Прямокутник_1-2" data-name="Прямокутник 1" class="cls-2" d="M-83,0H295.01V19H-83V0Z"/>
+  <path id="Прямокутник_1-3" data-name="Прямокутник 1" class="cls-3" d="M-33,24H345.01V43H-33V24Z"/>
+  <path id="Прямокутник_1-4" data-name="Прямокутник 1" class="cls-4" d="M13,41H391.01V60H13V41Z"/>
+  <rect id="Прямокутник_2" data-name="Прямокутник 2" class="cls-5" x="372" y="41" width="19" height="19"/>
+  <rect id="Прямокутник_3" data-name="Прямокутник 3" class="cls-6" x="434" y="31" width="19" height="19"/>
+  <path id="Прямокутник_1-5" data-name="Прямокутник 1" class="cls-7" d="M75,31H453.01V50H75V31Z"/>
+  <path id="Прямокутник_1-6" data-name="Прямокутник 1" class="cls-8" d="M104,53H482.01V72H104V53Z"/>
+  <path id="Прямокутник_1-7" data-name="Прямокутник 1" class="cls-9" d="M37,5H411.01V19H37V5Z"/>
+  <path id="Прямокутник_1-8" data-name="Прямокутник 1" class="cls-10" d="M22.05,63H534.014V82H22.05V63Z"/>
+  <rect id="Прямокутник_4" data-name="Прямокутник 4" class="cls-6" x="397" y="5" width="14" height="14"/>
+  <rect id="Прямокутник_5" data-name="Прямокутник 5" class="cls-5" x="515" y="63" width="19" height="19"/>
+  <rect id="Прямокутник_6" data-name="Прямокутник 6" class="cls-5" x="463" y="53" width="19" height="19"/>
+  <rect id="Прямокутник_7" data-name="Прямокутник 7" class="cls-5" x="455" y="17" width="7" height="7"/>
+</svg>

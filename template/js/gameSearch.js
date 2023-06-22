@@ -1,25 +1,25 @@
-var input = document.getElementById('gameSearch');
-var games = document.querySelectorAll(".game");
-var gameNotFound = document.getElementById('gameNotFound');
+let input = document.getElementById('gameSearch');
+  let games = document.querySelectorAll(".game");
+  let gameNotFound = document.getElementById('gameNotFound');
 
-input.addEventListener('input', function() {
-  var searchTerm = input.value.toLowerCase();
-  var gameFound = false;
+  input.addEventListener('input', function() {
+    let searchTerm = input.value.toLowerCase();
+    let gameFound = false;
 
-  games.forEach(function(game) {
-    var gameTitle = game.querySelector("p").getAttribute("game");
+    games.forEach(function(game) {
+      let gameTitle = game.querySelector("p").getAttribute("game");
 
-    if (gameTitle.toLowerCase().includes(searchTerm)) {
-      game.style.display = 'flex';
-      gameFound = true;
+      if (gameTitle.toLowerCase().includes(searchTerm)) {
+        game.style.display = 'flex';
+        gameFound = true;
+      } else {
+        game.style.display = 'none';
+      }
+    });
+
+    if (gameFound) {
+      gameNotFound.style.display = 'none';
     } else {
-      game.style.display = 'none';
+      gameNotFound.style.display = 'block';
     }
   });
-
-  if (gameFound) {
-    gameNotFound.style.display = 'none';
-  } else {
-    gameNotFound.style.display = 'block';
-  }
-});
