@@ -4,7 +4,7 @@
       <p>Game over!</p>
       <p>No results found.</p>
       <p>Keep exploring!</p>
-      <img src="images/icons/gray_logo.png" alt="">
+      <img src="../assets/images/icons/gray_logo.png" alt="">
     </div>
     <div v-for="game in gameList" class="game" :key="game.id" :class="{fade: game.title !== game.shortTitle}">
       <div class="logo" :style="`background-image: url(${game.logo})`"></div>

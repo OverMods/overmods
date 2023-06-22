@@ -104,6 +104,27 @@ a{
     height: clamp(78% - 100px, 2vw, 74% - 100px);
     padding-left: 14px;
 
+    #gameNotFound{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-right: 20px;
+
+        & p{
+            color: #979797;
+            font-size: .8em;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        & img{
+            margin-top: 10px;
+            width: 55px;
+        }
+    }
+
 .game{
     position: relative;
     color: #999;
