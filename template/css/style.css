@@ -1037,6 +1037,43 @@ a{
 */
 
 .content:has(.modBox){
+
+	#modNotFound{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		position: absolute;
+		width: clamp(320px, 45vw, 520px);
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: rgba(255, 255, 255, .15);
+		border-radius: 30px;
+		box-shadow: 0 0 25px rgba(0, 0, 0, .06);
+		padding: 15px 15px;
+
+		& h3{
+			color: #6b6b6b;
+			margin: 0;
+			padding: 0;
+			font-family: VistolSans;
+			text-align: center;
+		}
+
+		& p{
+			color: #8f8f8f;
+			font-size: .8em;
+			width: 65%;
+		}
+
+		& a{
+			color: #fff;
+			background-color: #000;
+			border-radius: 30px;
+			padding: 7px 25px;
+			font-size: .8em;
+		}
+	}
 	
 	.filters{
 		color: #a7a7a7;
