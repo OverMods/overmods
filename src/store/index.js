@@ -3,16 +3,34 @@ import { HTTP, getUploadUrl } from "../http.js";
 
 export default createStore({
     state: {
-        gameList: []
+        gameList: [],
+        game: null,
+        mods: null
     },
     getters: {
-        getGameList: (store) => store.gameList
+        getGameList: (store) => store.gameList,
+        getGame: (store) => store.game,
+        getMods: (store) => store.mods
     },
     actions: {
         async fetchGameList({ commit }) {
             try {
                 const res = await HTTP.get("/game");
                 commit("SET_GAME_LIST", res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async fetchModList({ commit }, id) {
+            try {
+                const res = await HTTP.get(`/game/${id}`);
+                if (res.data.error) {
+                    console.log(res.data.error);
+                    return;
+                }
+
+                commit("SET_GAME", res.data.game);
+                commit("SET_MODS", res.data.mods);
             } catch (e) {
                 console.log(e);
             }
@@ -30,6 +48,18 @@ export default createStore({
                         : game.title,
                     logo: getUploadUrl(game.logo)
                 });
+            }
+        },
+        SET_GAME(state, game) {
+            state.game = game;
+        },
+        SET_MODS(state, mods) {
+            state.mods = [];
+            for (let mod of mods) {
+                if (mod.logo) {
+                    mod.logo = getUploadUrl(mod.logo);
+                }
+                state.mods.push(mod);
             }
         }
     }
