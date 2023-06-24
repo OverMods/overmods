@@ -18,12 +18,13 @@
       <div class="icon" :style="`background-image: url(${mod.logo});`"></div>
       <div class="modTitle">
         <h3>{{ mod.title }}</h3>
-        <p class="description">{{ mod.description }}</p>
+        <!--<p class="description">{{ mod.description }}</p>-->
+        <p class="description" v-html="mod.descriptionHtml"></p>
       </div>
       <div class="info">
         <div class="version">{{ mod.gameVersion }}<div class="iconI"></div></div>
         <div class="downloads">{{ mod.downloaded }}<div class="iconI"></div></div>
-        <div class="date">{{ mod.uploadedAt }}<div class="iconI"></div></div>
+        <div class="date">{{ relativeDate(mod.uploadedAt) }}<div class="iconI"></div></div>
         <div class="hoverElem"><span>Mod page</span></div>
       </div>
     </div>
@@ -38,6 +39,8 @@
 import { useRoute } from "vue-router";
 import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
+import { relativeDate } from "../utils.js";
+
 const route = useRoute();
 const store = useStore();
 

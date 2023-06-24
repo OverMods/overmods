@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { HTTP, getUploadUrl } from "../http.js";
+import { renderMarkdown } from "../utils.js";
 
 export default createStore({
     state: {
@@ -58,6 +59,13 @@ export default createStore({
             for (let mod of mods) {
                 if (mod.logo) {
                     mod.logo = getUploadUrl(mod.logo);
+                }
+                if (mod.description) {
+                    console.log(mod);
+                    mod.descriptionHtml = renderMarkdown(mod.description);
+                }
+                if (mod.instruction) {
+                    mod.instuctionHtml = renderMarkdown(mod.instruction);
                 }
                 state.mods.push(mod);
             }
