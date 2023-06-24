@@ -23,7 +23,7 @@ function searchMods() {
   if (matchFound) {
     modNotFound.style.display = 'none';
   } else {
-    modNotFound.style.display = 'block';
+    modNotFound.style.display = 'flex';
   }
 }
 
