@@ -7,10 +7,10 @@ export default createStore({
         gameList: [],
         game: null,
         mods: null,
-        mod: null,
-        author: null,
-        screenshots: null,
-        comments: null
+        mod: {},
+        author: {},
+        screenshots: [],
+        comments: []
     },
     getters: {
         getGameList: (store) => store.gameList,
@@ -115,6 +115,15 @@ export default createStore({
             state.mod = mod;
             if (mod.logo) {
                 state.mod.logo = getUploadUrl(mod.logo);
+            }
+            if (mod.description) {
+                state.mod.descriptionHtml = renderMarkdown(mod.description);
+            }
+            if (mod.instruction) {
+                state.mod.instuctionHtml = renderMarkdown(mod.instruction);
+            }
+            if (mod.uploadedAt) {
+                state.mod.uploadedAt = relativeDate(mod.uploadedAt);
             }
         },
         SET_AUTHOR(state, author) {

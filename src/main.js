@@ -5,12 +5,14 @@ import store from "./store";
 import App from './App.vue'
 import MainView from "./views/MainView.vue";
 import ModListView from "./views/ModListView.vue";
+import ModView from "./views/ModView.vue";
 
 const router = createRouter({
     history: createWebHistory("/overmods"),
     routes: [
         {path: "/", component: MainView},
-        {path: "/game/:id/", component: ModListView, props: true}
+        {path: "/game/:id/", component: ModListView, props: true},
+        {path: "/mod/:id/", component: ModView, props: true}
     ]
 });
 
