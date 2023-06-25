@@ -151,6 +151,7 @@ export default createStore({
                 if (comment.comment.commentedAt) {
                     comment.comment.commentedAt = relativeDate(comment.comment.commentedAt);
                 }
+                state.comments.push(comment);
             }
         }
     }
