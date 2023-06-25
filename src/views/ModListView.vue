@@ -53,13 +53,13 @@ const mods = computed(() => {
 });
 
 defineProps({
-  id: {
+  shortName: {
     type: String,
     required: true
   }
 });
 
 onMounted(() => {
-  store.dispatch("fetchModList", route.params.id);
+  store.dispatch("fetchModList", route.params.shortName);
 });
 </script>

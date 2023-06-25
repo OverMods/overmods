@@ -30,9 +30,9 @@ export default createStore({
                 console.log(e);
             }
         },
-        async fetchModList({ commit }, id) {
+        async fetchModList({ commit }, shortName) {
             try {
-                const res = await HTTP.get(`/game/${id}`);
+                const res = await HTTP.get(`/game/${shortName}`);
                 if (res.data.error) {
                     console.log(res.data.error);
                     return;

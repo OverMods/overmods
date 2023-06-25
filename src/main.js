@@ -11,8 +11,8 @@ const router = createRouter({
     history: createWebHistory("/overmods"),
     routes: [
         {path: "/", component: MainView},
-        {path: "/game/:id/", component: ModListView, props: true},
-        {path: "/mod/:id/", component: ModView, props: true}
+        {path: "/game/:shortName/", component: ModListView, props: true},
+        {path: "/game/:shortName/mod/:id/", component: ModView, props: true}
     ]
 });
 
