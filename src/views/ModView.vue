@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="buttons">
-          <button class="download"><img src="../assets/images/icons/download_icon.png" alt="">Download</button>
+          <button @click="download(mod)" class="download"><img src="../assets/images/icons/download_icon.png" alt="">Download</button>
           <button class="comments"><img src="../assets/images/icons/comments_icon.png" alt="">Comments</button>
         </div>
       </div>
@@ -110,6 +110,8 @@
 import { onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import { HTTP, getUploadUrl } from "../http.js";
+
 const route = useRoute();
 const store = useStore();
 
@@ -125,6 +127,16 @@ const screenshots = computed(() => {
 const comments = computed(() => {
   return store.getters.getComments;
 })
+
+function download(mod) {
+  HTTP.get(`/mod/${mod.id}/download`).then((res) => {
+    if (res.data.error) {
+      console.log(res.data.error);
+      return;
+    }
+    window.location.href = getUploadUrl(res.data.file);
+  });
+}
 
 onMounted(() => {
   store.dispatch("fetchMod", route.params.id);
