@@ -9,6 +9,65 @@
 	<link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+	<div class="auth_block">
+		<div class="auth">
+			<div class="form_container logIn_container">
+				<form action="#">
+					<h1>Log in</h1>
+					<div class="input_label">
+						<input type="text" name="overmods_login" placeholder=" " id="overmodsLogin_username"></input>
+						<label for="overmodsLogin_username">username</label>
+					</div>
+					<div class="input_label">
+						<input type="password" name="overmods_password" placeholder=" " id="overmodsLogin_password">
+						<label for="overmodsLogin_password">password</label>
+					</div>
+					<a href="">Forgot your password?</a>
+					<button>Log in</button>
+				</form>
+			</div>
+			<div class="form_container signUp_container">
+				<form action="#">
+					<h1>Sign up</h1>
+					<div class="input_label">
+						<input type="text" name="overmods_login" placeholder=" " id="overmodsSignup_username"></input>
+						<label for="overmodsSignup_username">username</label>
+					</div>
+					<div class="input_label">
+						<input type="password" name="overmodsSignup_email" placeholder=" " id="overmodsSignup_email">
+						<label for="overmodsSignup_email">email</label>
+					</div>
+					<div class="input_label">
+						<input type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password"></input>
+						<label for="overmodsSignup_password">password</label>
+					</div>
+					<div class="input_label">
+						<input type="password" name="overmodsSignup_confirm_password" placeholder=" " id="overmodsSignup_confirm_password">
+						<label for="overmodsSignup_confirm_password">confirm password</label>
+					</div>
+					<button>Sign up</button>
+				</form>
+			</div>
+			<div class="overlay_container">
+				<div class="overlay">
+					 <div class="overlay_panel overlay_left">
+						  <h1>Welcome again<span>!</span></h1>
+						  <p>Unleash the power of your existing account! Dive into the world of gaming modifications by simply logging in and unlocking a universe of enhanced gameplay experiences.</p>
+						  <button class="ghost_button" id="logIn">Log in</button>
+					 </div>
+					 <div class="overlay_panel overlay_right">
+							<h1>Hello<span>,</span> Gamer<span>!</span></h1>
+							<p>Unlock a world of endless possibilities by registering with us! Enter your personal details and embark on an extraordinary gaming journey like never before!</p>
+						  <button class="ghost_button" id="signUp">Sign Up</button>
+					 </div>
+				</div>
+		  </div>
+		</div>
+		<div class="closeBtn" onclick="authClose();">
+			<div class="icon"></div>
+			<p>Continue as a guest</p>
+		</div>
+	</div>
 	<div class="side_menu">
 		<div class="logo_box">
 			<img src="images/icons/logo.png" alt="logo" class="logo">
@@ -113,10 +172,12 @@
 			<div class="more_box">
 				<img src="images/icons/more.png" alt="">
 			</div>
-			<div class="login">
-				<img src="images/icons/login_icon.png" alt="" class="login_icon">
-				<span>Log in</span>
-			</div>
+			<a onclick="authOpen();">
+				<div class="login">
+					<img src="images/icons/login_icon.png" alt="" class="login_icon">
+					<span>Log in</span>
+				</div>
+			</a>
 		</div>
 	</div>
 	<div class="top_panel">
@@ -221,12 +282,12 @@
 						<div class="profile">
 							<img src="images/icons/default_profile_avatar.png" alt="avatar">
 							<p>Log in to see your profile information</p>
-							<button>Log in</button>
+							<button onclick="authOpen();">Log in</button>
 						</div>
 					</div>
 					<div class="suggestion">
 						<img src="images/icons/idk_wis.png" alt="">
-						<p>Are you a <span class="white_text">mod maker</span>? Share your creative potential! <span class="att_text">Sign up</span> and give your mods wide exposure!</p>
+						<p>Are you a <span class="white_text">mod maker</span>? Share your creative potential! <span class="att_text" onclick="authOpenSignUp();">Sign up</span> and give your mods wide exposure!</p>
 					</div>
 				</div>
 			</div>
@@ -237,4 +298,5 @@
 <script src="js/gameSearch.js"></script>
 <script src="js/betterScrollbar.js"></script>
 <script src="js/simpleSlider.js"></script>
+<script src="js/test.js"></script>
 </html>
