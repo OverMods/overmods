@@ -88,6 +88,7 @@ export default createStore({
                     shortTitle: game.title.replace(/[:\s]/g, '').length > 13
                         ? game.title.substring(0,13) + "..."
                         : game.title,
+                    shortName: game.shortName,
                     logo: getUploadUrl(game.logo)
                 });
             }

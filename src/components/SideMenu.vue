@@ -1,7 +1,9 @@
 <template>
   <div class="side_menu">
     <div class="logo_box">
-      <img src="../assets/images/icons/logo.png" alt="logo" class="logo">
+      <router-link to="/">
+        <img src="../assets/images/icons/logo.png" alt="logo" class="logo">
+      </router-link>
       <h3>OverMods</h3>
       <hr class="underLogo_line">
       <input class="search_box" id="gameSearch" placeholder="Search game" @input="onSearch">

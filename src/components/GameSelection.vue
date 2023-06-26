@@ -6,12 +6,14 @@
       <p>Keep exploring!</p>
       <img src="../assets/images/icons/gray_logo.png" alt="">
     </div>
-    <div v-for="game in gameList" class="game" :key="game.id" :class="{fade: game.title !== game.shortTitle}">
-      <div class="logo" :style="`background-image: url(${game.logo})`"></div>
-      <p :game="game.shortTitle">{{ game.shortTitle }}</p>
-      <div class="hover"></div>
-      <div class="arrow"></div>
-    </div>
+    <router-link v-for="game in gameList" :key="game.id" :to="`/game/${game.shortName}`">
+      <div class="game" :class="{fade: game.title !== game.shortTitle}">
+        <div class="logo" :style="`background-image: url(${game.logo})`"></div>
+        <p :game="game.shortTitle">{{ game.shortTitle }}</p>
+        <div class="hover"></div>
+        <div class="arrow"></div>
+      </div>
+    </router-link>
     <br>
     <br>
   </div>
