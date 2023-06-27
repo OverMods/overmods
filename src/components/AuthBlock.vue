@@ -2,40 +2,40 @@
   <div v-if="showLogin" class="auth_block">
     <div :class="`auth ${showRightPanel ? 'rightPanel_active' : ''}`">
       <div class="form_container logIn_container">
-        <form action="loggedIn.html">
+        <form @submit="onLogin">
           <h1>Log in</h1>
           <div class="input_label">
-            <input type="text" name="overmods_login" placeholder=" " id="overmodsLogin_username">
+            <input v-model="login" type="text" name="overmods_login" placeholder=" " id="overmodsLogin_username">
             <label for="overmodsLogin_username">username</label>
           </div>
           <div class="input_label">
-            <input type="password" name="overmods_password" placeholder=" " id="overmodsLogin_password">
+            <input v-model="password" type="password" name="overmods_password" placeholder=" " id="overmodsLogin_password">
             <label for="overmodsLogin_password">password</label>
           </div>
           <a href="">Forgot your password?</a>
-          <button>Log in</button>
+          <button type="submit">Log in</button>
         </form>
       </div>
       <div class="form_container signUp_container">
-        <form action="loggedIn.html">
+        <form @submit="onSignup">
           <h1>Sign up</h1>
           <div class="input_label">
-            <input type="text" name="overmods_login" placeholder=" " id="overmodsSignup_username">
+            <input v-model="login" type="text" name="overmods_login" placeholder=" " id="overmodsSignup_username">
             <label for="overmodsSignup_username">username</label>
           </div>
           <div class="input_label">
-            <input type="password" name="overmodsSignup_email" placeholder=" " id="overmodsSignup_email">
+            <input v-model="email" type="text" name="overmodsSignup_email" placeholder=" " id="overmodsSignup_email">
             <label for="overmodsSignup_email">email</label>
           </div>
           <div class="input_label">
-            <input type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
+            <input v-model="password" type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
             <label for="overmodsSignup_password">password</label>
           </div>
           <div class="input_label">
-            <input type="password" name="overmodsSignup_confirm_password" placeholder=" " id="overmodsSignup_confirm_password">
+            <input v-model="passwordConfirm" type="password" name="overmodsSignup_confirm_password" placeholder=" " id="overmodsSignup_confirm_password">
             <label for="overmodsSignup_confirm_password">confirm password</label>
           </div>
-          <button>Sign up</button>
+          <button type="submit">Sign up</button>
         </form>
       </div>
       <div class="overlay_container">
@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="closeBtn" @click="close()">
+    <div class="closeBtn" @click="onClose()">
       <div class="icon"></div>
       <p>Continue as a guest</p>
     </div>
@@ -69,12 +69,29 @@ import { computed, ref } from "vue";
 import { useStore } from "vuex";
 const store = useStore();
 
+let login = "";
+let email = "";
+let password = "";
+let passwordConfirm = "";
+
 const showRightPanel = ref(false);
 const showLogin = computed(() => {
   return store.getters.getShowPanel("login");
 });
 
-function close() {
+function onClose() {
   store.dispatch("setShowPanel", {panel: "login", show: false});
+}
+
+function onLogin(e) {
+  e.preventDefault();
+  store.dispatch("postLogin", {username: login, password});
+  onClose();
+}
+
+function onSignup(e) {
+  e.preventDefault();
+  store.dispatch("postSignup", {username: login, email, password});
+  onClose();
 }
 </script>

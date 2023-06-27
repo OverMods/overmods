@@ -30,7 +30,7 @@ function login() {
 }
 
 function logout() {
-
+  store.dispatch("logout");
 }
 
 onMounted(() => {
