@@ -1,7 +1,7 @@
 const signUpButton = document.getElementById('signUp');
 const logInButton = document.getElementById('logIn');
-const auth = document.querySelector('.auth_block');
-const container = document.querySelector('.auth_block .auth');
+const blur_block = document.querySelector('.blur_block');
+const container = document.querySelector('.blur_block .auth');
 
 signUpButton.addEventListener('click', () => {
    container.classList.add("rightPanel_active");
@@ -11,21 +11,24 @@ logInButton.addEventListener('click', () => {
    container.classList.remove("rightPanel_active");
 });
 
-function authOpen(){
-   auth.style.display = 'block';
+function blockOpen(){
+   blur_block.style.display = 'block';
+}
+function blockClose(){
+  blur_block.style.display = 'none';
 }
 
 function authOpenSignUp(){
-   auth.style.display = 'block';
+   blur_block.style.display = 'block';
    container.classList.add("rightPanel_active");
 }
 
 
 function authClose(){
-   auth.style.display = 'none';
+   blur_block.style.display = 'none';
    container.classList.remove("rightPanel_active");
 }
 
 function profileOpen(){
-   
+
 }

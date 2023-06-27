@@ -9,13 +9,13 @@
 	<link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-	<div class="auth_block">
+	<div class="blur_block">
 		<div class="auth">
 			<div class="form_container logIn_container">
 				<form action="loggedIn.html">
 					<h1>Log in</h1>
 					<div class="input_label">
-						<input type="text" name="overmods_login" placeholder=" " id="overmodsLogin_username"></input>
+						<input type="text" name="overmods_login" placeholder=" " id="overmodsLogin_username">
 						<label for="overmodsLogin_username">username</label>
 					</div>
 					<div class="input_label">
@@ -30,15 +30,15 @@
 				<form action="loggedIn.html">
 					<h1>Sign up</h1>
 					<div class="input_label">
-						<input type="text" name="overmods_login" placeholder=" " id="overmodsSignup_username"></input>
+						<input type="text" name="overmods_login" placeholder=" " id="overmodsSignup_username">
 						<label for="overmodsSignup_username">username</label>
 					</div>
 					<div class="input_label">
-						<input type="password" name="overmodsSignup_email" placeholder=" " id="overmodsSignup_email">
+						<input type="text" name="overmodsSignup_email" placeholder=" " id="overmodsSignup_email">
 						<label for="overmodsSignup_email">email</label>
 					</div>
 					<div class="input_label">
-						<input type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password"></input>
+						<input type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
 						<label for="overmodsSignup_password">password</label>
 					</div>
 					<div class="input_label">
@@ -63,10 +63,12 @@
 				</div>
 		  </div>
 		</div>
-		<div class="closeBtn" onclick="authClose();">
-			<div class="icon"></div>
-			<p>Continue as a guest</p>
-		</div>
+    <div class="closeBtn_container">
+      <div class="closeBtn" onclick="authClose();">
+        <div class="icon"></div>
+        <p>Continue as a guest</p>
+      </div>
+    </div>
 	</div>
 	<div class="side_menu">
 		<div class="logo_box">
@@ -172,7 +174,7 @@
 			<div class="more_box">
 				<img src="images/icons/more.png" alt="">
 			</div>
-			<a onclick="authOpen();">
+			<a onclick="blockOpen();">
 				<div class="login">
 					<img src="images/icons/login_icon.png" alt="" class="login_icon">
 					<span>Log in</span>
@@ -282,7 +284,7 @@
 						<div class="profile">
 							<img src="images/icons/default_profile_avatar.png" alt="avatar">
 							<p>Log in to see your profile information</p>
-							<button onclick="authOpen();">Log in</button>
+							<button onclick="blockOpen();">Log in</button>
 						</div>
 					</div>
 					<div class="suggestion">

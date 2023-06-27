@@ -9,6 +9,85 @@
 	<link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+  <div class="blur_block">
+    <div class="profile">
+      <div class="side">
+        <div class="short_info">
+          <img src="images/materials/photo_2023-05-20_23-30-53.jpg" alt="">
+          <div class="role" role="admin">Administrator</div>
+          AmyresS
+        </div>
+        <div class="list">
+          <div>
+            <img src="images/icons/sett_icon.png" alt="" class="icon">
+            <p>Settings</p>
+            <img src="images/icons/arrow.png" alt="" class="arrow">
+          </div>
+          <div>
+            <img src="images/icons/myComms_icon.png" alt="" class="icon">
+            <p>My comments</p>
+            <img src="images/icons/arrow.png" alt="" class="arrow">
+          </div>
+          <div>
+            <img src="images/icons/myMods_icon.png" alt="" class="icon">
+            <p>My modifications</p>
+            <img src="images/icons/arrow.png" alt="" class="arrow">
+          </div>
+          <div>
+            <img src="images/icons/admin_icon.png" alt="" class="icon">
+            <p>Admin</p>
+            <img src="images/icons/arrow.png" alt="" class="arrow">
+          </div>
+        </div>
+        <div class="logout">
+          <a href="index.html">
+          <img src="images/icons/logout_icon.png" alt="">
+          <span>Log out</span>
+          </a>
+        </div>
+      </div>
+      <div class="right_side">
+        <div class="logo"></div>
+        <div class="title"><h2>Profile settings</h2></div>
+        <div class="content">
+          <div class="grid">
+            <div>Details</div>
+            <div class="info_grid">
+              <div><img src="images/icons/orange/name_ico.png" alt=""></div>
+              <div><p>AmyresS</p></div>
+              <div><!-- <p>Administrator</p> <img src="images/icons/orange/role_ico.png" alt=""> --></div>
+              <div><img src="images/icons/orange/mail_ico.png" alt=""></div>
+              <div><p>amyresslol@gmail.com</p></div>
+              <div class="changeble"><p>change email</p></div>
+              <div><img src="images/icons/orange/secure_ico.png" alt=""></div>
+              <div><input type="text"><input type="text" name="" id=""><input type="text"></div>
+              <div class="changeble"><p></p></div>
+              <div><img src="images/icons/orange/calendar_ico.png" alt=""></div>
+              <div><p>Registered at 25.05.2023</p></div>
+            </div>
+            <div>Avatar</div>
+            <div class="avatar_change">
+              <img class="avatar" src="images/materials/photo_2023-05-20_23-30-53.jpg" alt="">
+              <div class="file">
+                <img src="images/icons/upload_icon.png" alt="">
+                <p>Drag & Drop image here</p>
+                <p>OR</p>
+                <button>Browse image</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="closeBtn_container">
+      <div class="closeBtn" onclick="blockClose();">
+        <div class="icon"></div>
+      </div>
+      <div class="saveBtn" onclick="blockClose();">
+        <div class="icon"></div>
+      </div>
+    </div>
+  </div>
 	<div class="side_menu">
 		<div class="logo_box">
 			<a href="index.html"><img src="images/icons/logo.png" alt="logo" class="logo">
@@ -113,7 +192,7 @@
 			<div class="more_box">
 				<img src="images/icons/more.png" alt="">
 			</div>
-			<a onclick="authOpen();">
+			<a href="index.html">
 				<div class="login">
 					<img src="images/icons/login_icon.png" alt="" class="login_icon">
 					<span>Log out</span>
@@ -135,7 +214,7 @@
           <img class="icon" src="images/icons/sun_icon.png" alt="">
         </div>
       </div>
-        <div class="profile">
+        <div class="profile" onclick="blockOpen();">
           Profile
           <div class="profile_icon" style="background-image: url('images/materials/photo_2023-05-20_23-30-53.jpg');"></div>
         </div>
@@ -231,12 +310,12 @@
               <div class="roleIcon" role="admin"></div>
 							<div class="username"><img src="images/icons/author_icon.png" alt="">AmyresS</div>
               <div class="role"><img src="images/icons/role_icon.png" alt="">Admin</div>
-							<button onclick="profileOpen();">More</button>
+							<button onclick="blockOpen();">More</button>
 						</div>
 					</div>
 					<div class="suggestion">
 						<img src="images/icons/idk_wis.png" alt="">
-						<p>Go to <span class="att_text" onclick="authOpenSignUp();">admin panel</span></p>
+						<p>Go to <span class="att_text" onclick="blockOpen();">admin panel</span></p>
 					</div>
 				</div>
 			</div>

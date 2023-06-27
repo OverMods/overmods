@@ -496,7 +496,6 @@ a{
 	width: calc(100% - 220px);
 	height: 100vh;
 	z-index: 3;
-}
 
 .content{
 	overflow-x: hidden;
@@ -1019,6 +1018,7 @@ a{
 	}
 
 }
+}
 
 .content::-webkit-scrollbar{
 	display: none;
@@ -1381,7 +1381,7 @@ a{
 -------------------------MODOPENED PAGE-----------------------
 --------------------------------------------------------------
 */
-
+.background{
 .content{
 
 	.helper{
@@ -1433,7 +1433,6 @@ a{
 					color: #8c8c8c;
 					gap: 10px 20px;
 					font-size: .8em;
-
 
 					& div{
 						font-weight: 900;
@@ -1850,12 +1849,14 @@ a{
 		}
 	}
 }
+}
 
 /*
 --------------------------------------------------------------
 ----------------------AUTHENTIFICATION------------------------
 --------------------------------------------------------------
 */
+
 @property --angle {
 	syntax: '<angle>';
 	initial-value: 90deg;
@@ -1873,7 +1874,7 @@ a{
 	initial-value: 0%;
 	inherits: true;
  }
-.auth_block{
+.blur_block{
 	display: none;
 	position: fixed;
 	top: 0;
@@ -2105,45 +2106,346 @@ a{
 			transform: translateX(0);
 		 }
 	}
+  .closeBtn_container{
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
 
-	.closeBtn{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: absolute;
-		bottom: 20px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 60px;
-		height: 60px;
-		background-color: rgba(255, 255, 255, 0.55);
-		color: #3f3f3f;
-		border-radius: 50px;
-		cursor: pointer;
-		transition: .2s;
+    .closeBtn, .saveBtn{
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.55);
+      color: #3f3f3f;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: .2s;
+  
+      .icon{
+        width: 20px;
+        height: 20px;
+        background-image: url(../images/icons/crosshair_icon.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+  
+      & p{
+        display: none;
+        margin: 0 10px 0 10px;
+        font-family: SilverForte;
+        font-weight: 1;
+        font-size: .7em;
+      }
+  
+      &:hover{
+        & p{
+          display: block;
+        }
 
-		& .icon{
-			position: absolute;
-			top: 17.5px;
-			left: 18px;
-			width: 25px;
-			height: 25px;
-			background-image: url(../images/icons/crosshair_icon.png);
-			background-repeat: no-repeat;
-			background-size: contain;
-		}
+        .icon{
+          margin-left: 15px;
+        }
+  
+        width: auto;
+      }
+    }
 
-		& p{
-			display: none;
-			margin: 0 10px 0 55px;
-		}
+    .saveBtn{
+      color: #fff;
+      background-color: rgba(255, 123, 0, 0.75);
 
-		&:hover{
-			& p{
-				display: block;
-			}
+      .icon{
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+        background-image: url(../images/icons/mark_icon.png);
+      }
+    }
+  }
+}
 
-			width: 220px;
-		}
-	}
+/*
+--------------------------------------------------------------
+--------------------------PROFILE-----------------------------
+--------------------------------------------------------------
+*/
+
+.blur_block{
+  display: block;
+  .profile{
+    width: 82%;
+    height: 80%;
+    border-radius: 30px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    display: flex;
+
+    .side{
+      background-color: rgba(240, 239, 239, 0.85);
+      width: 20%;
+      height: 100%;
+      border-radius: 30px 0 0 30px;
+      position: relative;
+      overflow: hidden;
+
+      .short_info{
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        color: #767676;
+        font-size: 1.1em;
+        position: relative;
+        margin-bottom: 40px;
+
+        & img {
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+        }
+
+        .role{
+          position: absolute;
+          font-size: .7em;
+          left: 57px;
+          top: 5px;
+
+          &[role="admin"]{
+            color: #ac6969;
+          }
+
+          &[role="modder"]{
+            color: #696cac;
+          }
+
+          &[role="user"]{
+            color: #ac9b69;
+          }
+        }
+      }
+      
+      .list{
+        & div{
+          position: relative;
+          display: flex;
+          align-items: center;
+          list-style: none;
+          margin: 20px 0;
+          cursor: pointer;
+
+          & *{
+            transition: .2s;
+          }
+
+          .icon{
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            left: 20px;
+          }
+
+          & p{
+            margin: 0;
+            padding: 0;
+            margin-left: 55px;
+            font-size: .9em;
+            color: #9e9e9e;
+          }
+
+          .arrow{
+            position: absolute;
+            right: 20px;
+            width: 8px;
+            height: 12px;
+          }
+
+          &:hover{
+            & p{
+              color: #767676;
+            }
+
+            .icon{
+              filter: brightness(85%);
+            }
+
+            .arrow{
+              right: 15px;
+            }
+          }
+        }
+      }
+
+      .logout{
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 40px;
+        bottom: 0;
+        left: 0;
+
+        & img{
+          position: absolute;
+          left: 10px;
+          bottom: 10px;
+          width: 30px;
+          height: 26px;
+        }
+        & span{
+          color: #767676;
+          position: absolute;
+          left: 50%;
+          bottom: 12px;
+          transform: translate(-50%, 0);
+          font-weight: 600;
+        }
+      }
+    }
+    .right_side{
+      background-color: rgba(208, 208, 208, 0.85);
+      width: 80%;
+      height: 100%;
+      border-radius: 0 30px 30px 0;
+      overflow: hidden;
+
+      .logo{
+        position: absolute;
+        width: 60px;
+        height: 40px;
+        background-image: url('../images/icons/gray_logo.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        top: 20px;
+        right: 18px;
+      }
+
+      .title{
+        color: #767676;
+        margin-left: 4%;
+        margin-top: 25px;
+      }
+
+      .content{
+        width: 100%;
+        height: calc(100% - 75px);
+        overflow: auto;
+        color: #767676;
+  
+        .grid{
+          display: grid;
+          grid-template-columns: 100px auto;
+          align-items: center;
+          gap: 50px 0;
+          margin-left: 4%;
+
+          .info_grid{
+            width: 100%;
+            display: grid;
+            grid-template-columns: 30px auto auto;
+            gap: 0 20px;
+
+            & input{
+              outline: none;
+              border: none;
+              height: 25px;
+              border-bottom: 1px solid #ff7b00;
+              background-color: rgba(0, 0, 0, 0);
+              border-radius: 5px;
+              margin-right: 10px;
+            }
+
+            & div{
+              display: flex;
+              align-items: center;
+            }
+
+            & div p + img{
+              margin-left: 20px;
+            }
+  
+            & div img{
+              height: 25px;
+              width: 25px;
+              object-fit: contain;
+            }
+
+            .changeble{
+              color: #ff7b00;
+              cursor: pointer;
+            }
+          }
+          .avatar_change{
+            display: flex;
+            align-items: center;
+
+            .avatar{
+              width: 280px;
+              height: 280px;
+              object-fit: contain;
+              background-color:rgba(180, 180, 180, 0.5);
+              border-radius: 15px;
+              margin-right: 10px;
+            }
+
+            .file{
+              height: 240px;
+              min-width: 260px;
+              max-width: 360px;
+              width: 100%;
+              border-radius: 15px;
+              border: 2px dotted #767676;
+              cursor: pointer;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              margin-right: 4%;
+
+              & img{
+                width: 60px;
+                height: 60px;
+                filter: brightness(70%);
+                margin-bottom: 10px;
+              }
+
+              & p{
+                margin: 2px 0;
+                padding: 0;
+              }
+
+              & button{
+                margin-top: 10px;
+                cursor: pointer;
+                outline: none;
+                border-radius: 30px;
+                border: 2px solid #767676;
+                color: #767676;
+                background-color: rgba(0, 0, 0, 0);
+                padding: 10px 25px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .closeBtn_container{
+    .closeBtn, .saveBtn{
+      &:hover{
+        .icon{
+          margin-left: 0;
+        }
+
+        width: 50px;
+      }
+    }
+  }
 }
