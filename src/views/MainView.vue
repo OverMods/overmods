@@ -79,8 +79,14 @@
 </style>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, computed, ref } from "vue";
+import { useStore } from "vuex";
 import TrendingGallery from "../components/TrendingGallery.vue";
+const store = useStore();
+
+const isLoggedIn = computed(() => {
+  return store.getters.isLoggedIn;
+});
 
 onMounted(() => {
 
