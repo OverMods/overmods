@@ -1,0 +1,31 @@
+@keyframes descDisplay{
+	0%{
+		margin-bottom: -500%;
+		opacity: 0;
+	}
+	50%{
+		margin-bottom: inherit;
+	}
+	100%{
+		opacity: 1;
+		margin-bottom: inherit;
+	}
+}
+
+@keyframes borderRotate {
+	100%{
+		--angle: -275deg;
+	}
+}
+
+@keyframes authShow {
+	0%, 49.99% {
+		 opacity: 0;
+		 z-index: 1;
+	}
+	
+	50%, 100% {
+		 opacity: 1;
+		 z-index: 5;
+	}
+}
