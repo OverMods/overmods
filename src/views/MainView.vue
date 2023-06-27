@@ -60,10 +60,17 @@
             </div>
           </div>
         </div>
-        <div class="profile">
+        <div class="profile" v-if="isLoggedIn" >
+          <img :src="user?.avatar" alt="avatar">
+          <div class="roleIcon" :role="user?.role"></div>
+          <div class="username"><img src="../assets/images/icons/author_icon.png" alt="">{{ user?.username }}</div>
+          <div class="role"><img src="../assets/images/icons/role_icon.png" alt="">{{ user?.role }}</div>
+          <button @click="onProfile()">More</button>
+        </div>
+        <div class="profile" v-else>
           <img src="../assets/images/icons/default_profile_avatar.png" alt="avatar">
           <p>Log in to see your profile information</p>
-          <button>Log in</button>
+          <button @click="onLogin()">Log in</button>
         </div>
       </div>
       <div class="suggestion">
@@ -79,8 +86,24 @@
 </style>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, computed, ref } from "vue";
+import { useStore } from "vuex";
 import TrendingGallery from "../components/TrendingGallery.vue";
+const store = useStore();
+
+const isLoggedIn = computed(() => {
+  return store.getters.isLoggedIn;
+});
+const user = computed(() => {
+  return store.getters.getUser;
+})
+
+function onProfile() {
+}
+
+function onLogin() {
+  store.dispatch("setShowPanel", {panel: "login", show: true});
+}
 
 onMounted(() => {
 

@@ -10,7 +10,9 @@ export default createStore({
         mod: {},
         author: {},
         screenshots: [],
-        comments: []
+        comments: [],
+        user: null,
+        panels: {}
     },
     getters: {
         getGameList: (store) => store.gameList,
@@ -19,7 +21,10 @@ export default createStore({
         getMod: (store) => store.mod,
         getAuthor: (store) => store.author,
         getScreenshots: (store) => store.screenshots,
-        getComments: (store) => store.comments
+        getComments: (store) => store.comments,
+        getUser: (store) => store.user,
+        isLoggedIn: (store) => store.user !== null,
+        getShowPanel: (store) => (panel) => store.panels[panel] || false
     },
     actions: {
         async fetchGameList({ commit }) {
@@ -73,6 +78,56 @@ export default createStore({
                     return;
                 }
                 commit("SET_COMMENTS", comments.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async fetchLogin({ commit }) {
+            try {
+                const res = await HTTP.get("/login");
+                if (res.data.error) {
+                    console.log(res.data.error);
+                    return;
+                }
+
+                commit("SET_USER", res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async setShowPanel({ commit }, {panel, show}) {
+            commit("SET_SHOW_PANEL", {panel, show});
+        },
+        async postLogin({ commit }, {username, password}) {
+            try {
+                const res = await HTTP.post("/login", {username, password});
+                if (res.data.error) {
+                    console.log(res.data.error);
+                    return;
+                }
+
+                commit("SET_USER", res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async postSignup({ commit }, {username, email, password}) {
+            try {
+                const res = await HTTP.post("/signup", {username, email, password});
+                if (res.data.error) {
+                    console.log(res.data.error);
+                    return;
+                }
+
+                commit("SET_USER", res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async logout({ commit }) {
+            try {
+                await HTTP.delete("/login");
+                commit("SET_USER", null);
             } catch (e) {
                 console.log(e);
             }
@@ -154,6 +209,17 @@ export default createStore({
                 }
                 state.comments.push(comment);
             }
+        },
+        SET_USER(state, user) {
+            state.user = user;
+            if (user?.avatar) {
+                state.user.avatar = getUploadUrl(user.avatar);
+            }
+            console.log(state.user);
+        },
+        SET_SHOW_PANEL(state, {panel, show}) {
+            state.panels[panel] = show;
+            console.log(state.panels);
         }
     }
 });

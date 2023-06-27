@@ -1,7 +1,7 @@
-/*@font-face{
-  font-family: SilverForte;
-  src: url(../fonts/SilverForte-4qKp.ttf) format('truetype');
-}*/
+@font-face{
+    font-family: SilverForte;
+    src: url(./assets/fonts/SilverForte-4qKp.ttf) format('truetype');
+}
 @font-face{
     font-family: VistolSans;
     src: url(./assets/fonts/VistolsansBlack-RplJo.otf) format('opentype');
@@ -17,6 +17,16 @@
 @font-face{
     font-family: AquireLight;
     src: url(./assets/fonts/AquireLight.otf) format('opentype');
+}
+
+:root {
+    --d: 8000ms;
+    --angle: 90deg;
+    --gradX: 100%;
+    --gradY: 50%;
+    --c1: rgba(255, 123, 0, 0.8);
+    --c2: rgba(255, 255, 255, 0);
+    --c3: rgba(255, 255, 255, 0.8);
 }
 
 body, html{
@@ -43,10 +53,12 @@ a{
 /* LEFT MENU */
 
 .side_menu{
+    position: fixed;
     background-color: #eee;
     width: 220px;
     height: 100vh;
     float: left;
+    z-index: 10;
 
 .search_box{
     width: 100px;
@@ -76,12 +88,20 @@ a{
     background-position: center center;
     background-size: cover;
 
+& a{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: inherit;
+
+&:active{
+     color: inherit;
+ }
+}
+
 .logo{
     width: clamp(70px, 7.2vw, 100px);
     cursor: pointer;
-    /*&:hover{
-        animation: .7s rotate ease-in-out;
-    }*/
 }
 
 .underLogo_line{
@@ -283,6 +303,15 @@ a{
     font-size: 1.2em;
     font-family: VistolSans;
     display: flex;
+
+& a{
+      color: #2a2927;
+  }
+
+*:not(.more_box, .fade, img){
+    cursor: pointer;
+}
+
 .fade{
     width: inherit;
     height: 40px;
@@ -321,7 +350,7 @@ a{
 /* TOP PANEL */
 
 .top_panel{
-    position: fixed;
+    position: absolute;
     background-color: rgba(150, 150, 150, 0.2);
     top: 0;
     left: 220px;
@@ -331,6 +360,8 @@ a{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
 /*	backdrop-filter: blur(10px);*/
 
 .back{
@@ -380,19 +411,24 @@ a{
 
 }
 
+.right_side{
+    display: flex;
+    margin-right: 20px;
+}
+
 .theme{
-    position: absolute;
-    right: 20px;
+    position: relative;
+    right: 10px;
     display: flex;
     background-color: rgba(180, 180, 180, 0.5);
-    border-radius: 15px;
+    border-radius: 20px;
     font-size: .7em;
 
 .dark{
     position: relative;
     left: 0;
     color: #a0a0a0;
-    padding: 7px;
+    padding: 12.1px 7px;
     padding-left: 35px;
 
 .icon{
@@ -406,9 +442,9 @@ a{
     right: 0;
     background-color: #ebebeb;
     color: #000;
-    padding: 7px;
+    padding: 12.1px 7px;
     padding-left: 35px;
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 .icon{
@@ -419,9 +455,30 @@ a{
     transform: translateY(-49%);
     border-radius: 50%;
 }
-
 }
 
+.profile{
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border-radius: 20px;
+    background-color: rgba(180, 180, 180, 0.5);
+    padding-left: 15px;
+    font-family: SilverForte;
+    font-weight: 1;
+    font-size: .7em;
+    color: gray;
+    cursor: pointer;
+
+.profile_icon{
+    margin-left: 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+}
 }
 
 /* END OF TOP PANEL */
@@ -842,6 +899,7 @@ a{
 }
 
 .profile{
+    position: relative;
     width: 300px;
     height: 214px;
     background-color: rgba(64, 64, 64, 0.5);
@@ -849,7 +907,6 @@ a{
     margin: 0 12px;
     border-radius: 25px;
     color: #f0efef;
-    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -858,14 +915,61 @@ a{
       width: 60px;
       height: 60px;
       margin: 20px 0;
+      border-radius: 50%;
   }
+
+& .roleIcon{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      margin-top: 60px;
+      left: 55%;
+      border-radius: 50%;
+
+&[role="admin"]{
+     background-color: #c24141;
+ }
+
+&[role="modder"]{
+     background-color: #2452c5;
+ }
+
+&[role="user"]{
+     background-color: #e9c00a;
+ }
+}
+
+.username, .role{
+    margin: -18px 0;
+    font-size: .9em;
+    display: grid;
+    grid-template-columns: 30px 100px;
+    gap: 0 10px;
+    align-items: center;
+
+& img{
+      width: 25px;
+      height: 25px;
+      object-fit: cover;
+      margin-right: 5px;
+  }
+
+.username img{
+    filter: brightness(95%);
+}
+}
 
 & p{
       width: 70%;
       font-size: .9em;
+      margin: 5px 0;
   }
 
 & button{
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: rgba(240, 239, 239, 0.4);
       border-radius: 20px;
       color: #fff;
@@ -873,6 +977,7 @@ a{
       outline: none;
       margin-top: 12px;
       padding: 7px 40px;
+      cursor: pointer;
   }
 
 }
@@ -1742,6 +1847,303 @@ a{
 }
 }
 }
+}
+}
+}
+
+/*
+--------------------------------------------------------------
+----------------------AUTHENTIFICATION------------------------
+--------------------------------------------------------------
+*/
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 90deg;
+    inherits: true;
+}
+
+@property --gradX {
+    syntax: '<percentage>';
+    initial-value: 50%;
+    inherits: true;
+}
+
+@property --gradY {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
+}
+.auth_block{
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(7px);
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 100;
+
+.auth{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    border: 6px solid;
+    border-image: conic-gradient(from var(--angle), var(--c2), var(--c2), var(--c2),
+    var(--c2), var(--c1), var(--c2), var(--c2), var(--c2), var(--c2), var(--c3), var(--c2)) 10;
+    animation: borderRotate var(--d) linear infinite forwards;
+    overflow: hidden;
+
+&:before{
+     content: '';
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     background-color: rgba(255, 255, 255, 0.25);
+     width: 100%;
+     height: 100%;
+ }
+
+& * {
+      box-sizing: border-box;
+  }
+
+& h1 {
+      font-family: SilverForte;
+      color: #3f3f3f;
+      letter-spacing: 1px;
+      font-size: clamp(1.5em, 5vw, 2.1em);
+      margin-bottom: 35px;
+
+& span{
+      font-family: VistolSans;
+      font-size: 1.4em;
+  }
+}
+
+& p {
+      margin: 10px 0 20px 0;
+      width: 60%;
+  }
+
+& a {
+      color: #3f3f3f;
+      font-weight: 900;
+      font-size: .8em;
+      margin-top: 45px;
+  }
+
+& button {
+      outline: none;
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      background-color: #ff7a00;
+      padding: clamp(2px, 5vw, 10px) clamp(20px, 5vw, 50px);
+      margin-top: 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: transform 80ms ease-in;
+
+&:active {
+     transform: scale(0.95);
+ }
+
+&.ghost_button {
+     background-color: transparent;
+     border: 3px solid #fff;
+ }
+}
+
+& form {
+      background-color: rgba(255, 255, 255, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      height: 100%;
+  }
+
+& input {
+      width: clamp(80px, 15vw, 150px);
+      outline: none;
+      border: none;
+      background-color: transparent;
+      border-bottom: 2px solid #5a5a5a;
+      border-radius: 2px;
+      padding: 0 10px;
+      color: #3f3f3f;
+  }
+
+& input:focus, & input:not(:placeholder-shown){
++ label{
+    top: -15px;
+    font-size: .7em;
+}
+}
+
+.input_label{
+    position: relative;
+    margin: 15px 0;
+}
+
+& label{
+      position: absolute;
+      color: #747474;
+      top: 0px;
+      left: 5px;
+      transition: .2s;
+      font-size: .8em;
+      font-weight: 900;
+  }
+
+& .form_container {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      transition: all 0.6s ease-in-out;
+  }
+
+& .logIn_container {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+  }
+
+&.rightPanel_active {
+
+& .logIn_container {
+      transform: translateX(100%);
+      opacity: 0;
+  }
+
+& .signUp_container {
+      transform: translateX(100%);
+      opacity: 1;
+      z-index: 5;
+      animation: authShow 0.6s;
+  }
+
+& .overlay_container{
+      transform: translateX(-100%);
+  }
+
+& .overlay {
+      transform: translateX(50%);
+  }
+
+& .overlay_left {
+      transform: translateX(0);
+  }
+
+& .overlay_right {
+      transform: translateX(20%);
+  }
+}
+
+& .signUp_container {
+      left: 0;
+      width: 50%;
+      opacity: 0;
+      z-index: 1;
+  }
+
+& .overlay_container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      transition: transform .9s ease-in-out;
+      z-index: 100;
+  }
+
+& .overlay {
+      background-color: rgba(255, 122, 0, 1);;
+      color: #FFFFFF;
+      position: relative;
+      left: -100%;
+      height: 100%;
+      width: 200%;
+      transform: translateX(0);
+      transition: transform .5s ease-in-out;
+
+& h1{
+      color: #fff;
+  }
+}
+
+& .overlay_panel {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 40px;
+      text-align: center;
+      top: 0;
+      height: 100%;
+      width: 50%;
+      transform: translateX(0);
+      transition: transform .5s ease-in-out;
+  }
+
+& .overlay_left {
+      transform: translateX(-20%);
+  }
+
+& .overlay_right {
+      right: 0;
+      transform: translateX(0);
+  }
+}
+
+.closeBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.55);
+    color: #3f3f3f;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .2s;
+
+& .icon{
+      position: absolute;
+      top: 17.5px;
+      left: 18px;
+      width: 25px;
+      height: 25px;
+      background-image: url(./assets/images/icons/crosshair_icon.png);
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+
+& p{
+      display: none;
+      margin: 0 10px 0 55px;
+  }
+
+&:hover{
+& p{
+      display: block;
+  }
+
+width: 220px;
 }
 }
 }

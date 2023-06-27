@@ -2,6 +2,8 @@
   <SideMenu></SideMenu>
   <TopPanel></TopPanel>
 
+  <AuthBlock></AuthBlock>
+
   <div class="background">
     <div class="content">
       <router-view></router-view>
@@ -16,6 +18,7 @@
 import { onMounted } from "vue";
 import SideMenu from "./components/SideMenu.vue";
 import TopPanel from "./components/TopPanel.vue";
+import AuthBlock from "./components/AuthBlock.vue";
 
 onMounted(() => {
   // betterScrollbar.js

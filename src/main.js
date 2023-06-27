@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory} from "vue-router";
 import './style.css'
+import './animations.css'
 import store from "./store";
 import App from './App.vue'
 import MainView from "./views/MainView.vue";
