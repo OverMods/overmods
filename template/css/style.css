@@ -88,12 +88,20 @@ a{
 	background-position: center center;
 	background-size: cover;
 
+	& a{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: inherit;
+
+		&:active{
+			color: inherit;
+		}
+	}
+
 	.logo{
 		width: clamp(70px, 7.2vw, 100px);
 		cursor: pointer;
-		/*&:hover{
-			animation: .7s rotate ease-in-out;
-		}*/
 	}
 
 	.underLogo_line{
@@ -352,6 +360,8 @@ a{
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
 	/*	backdrop-filter: blur(10px);*/
 
 	.back{
@@ -401,19 +411,24 @@ a{
 
 	}
 
+  .right_side{
+    display: flex;
+    margin-right: 20px;
+  }
+
 	.theme{
-		position: absolute;
-		right: 20px;
+		position: relative;
+		right: 10px;
 		display: flex;
 		background-color: rgba(180, 180, 180, 0.5);
-		border-radius: 15px;
+		border-radius: 20px;
 		font-size: .7em;
 
 		.dark{
 			position: relative;
 			left: 0;
 			color: #a0a0a0;
-			padding: 7px;
+			padding: 12.1px 7px;
 			padding-left: 35px;
 
 			.icon{
@@ -427,9 +442,9 @@ a{
 			right: 0;
 			background-color: #ebebeb;
 			color: #000;
-			padding: 7px;
+			padding: 12.1px 7px;
 			padding-left: 35px;
-			border-radius: 15px;
+			border-radius: 20px;
 		}
 
 		.icon{
@@ -440,9 +455,30 @@ a{
 			transform: translateY(-49%);
 			border-radius: 50%;
 		}
-
 	}
 
+	.profile{
+    display: flex;
+    align-items: center;
+		height: 35px;
+    border-radius: 20px;
+    background-color: rgba(180, 180, 180, 0.5);
+    padding-left: 15px;
+    font-family: SilverForte;
+    font-weight: 1;
+    font-size: .7em;
+    color: gray;
+    cursor: pointer;
+
+    .profile_icon{
+      margin-left: 15px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+	}
 }
 
 /* END OF TOP PANEL */
@@ -863,6 +899,7 @@ a{
 		}
 
 		.profile{
+			position: relative;
 			width: 300px;
 			height: 214px;
 			background-color: rgba(64, 64, 64, 0.5);
@@ -870,7 +907,6 @@ a{
 			margin: 0 12px;
 			border-radius: 25px;
 			color: #f0efef;
-			text-align: center;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -879,14 +915,61 @@ a{
 				width: 60px;
 				height: 60px;
 				margin: 20px 0;
+				border-radius: 50%;
+			}
+
+			& .roleIcon{
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				margin-top: 60px;
+				left: 55%;
+				border-radius: 50%;
+
+				&[role="admin"]{
+					background-color: #c24141;
+				}
+
+				&[role="modder"]{
+					background-color: #2452c5;
+				}
+
+				&[role="user"]{
+					background-color: #e9c00a;
+				}
+			}
+
+			.username, .role{
+        margin: -18px 0;
+        font-size: .9em;
+        display: grid;
+        grid-template-columns: 30px 100px;
+        gap: 0 10px;
+        align-items: center;
+
+				& img{
+					width: 25px;
+					height: 25px;
+          object-fit: cover;
+          margin-right: 5px;
+				}
+
+        .username img{
+          filter: brightness(95%);
+        }
 			}
 
 			& p{
 				width: 70%;
 				font-size: .9em;
+				margin: 5px 0;
 			}
 
 			& button{
+				position: absolute;
+				bottom: 10px;
+				left: 50%;
+				transform: translateX(-50%);
 				background-color: rgba(240, 239, 239, 0.4);
 				border-radius: 20px;
 				color: #fff;

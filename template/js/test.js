@@ -25,3 +25,7 @@ function authClose(){
    auth.style.display = 'none';
    container.classList.remove("rightPanel_active");
 }
+
+function profileOpen(){
+   
+}
