@@ -7,11 +7,12 @@
       <img src="../assets/images/icons/gray_logo.png" alt="">
     </div>
     <router-link v-for="game in gameList" :key="game.id" :to="`/game/${game.shortName}`">
-      <div class="game" :class="{fade: game.title !== game.shortTitle}">
+      <div class="game">
         <div class="logo" :style="`background-image: url(${game.logo})`"></div>
         <p :game="game.shortTitle">{{ game.shortTitle }}</p>
         <div class="hover"></div>
         <div class="arrow"></div>
+        <div class="fade" v-if="game.title !== game.shortTitle"></div>
       </div>
     </router-link>
     <br>

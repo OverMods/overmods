@@ -4,7 +4,7 @@
       <router-link to="/"><img src="../assets/images/icons/logo.png" alt="logo" class="logo">
         <h3>OverMods</h3></router-link>
       <hr class="underLogo_line">
-      <input class="search_box" id="gameSearch" placeholder="Search game">
+      <input @input="onSearch" class="search_box" id="gameSearch" placeholder="Search game">
     </div>
     <GameSelection ref="gameSelection"></GameSelection>
     <AuthBox></AuthBox>
