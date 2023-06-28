@@ -3,6 +3,7 @@
   <TopPanel></TopPanel>
 
   <AuthBlock></AuthBlock>
+  <ProfileBlock></ProfileBlock>
 
   <div class="background">
     <div class="content">
@@ -19,51 +20,57 @@ import { onMounted } from "vue";
 import SideMenu from "./components/SideMenu.vue";
 import TopPanel from "./components/TopPanel.vue";
 import AuthBlock from "./components/AuthBlock.vue";
+import ProfileBlock from "./components/ProfileBlock.vue";
 
 onMounted(() => {
   // betterScrollbar.js
-  let content = document.querySelector('.content');
-  let scrollbar = document.createElement('div');
-  let thumb = document.createElement('div');
-  let isDragging = false;
-  let startPosition;
-  let startScrollTop;
+  let contentBlocks = document.querySelectorAll('.content');
 
-  scrollbar.classList.add('scrollbar');
-  thumb.classList.add('thumb');
+  contentBlocks.forEach(function(content) {
+    let scrollbar = document.createElement('div');
+    let thumb = document.createElement('div');
+    let isDragging = false;
+    let startPosition;
+    let startScrollTop;
 
-  scrollbar.appendChild(thumb);
-  content.appendChild(scrollbar);
+    scrollbar.classList.add('scrollbar');
+    thumb.classList.add('thumb');
 
-  updateScrollbar();
+    scrollbar.appendChild(thumb);
+    content.appendChild(scrollbar);
 
-  content.addEventListener('scroll', function() {
-    updateScrollbar();
+    updateScrollbar(content);
+
+    content.addEventListener('scroll', function() {
+      updateScrollbar(content);
+    });
+
+    window.addEventListener('resize', function() {
+      updateScrollbar(content);
+    });
+
+    thumb.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      startPosition = e.clientY;
+      startScrollTop = content.scrollTop;
+    });
+
+    content.addEventListener('mousemove', function(e) {
+      if (isDragging) {
+        let deltaY = e.clientY - startPosition;
+        let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
+        content.scrollTop = startScrollTop + scrollDelta;
+      }
+    });
+
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+    });
   });
 
-  window.addEventListener('resize', function() {
-    updateScrollbar();
-  });
-
-  thumb.addEventListener('mousedown', function(e) {
-    isDragging = true;
-    startPosition = e.clientY;
-    startScrollTop = content.scrollTop;
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    if (isDragging) {
-      let deltaY = e.clientY - startPosition;
-      let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
-      content.scrollTop = startScrollTop + scrollDelta;
-    }
-  });
-
-  document.addEventListener('mouseup', function() {
-    isDragging = false;
-  });
-
-  function updateScrollbar() {
+  function updateScrollbar(content) {
+    let scrollbar = content.querySelector('.scrollbar');
+    let thumb = content.querySelector('.thumb');
     let scrollTop = content.scrollTop;
     let maxScrollTop = content.scrollHeight - content.clientHeight;
 
@@ -86,5 +93,5 @@ onMounted(() => {
       scrollbar.classList.remove('scrollbar-hidden');
     }
   }
-})
+});
 </script>

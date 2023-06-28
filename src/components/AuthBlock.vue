@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showLogin" class="auth_block">
+  <div v-if="showLogin" class="blur_block">
     <div :class="`auth ${showRightPanel ? 'rightPanel_active' : ''}`">
       <div class="form_container logIn_container">
         <form @submit="onLogin">
@@ -28,7 +28,7 @@
             <label for="overmodsSignup_email">email</label>
           </div>
           <div class="input_label">
-            <input v-model="password" type="text" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
+            <input v-model="password" type="password" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
             <label for="overmodsSignup_password">password</label>
           </div>
           <div class="input_label">
@@ -53,9 +53,11 @@
         </div>
       </div>
     </div>
-    <div class="closeBtn" @click="onClose()">
-      <div class="icon"></div>
-      <p>Continue as a guest</p>
+    <div class="closeBtn_container">
+      <div class="closeBtn" @click="onClose">
+        <div class="icon"></div>
+        <p>Continue as a guest</p>
+      </div>
     </div>
   </div>
 </template>

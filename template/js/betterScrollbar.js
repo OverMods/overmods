@@ -1,11 +1,11 @@
-var contentBlocks = document.querySelectorAll('.content');
+let contentBlocks = document.querySelectorAll('.content');
 
 contentBlocks.forEach(function(content) {
-  var scrollbar = document.createElement('div');
-  var thumb = document.createElement('div');
-  var isDragging = false;
-  var startPosition;
-  var startScrollTop;
+  let scrollbar = document.createElement('div');
+  let thumb = document.createElement('div');
+  let isDragging = false;
+  let startPosition;
+  let startScrollTop;
 
   scrollbar.classList.add('scrollbar');
   thumb.classList.add('thumb');
@@ -31,8 +31,8 @@ contentBlocks.forEach(function(content) {
 
   content.addEventListener('mousemove', function(e) {
     if (isDragging) {
-      var deltaY = e.clientY - startPosition;
-      var scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
+      let deltaY = e.clientY - startPosition;
+      let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
       content.scrollTop = startScrollTop + scrollDelta;
     }
   });
@@ -43,10 +43,10 @@ contentBlocks.forEach(function(content) {
 });
 
 function updateScrollbar(content) {
-  var scrollbar = content.querySelector('.scrollbar');
-  var thumb = content.querySelector('.thumb');
-  var scrollTop = content.scrollTop;
-  var maxScrollTop = content.scrollHeight - content.clientHeight;
+  let scrollbar = content.querySelector('.scrollbar');
+  let thumb = content.querySelector('.thumb');
+  let scrollTop = content.scrollTop;
+  let maxScrollTop = content.scrollHeight - content.clientHeight;
 
   scrollbarHeight = content.clientHeight * 0.92;
   scrollbar.style.height = `${scrollbarHeight}px`;
@@ -61,7 +61,7 @@ function updateScrollbar(content) {
   if (scrollTop >= maxScrollTop) {
     thumb.style.top = `${scrollbarHeight - thumbHeight}px`;
   } else {
-    var thumbTop = (scrollTop / maxScrollTop) * (scrollbarHeight - thumbHeight);
+    let thumbTop = (scrollTop / maxScrollTop) * (scrollbarHeight - thumbHeight);
     thumb.style.top = `${thumbTop}px`;
   }
 
