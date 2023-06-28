@@ -58,7 +58,7 @@
               <label for="star2"></label>
               <input type="radio" id="star1" name="rating" v-if="user?.siteRating == 1" :checked="true">
               <label for="star1"></label>-->
-              <input v-for="(n,i) in 5" type="radio" :id="`star${5-i}`" name="rating" :checked="n >= user?.siteRating">
+              <input v-for="(n,i) in 5" type="radio" :id="`star${5-i}`" name="rating" :checked="n <= user?.siteRating">
               <label v-for="(n,i) in 5" :for="`star${5-i}`"></label>
             </div>
           </div>
