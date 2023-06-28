@@ -48,7 +48,7 @@
             <p v-if="user?.siteRating !== null">Your rate:</p>
             <p v-else>Rate our work</p>
             <div class="stars">
-              <!--<input type="radio" id="star5" name="rating" v-if="user?.siteRating == 5" :checked="true">
+              <input type="radio" id="star5" name="rating" v-if="user?.siteRating == 5" :checked="true">
               <label for="star5"></label>
               <input type="radio" id="star4" name="rating" v-if="user?.siteRating == 4" :checked="true">
               <label for="star3"></label>
@@ -57,9 +57,7 @@
               <input type="radio" id="star2" name="rating" v-if="user?.siteRating == 2" :checked="true">
               <label for="star2"></label>
               <input type="radio" id="star1" name="rating" v-if="user?.siteRating == 1" :checked="true">
-              <label for="star1"></label>-->
-              <input v-for="(n,i) in 5" type="radio" :id="`star${5-i}`" name="rating" :checked="n <= user?.siteRating">
-              <label v-for="(n,i) in 5" :for="`star${5-i}`"></label>
+              <label for="star1"></label>
             </div>
           </div>
         </div>
