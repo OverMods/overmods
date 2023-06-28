@@ -13,8 +13,11 @@
     <span>Upload date</span>
   </div>
   <div class="list">
-    <div id="modNotFound" style="display: none;">Ніхуя не знайшов</div>
-    <router-link class="modBox" v-for="mod in mods" :key="mod.id" :to="`/game/${game.shortName}/mod/${mod.id}`">
+    <router-link v-if="mods?.length > 0"
+                 class="modBox"
+                 v-for="mod in mods"
+                 :key="mod.id"
+                 :to="`/game/${game.shortName}/mod/${mod.id}`">
       <div class="icon" :style="`background-image: url(${mod.logo});`"></div>
       <div class="modTitle">
         <h3>{{ mod.title }}</h3>
@@ -28,6 +31,12 @@
         <div class="hoverElem"><span>Mod page</span></div>
       </div>
     </router-link>
+    <div v-else id="modNotFound">
+      <h3>Oops!</h3>
+      <h3>It seems like we've entered uncharted territory.</h3>
+      <p>Our search page couldn't find what you were looking for. But don't worry, we won't give up just yet! Our team is constantly working to expand our database and bring you the latest and greatest modifications. In the meantime, feel free to explore other sections of our website or refine your search. Stay curious, and let's embark on a new quest together!</p>
+      <router-link to="/"><a>Back to main page</a></router-link>
+    </div>
   </div>
 </template>
 
