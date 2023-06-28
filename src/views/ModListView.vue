@@ -37,7 +37,7 @@
 
 <script setup>
 import { useRoute } from "vue-router";
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { relativeDate } from "../utils.js";
 
@@ -59,7 +59,13 @@ defineProps({
   }
 });
 
-onMounted(() => {
+watch(() => route.params.shortName, () => {
   store.dispatch("fetchModList", route.params.shortName);
+}, {
+  immediate: true
+});
+
+onMounted(() => {
+  //store.dispatch("fetchModList", route.params.shortName);
 });
 </script>

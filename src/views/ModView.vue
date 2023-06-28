@@ -107,7 +107,7 @@
 </style>
 
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { HTTP, getUploadUrl } from "../http.js";
@@ -138,7 +138,13 @@ function download(mod) {
   });
 }
 
-onMounted(() => {
+watch(() => route.params.id, () => {
   store.dispatch("fetchMod", route.params.id);
+}, {
+  immediate: true
+});
+
+onMounted(() => {
+  //store.dispatch("fetchMod", route.params.id);
 });
 </script>
