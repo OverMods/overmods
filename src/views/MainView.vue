@@ -8,7 +8,7 @@
   <TrendingGallery></TrendingGallery>
   <div class="title">
     <img src="../assets/images/icons/info_icon.png" alt="">
-    <p aaa>Information</p>
+    <p>Information</p>
     <div class="line"></div>
   </div>
   <div class="info_box">

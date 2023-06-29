@@ -79,10 +79,6 @@ const user = computed(() => {
   return store.getters.getUser;
 })
 
-const haveAvatar = computed(() => {
-  return store.getters.haveAvatar;
-});
-
 function logout() {
   store.dispatch("setShowPanel", {panel: "profile", show: false});
   store.dispatch("logout");

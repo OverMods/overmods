@@ -5,8 +5,8 @@
       <img src="../assets/images/icons/more.png" alt="">
     </div>
     <div class="login">
-      <img v-if=isLoggedIn src='../assets/images/icons/logout_icon.png' alt="" class="login_icon">
-      <img v-else src='../assets/images/icons/login_icon.png' alt="" class="login_icon">
+      <img v-if=isLoggedIn src='../assets/images/icons/logout_icon.png' @click="logout()" alt="" class="login_icon">
+      <img v-else src='../assets/images/icons/login_icon.png' @click="login()" alt="" class="login_icon">
       <span v-if="isLoggedIn" @click="logout()">Log out</span>
       <span v-else @click="login()">Log in</span>
     </div>

@@ -2,7 +2,8 @@
   <div class="logo"></div>
     <div class="title"><h2>My modifications</h2></div>
     <div class="content">
-  </div>
+      
+    </div>
 </template>
 
 <style scoped>

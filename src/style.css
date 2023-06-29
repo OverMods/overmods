@@ -301,7 +301,16 @@ a{
 		left: 50%;
 		bottom: 22px;
 		transform: translate(-50%, 0);
+    transition: .1s;
 	}
+
+  .login{
+    transition: .1s;
+  }
+
+  .login:hover{
+    color: #767676;
+  }
 }
 
 /* END OF LEFT MENU */
@@ -433,7 +442,8 @@ a{
       height: 35px;
       border-radius: 50%;
       background-repeat: no-repeat;
-      background-size: contain;
+      object-fit: contain;
+      background-color: rgba(161, 161, 161, 0.279);
     }
 	}
 }
@@ -882,15 +892,15 @@ a{
 				left: 55%;
 				border-radius: 50%;
 
-				&[role="admin"]{
+				&[role="ADMIN"]{
 					background-color: #c24141;
 				}
 
-				&[role="modder"]{
+				&[role="MODDER"]{
 					background-color: #2452c5;
 				}
 
-				&[role="user"]{
+				&[role="USER"]{
 					background-color: #e9c00a;
 				}
 			}
@@ -939,6 +949,15 @@ a{
 				margin-top: 12px;
 				padding: 7px 40px;
 				cursor: pointer;
+        transition: .1s;
+
+        &:hover{
+          background-color: rgba(255, 255, 255, 0.45);
+        }
+
+        &:active{
+          transform: translateX(-50%) scale(0.95);
+        }
 			}
 
 		}
@@ -2319,98 +2338,54 @@ a{
         height: calc(100% - 75px);
         overflow: auto;
         color: #767676;
+        display: block;
+        
   
-        .grid{
-          display: grid;
-          grid-template-columns: 100px auto;
-          align-items: center;
-          gap: 50px 0;
-          margin-left: 4%;
+        .container{
+          width: 80%;
+          min-height: 200px;
+          height: auto;
+          background-color: rgba(167, 167, 167, 0.604);
+          border-radius: 15px;
+          overflow: hidden;
+          margin: auto;
+          margin-bottom: 20px;
 
-          .info_grid{
+          .top_block{
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            display: grid;
-            grid-template-columns: 30px auto auto;
-            gap: 0 20px;
+            min-height: 100px;
+            background-color: rgba(167, 167, 167, 0.604);
 
-            & input{
-              outline: none;
-              border: none;
-              height: 25px;
-              border-bottom: 1px solid #ff7b00;
-              background-color: rgba(0, 0, 0, 0);
-              border-radius: 5px;
-              margin-right: 10px;
-            }
-
-            & div{
+            .title{
               display: flex;
-              align-items: center;
+              justify-content: space-between;
+              color: #555;
+              font-size: 1.1em;
+              margin-bottom: 10px;
+              margin-right: 4%;
             }
 
-            & div p + img{
-              margin-left: 20px;
-            }
-  
-            & div img{
-              height: 25px;
-              width: 25px;
-              object-fit: contain;
-            }
-
-            .changeble{
-              color: #ff7b00;
-              cursor: pointer;
+            .desc{
+              font-size: .9em;
+              color: #767676;
+              margin-left: 4%;
             }
           }
-          .avatar_change{
-            display: flex;
-            align-items: center;
+          .bottom_block{
+            width: 100%;
+            min-height: 100px;
+            height: 100px;
+            transition: .2s;
+          }
+        }
 
-            .avatar{
-              width: 280px;
-              height: 280px;
-              object-fit: contain;
-              background-color:rgba(180, 180, 180, 0.5);
-              border-radius: 15px;
-              margin-right: 10px;
-            }
-
-            .file{
-              height: 240px;
-              min-width: 260px;
-              max-width: 360px;
-              width: 100%;
-              border-radius: 15px;
-              border: 2px dotted #767676;
-              cursor: pointer;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              margin-right: 4%;
-
-              & img{
-                width: 60px;
-                height: 60px;
-                filter: brightness(70%);
-                margin-bottom: 10px;
-              }
-
-              & p{
-                margin: 2px 0;
-                padding: 0;
-              }
-
-              & button{
-                margin-top: 10px;
-                cursor: pointer;
-                outline: none;
-                border-radius: 30px;
-                border: 2px solid #767676;
-                color: #767676;
-                background-color: rgba(0, 0, 0, 0);
-                padding: 10px 25px;
+        @media screen and (max-width: 600px) {
+          .container{
+            .top_block{
+              .title{
+                flex-direction: column;
               }
             }
           }
