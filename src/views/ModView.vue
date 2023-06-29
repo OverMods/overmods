@@ -64,26 +64,29 @@
       <div class="comments">
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
-        <div class="write_comment">
-          <img class="profile_avatar" src="../assets/images/icons/default_profile_avatar.png" style="background-color: #949494;">
-          <textarea type="text" placeholder="You need to login to leave comments." disabled></textarea>
+        <form class="write_comment" @submit="postComment">
+          <div class="profile_avatar"
+               :style="`background-image: url('${isLoggedIn ? user.avatar : defaultAvatar}'); background-color: #949494;`"></div>
+          <textarea v-if="isLoggedIn" v-model="comment" type="text" placeholder="Type your comment here"></textarea>
+          <textarea v-else type="text" placeholder="You need to login to leave comments." disabled></textarea>
           <div class="rate_mod">
             <p>Rate the mod</p>
             <div class="stars">
-              <input type="radio" id="star1" name="rating">
+              <input type="radio" id="star1" name="rating" @click="setRating(5)">
               <label for="star1"></label>
-              <input type="radio" id="star2" name="rating">
+              <input type="radio" id="star2" name="rating" @click="setRating(4)">
               <label for="star2"></label>
-              <input type="radio" id="star3" name="rating">
+              <input type="radio" id="star3" name="rating" @click="setRating(3)">
               <label for="star3"></label>
-              <input type="radio" id="star4" name="rating">
+              <input type="radio" id="star4" name="rating" @click="setRating(2)">
               <label for="star4"></label>
-              <input type="radio" id="star5" name="rating">
+              <input type="radio" id="star5" name="rating" @click="setRating(1)">
               <label for="star5"></label>
             </div>
           </div>
-          <button>Log in</button>
-        </div>
+          <button v-if="isLoggedIn" type="submit">Post</button>
+          <button v-else>Log in</button>
+        </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
             <div class="profile_avatar" :style="`background-image: url('${comment.user.avatar}');`"></div>
@@ -115,6 +118,15 @@ import { HTTP, getUploadUrl } from "../http.js";
 const route = useRoute();
 const store = useStore();
 
+const defaultAvatar = "../assets/images/icons/default_profile_avatar.png";
+
+const isLoggedIn = computed(() => {
+  return store.getters.isLoggedIn;
+});
+const user = computed(() => {
+  return store.getters.getUser;
+});
+
 const mod = computed(() => {
   return store.getters.getMod;
 });
@@ -136,6 +148,18 @@ function download(mod) {
     }
     window.location.href = getUploadUrl(res.data.file);
   });
+}
+
+let comment = "";
+let rating = 5;
+
+function setRating(r) {
+  rating = r;
+  console.log(rating);
+}
+
+function postComment(e) {
+  e.preventDefault();
 }
 
 watch(() => route.params.id, () => {

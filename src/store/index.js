@@ -5,6 +5,7 @@ import {relativeDate, renderMarkdown} from "../utils.js";
 export default createStore({
     state: {
         gameList: [],
+        stats: {},
         game: null,
         mods: null,
         mod: {},
@@ -16,6 +17,7 @@ export default createStore({
     },
     getters: {
         getGameList: (store) => store.gameList,
+        getStats: (store) => store.stats,
         getGame: (store) => store.game,
         getMods: (store) => store.mods,
         getMod: (store) => store.mod,
@@ -31,6 +33,14 @@ export default createStore({
             try {
                 const res = await HTTP.get("/game");
                 commit("SET_GAME_LIST", res.data);
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async fetchStats({ commit }) {
+            try {
+                const res = await HTTP.get("/trends/stats");
+                commit("SET_STATS", res.data);
             } catch (e) {
                 console.log(e);
             }
@@ -131,6 +141,20 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async postComment({ commit, state }, {comment, rating}) {
+            try {
+                const res = await HTTP.post(`/mod/${state.mod.id}/comment`, {
+                    mod: state.mod.id,
+                    comment: comment,
+                    rating: rating
+                });
+                if (!res.data.error) {
+                    commit("ADD_MY_COMMENT", {comment, rating});
+                }
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -147,6 +171,9 @@ export default createStore({
                     logo: getUploadUrl(game.logo)
                 });
             }
+        },
+        SET_STATS(state, stats) {
+            state.stats = stats;
         },
         SET_GAME(state, game) {
             state.game = game;
@@ -209,6 +236,17 @@ export default createStore({
                 }
                 state.comments.push(comment);
             }
+        },
+        ADD_MY_COMMENT(state, data) {
+            state.comments.push({
+                user: state.user,
+                comment: {
+                    mod: state.mod.id,
+                    user: state.user.id,
+                    comment: data.comment,
+                    rating: data.rating
+                }
+            });
         },
         SET_USER(state, user) {
             state.user = user;
