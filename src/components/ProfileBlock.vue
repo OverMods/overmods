@@ -6,7 +6,7 @@
           <img :src="user?.avatar" alt="" v-if="user?.avatar !== null">
           <img src="../assets/images/icons/default_profile_avatar.png" v-else>
           <div class="role" :role="user?.role">{{ user?.role }}</div>
-          {{ user?.username }}
+          <div>{{ user?.username }}</div>
         </div>
         <div class="list">
           <div @click="selectMenu(MENU_SETTINGS)">
