@@ -24,8 +24,13 @@
               <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated 2 days ago</div>
             </div>
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
-              <a>Save </a>
-              <a @click="onSettings(empty)">Cancel</a>
+              <form onsubmit="return false">
+                <div class="title">Old password: <input type="text"></div>
+                <div class="title">New password: <input type="text"></div>
+                <div class="title">Confirm password: <input type="text"></div>
+                <button type="submit" @click="onSettings(empty)">Save</button>
+                <button @click="onSettings(empty)">Cancel</button>
+              </form>
             </div>
         </div>
       </div>
@@ -37,8 +42,12 @@
               <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> amy******l@gmail.com</div>
             </div>
             <div class="elems" :style="block === emailBlock ? 'display: inherit' : 'display: none'">
-              <a>Save </a>
-              <a @click="onSettings(empty)">Cancel</a>
+              <form onsubmit="return false">
+                <div class="title">Old email: <input type="text"></div>
+                <div class="title">New email: <input type="text"></div>
+                <button type="submit" @click="onSettings(empty)">Save</button>
+                <button @click="onSettings(empty)">Cancel</button>
+              </form>
             </div>
         </div>
       </div>

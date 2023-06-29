@@ -1368,7 +1368,7 @@ a{
 
 	.helper{
 		width: 100%;
-		min-height: 150%;
+		min-height: 300px;
 		display: flex;
 		justify-content: center;
 	}
