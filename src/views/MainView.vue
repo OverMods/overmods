@@ -45,18 +45,18 @@
           </div>
           <div class="ratings">
             <img src="../assets/images/icons/rate_icon.png" alt="">
-            <p v-if="user?.siteRating !== null">Your rate:</p>
+            <p v-if="user && user?.siteRating !== null">Your rate:</p>
             <p v-else>Rate our work</p>
             <div class="stars">
-              <input type="radio" id="star5" name="rating" v-if="user?.siteRating == 5" :checked="true">
+              <input type="radio" id="star5" name="rating" :checked="user?.siteRating == 5 ? true : false">
               <label for="star5"></label>
-              <input type="radio" id="star4" name="rating" v-if="user?.siteRating == 4" :checked="true">
+              <input type="radio" id="star4" name="rating" :checked="user?.siteRating == 4 ? true : false">
+              <label for="star4"></label>
+              <input type="radio" id="star3" name="rating" :checked="user?.siteRating == 3 ? true : false">
               <label for="star3"></label>
-              <input type="radio" id="star3" name="rating" v-if="user?.siteRating == 3" :checked="true">
-              <label for="star3"></label>
-              <input type="radio" id="star2" name="rating" v-if="user?.siteRating == 2" :checked="true">
+              <input type="radio" id="star2" name="rating" :checked="user?.siteRating == 2 ? true : false">
               <label for="star2"></label>
-              <input type="radio" id="star1" name="rating" v-if="user?.siteRating == 1" :checked="true">
+              <input type="radio" id="star1" name="rating" :checked="user?.siteRating == 1 ? true : false">
               <label for="star1"></label>
             </div>
           </div>
@@ -77,7 +77,10 @@
       </div>
       <div class="suggestion">
         <img src="../assets/images/icons/idk_wis.png" alt="">
-        <p>Are you a <span class="white_text">mod maker</span>? Share your creative potential! <span class="att_text">Sign up</span> and give your mods wide exposure!</p>
+        <p v-if="!user">Are you a <span class="white_text">mod maker</span>? Share your creative potential! <span class="att_text">Sign up</span> and give your mods wide exposure!</p>
+        <p v-else-if="user?.role == 'USER'">Are you a <span class="white_text">mod maker</span>? Share your creative potential! Go to your profile page, send us a form and give your mods wide exposure!</p>
+        <p v-else-if="user?.role == 'MODDER'">You, the <span class="att_text">Mod Maker</span> extraordinaire, hold the power to shape worlds and redefine gaming experiences - it's time to take the spotlight, upload your mod now and let your creativity reign supreme!</p>
+        <p v-else-if="user?.role == 'ADMIN'">Go to <span class="att_text">Admin Panel</span></p>
       </div>
     </div>
   </div>

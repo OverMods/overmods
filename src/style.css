@@ -417,7 +417,7 @@ a{
 	.profile{
     display: flex;
     align-items: center;
-		height: 35px;
+		height: 37px;
     border-radius: 20px;
     background-color: rgba(180, 180, 180, 0.5);
     padding-left: 15px;
@@ -923,6 +923,7 @@ a{
 				width: 70%;
 				font-size: .9em;
 				margin: 5px 0;
+        text-align: center;
 			}
 
 			& button{
@@ -1683,7 +1684,7 @@ a{
 						font-size: .7em;
 						margin-top: 5px;
 					}
-
+          
 					.stars{
 						margin-top: -7px;
 						position: relative;
@@ -2195,13 +2196,30 @@ a{
       }
       
       .list{
+        & div:not(.disabled){
+          cursor: pointer;
+        }
+
         & div{
           position: relative;
           display: flex;
           align-items: center;
           list-style: none;
           margin: 20px 0;
-          cursor: pointer;
+
+          &.disabled{
+            & p{
+              color: #b7b7b7;
+            }
+
+            .icon{
+              filter: brightness(125%);
+            }
+
+            .arrow{
+              display: none;
+            }
+          }
 
           & *{
             transition: .2s;
@@ -2229,7 +2247,7 @@ a{
             height: 12px;
           }
 
-          &:hover{
+          &:hover:not(.disabled){
             & p{
               color: #767676;
             }
@@ -2253,6 +2271,7 @@ a{
         height: 40px;
         bottom: 0;
         left: 0;
+        cursor: pointer;
 
         & img{
           position: absolute;

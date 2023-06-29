@@ -1,20 +1,43 @@
 <template>
   <div class="top_panel">
-    <div class="search_container">
-      <input type="text" class="search" placeholder="Search is unavailable on the homepage" disabled>
-      <img src="../assets/images/icons/search_icon.png" alt="" class="search_icon">
-    </div>
-    <div class="theme">
-      <div class="dark">dark
-        <img class="icon" src="../assets/images/icons/moon_icon.png" alt="">
+		<div class="search_container">
+			<input type="text" class="search" placeholder="Search is unavailable on the homepage" disabled>
+			<img src="../assets/images/icons/search_icon.png" alt="" class="search_icon">
+		</div>
+    <div class="right_side">
+      <div class="theme">
+        <div class="dark">dark
+          <img class="icon" src="../assets/images/icons/moon_icon.png" alt="">
+        </div>
+        <div class="light">light
+          <img class="icon" src="../assets/images/icons/sun_icon.png" alt="">
+        </div>
       </div>
-      <div class="light">light
-        <img class="icon" src="../assets/images/icons/sun_icon.png" alt="">
-      </div>
+        <div class="profile" @click="onProfile" v-if="isLoggedIn">
+          Profile
+          <img v-if="user?.avatar" :src="user?.avatar" class="profile_icon">
+          <img v-else src="../assets/images/icons/default_profile_avatar.png" class="profile_icon">
+        </div>
     </div>
-  </div>
+	</div>
 </template>
 
 <style scoped>
 
 </style>
+
+<script setup>
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+const isLoggedIn = computed(() => {
+  return store.getters.isLoggedIn;
+});
+const user = computed(() => {
+  return store.getters.getUser;
+})
+function onProfile() {
+  store.dispatch("setShowPanel", {panel: "profile", show: true});
+}
+</script>

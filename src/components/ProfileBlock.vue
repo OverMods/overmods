@@ -4,47 +4,42 @@
       <div class="side">
         <div class="short_info">
           <img :src="user?.avatar" alt="" v-if="user?.avatar !== null">
-          <img src="../assets/images/icons/default_profile_avatar.png" alt="dsds" v-else>
+          <img src="../assets/images/icons/default_profile_avatar.png" v-else>
           <div class="role" :role="user?.role">{{ user?.role }}</div>
           {{ user?.username }}
         </div>
         <div class="list">
           <div>
-            <img src="images/icons/sett_icon.png" alt="" class="icon">
+            <img src="../assets/images/icons/sett_icon.png" alt="" class="icon">
             <p>Settings</p>
-            <img src="images/icons/arrow.png" alt="" class="arrow">
+            <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
           <div>
-            <img src="images/icons/myComms_icon.png" alt="" class="icon">
+            <img src="../assets/images/icons/myComms_icon.png" alt="" class="icon">
             <p>My comments</p>
-            <img src="images/icons/arrow.png" alt="" class="arrow">
+            <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div>
-            <img src="images/icons/myMods_icon.png" alt="" class="icon">
+          <div :class="user?.role !== 'ADMIN' && user?.role !== 'MODDER' ? 'disabled' : ''">
+            <img src="../assets/images/icons/myMods_icon.png" alt="" class="icon">
             <p>My modifications</p>
-            <img src="images/icons/arrow.png" alt="" class="arrow">
+            <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div>
-            <img src="images/icons/admin_icon.png" alt="" class="icon">
+          <div v-if="user?.role == 'ADMIN'">
+            <img src="../assets/images/icons/admin_icon.png" alt="" class="icon">
             <p>Admin</p>
-            <img src="images/icons/arrow.png" alt="" class="arrow">
+            <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
         </div>
-        <div class="logout">
-          <a href="index.html">
-          <img src="images/icons/logout_icon.png" alt="">
+        <div class="logout" @click="logout()">
+          <img src="../assets/images/icons/logout_icon.png" alt="">
           <span>Log out</span>
-          </a>
         </div>
       </div>
       <div class="right_side">
-        <div class="logo"></div>
-        <div class="title"><h2>Profile settings</h2></div>
-        <div class="content">
-
-
-
-        </div>
+        <ProfileSettings></ProfileSettings>
+        <ProfileComments></ProfileComments>
+        <ProfileModifications></ProfileModifications>
+        <AdminPanel></AdminPanel>
       </div>
     </div>
     <div class="closeBtn_container">
@@ -65,6 +60,10 @@
 <script setup>
 import { computed } from "vue";
 import { useStore } from "vuex";
+import ProfileSettings from "./ProfileSettings.vue";
+import ProfileComments from "./ProfileComments.vue";
+import ProfileModifications from "./ProfileModifications.vue";
+import AdminPanel from "./AdminPanel.vue";
 const store = useStore();
 
 const showProfile = computed(() => {
@@ -82,5 +81,10 @@ const user = computed(() => {
 const haveAvatar = computed(() => {
   return store.getters.haveAvatar;
 });
+
+function logout() {
+  store.dispatch("setShowPanel", {panel: "profile", show: false});
+  store.dispatch("logout");
+}
 
 </script>

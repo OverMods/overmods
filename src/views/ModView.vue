@@ -65,7 +65,7 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <div class="write_comment">
-          <div class="profile_avatar" style="background-image: url('../assets/images/icons/default_profile_avatar.png'); background-color: #949494;"></div>
+          <img class="profile_avatar" src="../assets/images/icons/default_profile_avatar.png" style="background-color: #949494;">
           <textarea type="text" placeholder="You need to login to leave comments." disabled></textarea>
           <div class="rate_mod">
             <p>Rate the mod</p>
