@@ -141,6 +141,20 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async postComment({ commit, state }, {comment, rating}) {
+            try {
+                const res = await HTTP.post(`/mod/${state.mod.id}/comment`, {
+                    mod: state.mod.id,
+                    comment: comment,
+                    rating: rating
+                });
+                if (!res.data.error) {
+                    commit("ADD_MY_COMMENT", {comment, rating});
+                }
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -222,6 +236,17 @@ export default createStore({
                 }
                 state.comments.push(comment);
             }
+        },
+        ADD_MY_COMMENT(state, data) {
+            state.comments.push({
+                user: state.user,
+                comment: {
+                    mod: state.mod.id,
+                    user: state.user.id,
+                    comment: data.comment,
+                    rating: data.rating
+                }
+            });
         },
         SET_USER(state, user) {
             state.user = user;
