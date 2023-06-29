@@ -93,8 +93,7 @@
             <div class="right">
               <div class="profile_name">{{ comment.user.username }}
                 <div class="rating">
-                  <div v-for="i in comment.comment.rating" class="star active"></div>
-                  <div v-for="i in 5 - comment.comment.rating" class="star"></div>
+                  <div v-for="i in 5" :class="`star ${i <= ratings[comment.user.id] ? 'active' : ''}`"></div>
                 </div>
               </div>
               <div class="text">{{ comment.comment.comment }}</div>
@@ -140,7 +139,10 @@ const screenshots = computed(() => {
 });
 const comments = computed(() => {
   return store.getters.getComments;
-})
+});
+const ratings = computed(() => {
+  return store.getters.getRatings;
+});
 
 function download(mod) {
   HTTP.get(`/mod/${mod.id}/download`).then((res) => {
@@ -153,15 +155,15 @@ function download(mod) {
 }
 
 let comment = "";
-let rating = 5;
+//let rating = 5;
 
 function setRating(r) {
-  rating = r;
+  store.dispatch("postRating", r);
 }
 
 function postComment(e) {
   e.preventDefault();
-  store.dispatch("postComment", {comment, rating});
+  store.dispatch("postComment", comment);
   e.target.reset();
 }
 
