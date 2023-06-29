@@ -12,6 +12,7 @@ export default createStore({
         author: {},
         screenshots: [],
         comments: [],
+        ratings: {},
         user: null,
         panels: {}
     },
@@ -24,6 +25,7 @@ export default createStore({
         getAuthor: (store) => store.author,
         getScreenshots: (store) => store.screenshots,
         getComments: (store) => store.comments,
+        getRatings: (store) => store.ratings,
         getUser: (store) => store.user,
         isLoggedIn: (store) => store.user !== null,
         getShowPanel: (store) => (panel) => store.panels[panel] || false
@@ -88,6 +90,13 @@ export default createStore({
                     return;
                 }
                 commit("SET_COMMENTS", comments.data);
+
+                const ratings = await HTTP.get(`/mod/${id}/rating`);
+                if (ratings.data.error) {
+                    console.log(ratings.data.error);
+                    return;
+                }
+                commit("SET_RATINGS", ratings.data);
             } catch (e) {
                 console.log(e);
             }
@@ -142,15 +151,27 @@ export default createStore({
                 console.log(e);
             }
         },
-        async postComment({ commit, state }, {comment, rating}) {
+        async postComment({ commit, state }, comment) {
             try {
                 const res = await HTTP.post(`/mod/${state.mod.id}/comment`, {
                     mod: state.mod.id,
-                    comment: comment,
+                    comment: comment
+                });
+                if (!res.data.error) {
+                    commit("ADD_MY_COMMENT", comment);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async postRating({ commit, state}, rating) {
+            try {
+                const res = await HTTP.put(`/mod/${state.mod.id}/rating`, {
+                    mod: state.mod.id,
                     rating: rating
                 });
                 if (!res.data.error) {
-                    commit("ADD_MY_COMMENT", {comment, rating});
+                    state.ratings[state.user.id] = rating;
                 }
             } catch (e) {
                 console.log(e);
@@ -237,14 +258,20 @@ export default createStore({
                 state.comments.push(comment);
             }
         },
+        SET_RATINGS(state, ratings) {
+            state.ratings = {};
+            for (let _rating of ratings) {
+                state.ratings[_rating.user] = _rating.rating;
+            }
+            console.log(state.ratings);
+        },
         ADD_MY_COMMENT(state, data) {
             state.comments.push({
                 user: state.user,
                 comment: {
                     mod: state.mod.id,
                     user: state.user.id,
-                    comment: data.comment,
-                    rating: data.rating
+                    comment: data.comment
                 }
             });
         },
