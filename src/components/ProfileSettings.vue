@@ -4,21 +4,62 @@
     <div class="content">
       <div class="container">
         <div class="top_block">
-          <div class="title">Password <a @click="onSett(0)">update</a></div>
+          <div class="title">Account information</div>
+        </div>
+        <div class="bottom_block">
+          <div class="elems">
+            <div class="title"><span><img src="../assets/images/icons/orange/name_ico.png">Nickname:</span> {{ user?.username }}</div>
+            <div class="title"><span><img src="../assets/images/icons/orange/role_ico.png">Role:</span> <span>{{ user?.role }}</span></div>
+            <div class="title"><span><img src="../assets/images/icons/orange/calendar_ico.png">Registered at:</span> 25.05.2023</div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="top_block">
+          <div class="title"><span>Password</span><span class="button" @click="onSettings(passwordBlock)"><img src="../assets/images/icons/edit.png" alt=""><a>Update</a></span></div>
           <div class="desc">We recommend periodically updating your password to enhance the security of your account.</div>
         </div>
-        <div class="bottom_block" id="passChangeBlock">
-          <br>
-          <label @click="onSett(0)" for="passwordOpen">cancel</label>
+        <div class="bottom_block">
+            <div class="elems" :style="block === passwordBlock ? 'display: none' : 'display: inherit'">
+              <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated 2 days ago</div>
+            </div>
+            <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
+              <a>Save </a>
+              <a @click="onSettings(empty)">Cancel</a>
+            </div>
         </div>
       </div>
       <div class="container">
-        <div class="top_block"></div>
-        <div class="bottom_block">fdf</div>
+        <div class="top_block">
+          <div class="title"><span>Email</span><span class="button" @click="onSettings(emailBlock)"><img src="../assets/images/icons/edit.png" alt=""><a>Update</a></span></div></div>
+        <div class="bottom_block">
+            <div class="elems" :style="block === emailBlock ? 'display: none' : 'display: inherit'">
+              <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> amy******l@gmail.com</div>
+            </div>
+            <div class="elems" :style="block === emailBlock ? 'display: inherit' : 'display: none'">
+              <a>Save </a>
+              <a @click="onSettings(empty)">Cancel</a>
+            </div>
+        </div>
       </div>
       <div class="container">
-        <div class="top_block"></div>
-        <div class="bottom_block">dasd</div>
+        <div class="top_block">
+          <div class="title"><span>Avatar</span><span class="button" @click="onSettings(avatarBlock)"><img src="../assets/images/icons/edit.png" alt=""><a>Update</a></span></div>
+        </div>
+        <div class="bottom_block">
+          <div class="elems" :style="block === avatarBlock ? 'display: none' : 'display: inherit'">
+
+          </div>
+          <div class="elems" :style="block === avatarBlock ? 'display: inherit' : 'display: none'">
+            <a>Save </a>
+            <a @click="onSettings(empty)">Cancel</a>
+            <p>ds</p>
+            <p>ds</p>
+            <p>ds</p>
+            <p>ds</p>
+            <p>ds</p>
+          </div>
+        </div>
       </div>
     </div>
 </template>
@@ -28,7 +69,9 @@
 </style>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
+import { useStore } from 'vuex';
+const store = useStore();
 
 const scriptPath = `${import.meta.env.BASE_URL}/js/betterScrollbar.js`;
 
@@ -39,14 +82,18 @@ onMounted(() => {
   document.head.appendChild(script);
 });
 
-function onSett(block){
-  let pass = document.getElementById('passChangeBlock')
-  if (block === 0){
-    if (pass.style.height === '100px'){
-      pass.style.height = '300px';
-    } else {
-      pass.style.height = '100px';
-    }
-  }
+const empty = 0;
+const passwordBlock = 1;
+const emailBlock = 2;
+const avatarBlock = 3;
+const block = ref(empty);
+
+function onSettings(b) {
+  block.value = b;
+  console.log(b);
 }
+
+const user = computed(() => {
+  return store.getters.getUser;
+});
 </script>

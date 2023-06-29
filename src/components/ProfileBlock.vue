@@ -77,7 +77,7 @@ function onClose() {
 
 const user = computed(() => {
   return store.getters.getUser;
-})
+});
 
 function logout() {
   store.dispatch("setShowPanel", {panel: "profile", show: false});

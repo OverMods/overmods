@@ -1579,6 +1579,7 @@ a{
 							position: absolute;
 							bottom: 0;
 							padding: 0 20px;
+              width: 92%;
 
 							.title{
 								font-family: VistolSans;
@@ -2340,10 +2341,9 @@ a{
         color: #767676;
         display: block;
         
-  
         .container{
           width: 80%;
-          min-height: 200px;
+          min-height: 80px;
           height: auto;
           background-color: rgba(167, 167, 167, 0.604);
           border-radius: 15px;
@@ -2355,7 +2355,7 @@ a{
             display: flex;
             flex-direction: column;
             width: 100%;
-            min-height: 100px;
+            min-height: 50px;
             background-color: rgba(167, 167, 167, 0.604);
 
             .title{
@@ -2363,21 +2363,84 @@ a{
               justify-content: space-between;
               color: #555;
               font-size: 1.1em;
+              margin-top: 15px;
               margin-bottom: 10px;
               margin-right: 4%;
+              line-height: 30px;
+
+              & span{
+                display: flex;
+                align-items: center;
+              }
+
+              & img{
+                width: 20px;
+                height: 18px;
+                object-fit: contain;
+                margin-right: 10px;
+              }
+
+              & a{
+                font-size: .9em;
+                cursor: pointer;
+              }
+
+              .button{
+                & img{
+                  height: 14px;
+                  filter: brightness(50%);
+                  cursor: pointer;
+                }
+
+                &:hover{
+                  filter: brightness(140%);
+                }
+              }
             }
 
             .desc{
               font-size: .9em;
               color: #767676;
-              margin-left: 4%;
+              margin: 0 4%;
+              margin-bottom: 10px;
             }
           }
           .bottom_block{
             width: 100%;
-            min-height: 100px;
-            height: 100px;
+            min-height: 30px;
             transition: .2s;
+
+            .elems{
+              margin: 15px 4%;
+
+              .title{
+                margin: 0;
+                padding: 0;
+                min-width: 50%;
+                max-width: 400px;
+                font-size: .9em;
+                margin-top: 10px;
+                display: flex;
+                justify-content: space-between;
+
+                & img{
+                  width: 20px;
+                  height: 15px;
+                  object-fit: contain;
+                  margin-right: 5px;
+                }
+
+                & span{
+                  display: flex;
+                  align-items: center;
+                  margin-right: 5px;
+                }
+
+                & span:nth-child(2){
+                  text-transform: lowercase;
+                }
+              }
+            }
           }
         }
 
@@ -2388,6 +2451,7 @@ a{
                 flex-direction: column;
               }
             }
+
           }
         }
       }

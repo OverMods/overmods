@@ -65,9 +65,9 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <form class="write_comment" @submit="postComment">
-          <div class="profile_avatar"
-               :style="`background-image: url('${isLoggedIn ? user.avatar : defaultAvatar}'); background-color: #949494;`"></div>
-          <textarea v-if="isLoggedIn" v-model="comment" type="text" placeholder="Type your comment here"></textarea>
+          <img class="profile_avatar" :src="isLoggedIn && user.avatar ? user.avatar : defaultAvatar"
+               :style="isLoggedIn && user.avatar ? '' : 'background-color: #949494;'">
+          <textarea v-if="isLoggedIn" v-model="comment" type="text" placeholder="Write here your impression about this modification"></textarea>
           <textarea v-else type="text" placeholder="You need to login to leave comments." disabled></textarea>
           <div class="rate_mod">
             <p>Rate the mod</p>
@@ -89,11 +89,12 @@
         </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
-            <div class="profile_avatar" :style="`background-image: url('${comment.user.avatar}');`"></div>
+            <img class="profile_avatar" :src="comment.user.avatar ? comment.user.avatar : defaultAvatar">
             <div class="right">
               <div class="profile_name">{{ comment.user.username }}
                 <div class="rating">
-                  <div class="star active" v-for="i in comment.comment.rating"></div>
+                  <div v-for="i in comment.comment.rating" class="star active"></div>
+                  <div v-for="i in 5 - comment.comment.rating" class="star"></div>
                 </div>
               </div>
               <div class="text">{{ comment.comment.comment }}</div>
@@ -114,11 +115,12 @@ import { onMounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { HTTP, getUploadUrl } from "../http.js";
+import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
 
 const route = useRoute();
 const store = useStore();
 
-const defaultAvatar = "../assets/images/icons/default_profile_avatar.png";
+
 
 const isLoggedIn = computed(() => {
   return store.getters.isLoggedIn;
