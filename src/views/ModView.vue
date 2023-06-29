@@ -155,11 +155,12 @@ let rating = 5;
 
 function setRating(r) {
   rating = r;
-  console.log(rating);
 }
 
 function postComment(e) {
   e.preventDefault();
+  store.dispatch("postComment", {comment, rating});
+  e.target.reset();
 }
 
 watch(() => route.params.id, () => {
