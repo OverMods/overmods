@@ -9,22 +9,23 @@
           {{ user?.username }}
         </div>
         <div class="list">
-          <div>
+          <div @click="selectMenu(MENU_SETTINGS)">
             <img src="../assets/images/icons/sett_icon.png" alt="" class="icon">
             <p>Settings</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div>
+          <div @click="selectMenu(MENU_COMMENTS)">
             <img src="../assets/images/icons/myComms_icon.png" alt="" class="icon">
             <p>My comments</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div :class="user?.role !== 'ADMIN' && user?.role !== 'MODDER' ? 'disabled' : ''">
+          <div @click="selectMenu(MENU_MODIFICATIONS)"
+               :class="user?.role !== 'ADMIN' && user?.role !== 'MODDER' ? 'disabled' : ''">
             <img src="../assets/images/icons/myMods_icon.png" alt="" class="icon">
             <p>My modifications</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div v-if="user?.role == 'ADMIN'">
+          <div @click="selectMenu(MENU_ADMIN)" v-if="user?.role == 'ADMIN'">
             <img src="../assets/images/icons/admin_icon.png" alt="" class="icon">
             <p>Admin</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
@@ -36,10 +37,10 @@
         </div>
       </div>
       <div class="right_side">
-        <ProfileSettings></ProfileSettings>
-        <ProfileComments></ProfileComments>
-        <ProfileModifications></ProfileModifications>
-        <AdminPanel></AdminPanel>
+        <ProfileSettings v-if="menu === MENU_SETTINGS"></ProfileSettings>
+        <ProfileComments v-if="menu === MENU_COMMENTS"></ProfileComments>
+        <ProfileModifications v-if="menu === MENU_MODIFICATIONS"></ProfileModifications>
+        <AdminPanel v-if="menu === MENU_ADMIN"></AdminPanel>
       </div>
     </div>
     <div class="closeBtn_container">
@@ -58,7 +59,7 @@
 </style>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
@@ -85,6 +86,17 @@ const haveAvatar = computed(() => {
 function logout() {
   store.dispatch("setShowPanel", {panel: "profile", show: false});
   store.dispatch("logout");
+}
+
+const MENU_SETTINGS = 0;
+const MENU_COMMENTS = 1;
+const MENU_MODIFICATIONS = 2;
+const MENU_ADMIN = 3;
+const menu = ref(MENU_SETTINGS);
+
+function selectMenu(m) {
+  menu.value = m;
+  console.log(m);
 }
 
 </script>
