@@ -21,13 +21,8 @@ import SideMenu from "./components/SideMenu.vue";
 import TopPanel from "./components/TopPanel.vue";
 import AuthBlock from "./components/AuthBlock.vue";
 import ProfileBlock from "./components/ProfileBlock.vue";
-
-const scriptPath = `${import.meta.env.BASE_URL}/js/betterScrollbar.js`;
-
-const script = document.createElement('script');
+import "../public/js/betterScrollbar.js";
 
 onMounted(() => {
-  script.src = scriptPath;
-  document.head.appendChild(script);
 });
 </script>
