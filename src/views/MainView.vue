@@ -36,11 +36,11 @@
             <img src="../assets/images/icons/stats_icon.png" alt="">
             <div class="games">
               <h5>Total games</h5>
-              <p>8</p>
+              <p>{{ stats.games }}</p>
             </div>
             <div class="mods">
               <h5>Total mods</h5>
-              <p>123</p>
+              <p>{{ stats.mods }}</p>
             </div>
           </div>
           <div class="ratings">
@@ -93,6 +93,9 @@ import { useStore } from "vuex";
 import TrendingGallery from "../components/TrendingGallery.vue";
 const store = useStore();
 
+const stats = computed(() => {
+  return store.getters.getStats;
+})
 const isLoggedIn = computed(() => {
   return store.getters.isLoggedIn;
 });
@@ -109,6 +112,6 @@ function onLogin() {
 }
 
 onMounted(() => {
-
+  store.dispatch("fetchStats");
 });
 </script>
