@@ -4,6 +4,7 @@ import {relativeDate, renderMarkdown} from "../utils.js";
 
 export default createStore({
     state: {
+        errors: {},
         gameList: [],
         stats: {},
         game: null,
@@ -17,6 +18,7 @@ export default createStore({
         panels: {}
     },
     getters: {
+        getError: (store) => (name) => store.errors[name],
         getGameList: (store) => store.gameList,
         getStats: (store) => store.stats,
         getGame: (store) => store.game,
@@ -36,7 +38,7 @@ export default createStore({
                 const res = await HTTP.get("/game");
                 commit("SET_GAME_LIST", res.data);
             } catch (e) {
-                console.log(e);
+                commit("SET_ERROR", {name: "gameList", error: e});
             }
         },
         async fetchStats({ commit }) {
@@ -44,19 +46,21 @@ export default createStore({
                 const res = await HTTP.get("/trends/stats");
                 commit("SET_STATS", res.data);
             } catch (e) {
-                console.log(e);
+                commit("SET_ERROR", {name: "stats", error: e});
             }
         },
         async fetchModList({ commit }, shortName) {
             try {
                 const res = await HTTP.get(`/game/${shortName}`);
                 if (res.data.error) {
-                    console.log(res.data.error);
+                    commit("SET_ERROR", {name: "modList", error: res.data.error});
                     return;
                 }
 
                 commit("SET_GAME", res.data.game);
                 commit("SET_MODS", res.data.mods);
+
+                commit("SET_NO_ERROR", "modList");
             } catch (e) {
                 console.log(e);
             }
@@ -65,38 +69,40 @@ export default createStore({
             try {
                 const mod = await HTTP.get(`/mod/${id}`);
                 if (mod.data.error) {
-                    console.log(mod.data.error);
+                    commit("SET_ERROR", {name: "mod", error: mod.data.error});
                     return;
                 }
                 commit("SET_MOD", mod.data);
 
                 const author = await HTTP.get(`/user/${mod.data.author}`);
                 if (author.data.error) {
-                    console.log(author.data.error);
+                    commit("SET_ERROR", {name: "mod", error: author.data.error});
                     return;
                 }
                 commit("SET_AUTHOR", author.data);
 
                 const screenshots = await HTTP.get(`/mod/${id}/screenshot`);
                 if (screenshots.data.error) {
-                    console.log(screenshots.data.error);
+                    commit("SET_ERROR", {name: "mod", error: screenshots.data.error});
                     return;
                 }
                 commit("SET_SCREENSHOTS", screenshots.data);
 
                 const comments = await HTTP.get(`/mod/${id}/comment`);
                 if (comments.data.error) {
-                    console.log(comments.data.error);
+                    commit("SET_ERROR", {name: "mod", error: comments.data.error});
                     return;
                 }
                 commit("SET_COMMENTS", comments.data);
 
                 const ratings = await HTTP.get(`/mod/${id}/rating`);
                 if (ratings.data.error) {
-                    console.log(ratings.data.error);
+                    commit("SET_ERROR", {name: "mod", error: ratings.data.error});
                     return;
                 }
                 commit("SET_RATINGS", ratings.data);
+
+                commit("SET_NO_ERROR", "mod");
             } catch (e) {
                 console.log(e);
             }
@@ -105,11 +111,13 @@ export default createStore({
             try {
                 const res = await HTTP.get("/login");
                 if (res.data.error) {
-                    console.log(res.data.error);
+                    commit("SET_ERROR", {name: "login", error: res.data.error});
                     return;
                 }
 
                 commit("SET_USER", res.data);
+
+                commit("SET_NO_ERROR", "login");
             } catch (e) {
                 console.log(e);
             }
@@ -121,11 +129,13 @@ export default createStore({
             try {
                 const res = await HTTP.post("/login", {username, password});
                 if (res.data.error) {
-                    console.log(res.data.error);
+                    commit("SET_ERROR", {name: "login", error: res.data.error});
                     return;
                 }
 
                 commit("SET_USER", res.data);
+
+                commit("SET_NO_ERROR", "login");
             } catch (e) {
                 console.log(e);
             }
@@ -134,11 +144,13 @@ export default createStore({
             try {
                 const res = await HTTP.post("/signup", {username, email, password});
                 if (res.data.error) {
-                    console.log(res.data.error);
+                    commit("SET_ERROR", {name: "signup", error: res.data.error});
                     return;
                 }
 
                 commit("SET_USER", res.data);
+
+                commit("SET_NO_ERROR", "signup");
             } catch (e) {
                 console.log(e);
             }
@@ -157,8 +169,11 @@ export default createStore({
                     mod: state.mod.id,
                     comment: comment
                 });
-                if (!res.data.error) {
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "comment", error: res.data.error});
+                } else {
                     commit("ADD_MY_COMMENT", comment);
+                    commit("SET_NO_ERROR", "comment");
                 }
             } catch (e) {
                 console.log(e);
@@ -170,8 +185,11 @@ export default createStore({
                     mod: state.mod.id,
                     rating: rating
                 });
-                if (!res.data.error) {
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "rating", error: res.data.error});
+                } else {
                     state.ratings[state.user.id] = rating;
+                    commit("SET_NO_ERROR", "rating");
                 }
             } catch (e) {
                 console.log(e);
@@ -179,6 +197,13 @@ export default createStore({
         }
     },
     mutations: {
+        SET_ERROR(state, {name, error}) {
+            state.errors[name] = error;
+            console.log(error);
+        },
+        SET_NO_ERROR(state, name) {
+            state.errors[name] = null;
+        },
         SET_GAME_LIST(state, gameList) {
             state.gameList = [];
             for (let game of gameList) {
