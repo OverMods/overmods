@@ -67,7 +67,11 @@
         <form class="write_comment" @submit="postComment">
           <img class="profile_avatar" :src="isLoggedIn && user.avatar ? user.avatar : defaultAvatar"
                :style="isLoggedIn && user.avatar ? '' : 'background-color: #949494;'">
-          <textarea v-if="isLoggedIn" v-model="comment" type="text" placeholder="Write here your impression about this modification"></textarea>
+          <textarea id="overmodsCommentArea"
+                    v-if="isLoggedIn"
+                    v-model="comment"
+                    type="text"
+                    placeholder="Write here your impression about this modification"></textarea>
           <textarea v-else type="text" placeholder="You need to login to leave comments." disabled></textarea>
           <div class="rate_mod">
             <p>Rate the mod</p>
