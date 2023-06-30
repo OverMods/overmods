@@ -7,6 +7,7 @@ export default createStore({
         errors: {},
         gameList: [],
         stats: {},
+        trends: [],
         game: null,
         mods: null,
         mod: {},
@@ -20,7 +21,9 @@ export default createStore({
     getters: {
         getError: (store) => (name) => store.errors[name],
         getGameList: (store) => store.gameList,
+        getGameById: (store) => (id) => store.gameList.find(g => g.id === id),
         getStats: (store) => store.stats,
+        getTrends: (store) => store.trends,
         getGame: (store) => store.game,
         getMods: (store) => store.mods,
         getMod: (store) => store.mod,
@@ -45,8 +48,20 @@ export default createStore({
             try {
                 const res = await HTTP.get("/trends/stats");
                 commit("SET_STATS", res.data);
+
+                commit("SET_NO_ERROR", "stats");
             } catch (e) {
                 commit("SET_ERROR", {name: "stats", error: e});
+            }
+        },
+        async fetchTrends({ commit }) {
+            try {
+                const res = await HTTP.get("/trends/mods");
+                commit("SET_TRENDS", res.data);
+
+                commit("SET_NO_ERROR", "trends");
+            } catch (e) {
+                commit("SET_ERROR", {name: "trends", error: e});
             }
         },
         async fetchModList({ commit }, shortName) {
@@ -220,6 +235,15 @@ export default createStore({
         },
         SET_STATS(state, stats) {
             state.stats = stats;
+        },
+        SET_TRENDS(state, trends) {
+            state.trends = [];
+            for (let trend of trends) {
+                if (trend.mod.logo) {
+                    trend.mod.logo = getUploadUrl(trend.mod.logo);
+                }
+                state.trends.push(trend);
+            }
         },
         SET_GAME(state, game) {
             state.game = game;
