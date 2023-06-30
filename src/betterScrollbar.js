@@ -1,47 +1,3 @@
-var contentBlocks = document.querySelectorAll('.content');
-
-contentBlocks.forEach(function(content) {
-  let scrollbar = document.createElement('div');
-  let thumb = document.createElement('div');
-  let isDragging = false;
-  let startPosition;
-  let startScrollTop;
-
-  scrollbar.classList.add('scrollbar');
-  thumb.classList.add('thumb');
-
-  scrollbar.appendChild(thumb);
-  content.appendChild(scrollbar);
-
-  updateScrollbar(content);
-
-  content.addEventListener('scroll', function() {
-    updateScrollbar(content);
-  });
-
-  window.addEventListener('resize', function() {
-    updateScrollbar(content);
-  });
-
-  thumb.addEventListener('mousedown', function(e) {
-    isDragging = true;
-    startPosition = e.clientY;
-    startScrollTop = content.scrollTop;
-  });
-
-  content.addEventListener('mousemove', function(e) {
-    if (isDragging) {
-      let deltaY = e.clientY - startPosition;
-      let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
-      content.scrollTop = startScrollTop + scrollDelta;
-    }
-  });
-
-  document.addEventListener('mouseup', function() {
-    isDragging = false;
-  });
-});
-
 function updateScrollbar(content) {
   let scrollbar = content.querySelector('.scrollbar');
   let thumb = content.querySelector('.thumb');
@@ -66,4 +22,50 @@ function updateScrollbar(content) {
   } else {
     scrollbar.classList.remove('scrollbar-hidden');
   }
+}
+
+export default function () {
+  var contentBlocks = document.querySelectorAll('.content');
+
+  contentBlocks.forEach(function (content) {
+    let scrollbar = document.createElement('div');
+    let thumb = document.createElement('div');
+    let isDragging = false;
+    let startPosition;
+    let startScrollTop;
+
+    scrollbar.classList.add('scrollbar');
+    thumb.classList.add('thumb');
+
+    scrollbar.appendChild(thumb);
+    content.appendChild(scrollbar);
+
+    updateScrollbar(content);
+
+    content.addEventListener('scroll', function () {
+      updateScrollbar(content);
+    });
+
+    window.addEventListener('resize', function () {
+      updateScrollbar(content);
+    });
+
+    thumb.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      startPosition = e.clientY;
+      startScrollTop = content.scrollTop;
+    });
+
+    content.addEventListener('mousemove', function (e) {
+      if (isDragging) {
+        let deltaY = e.clientY - startPosition;
+        let scrollDelta = (deltaY / scrollbar.offsetHeight) * content.scrollHeight;
+        content.scrollTop = startScrollTop + scrollDelta;
+      }
+    });
+
+    document.addEventListener('mouseup', function () {
+      isDragging = false;
+    });
+  });
 }
