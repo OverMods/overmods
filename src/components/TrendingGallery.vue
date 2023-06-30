@@ -1,26 +1,5 @@
 <template>
   <div class="trending_gallery">
-    <!--<div class="slide">
-      <h2>Overwatch</h2>
-      <p>A popular mod for overwatch game</p>
-      <span>hover here</span>
-      <div over class="picture"></div>
-      <button></button>
-    </div>
-    <div class="slide">
-      <h2>Metro 2033</h2>
-      <p>A popular mod for metro 2033 game</p>
-      <span>hover here</span>
-      <div metro class="picture"></div>
-      <button></button>
-    </div>
-    <div class="slide">
-      <h2>Minecraft Le...</h2>
-      <p>A popular mod for minecraft legends game</p>
-      <span>hover here</span>
-      <div mine class="picture"></div>
-      <button></button>
-    </div>-->
     <div v-for="trend in trends" class="slide">
       <router-link :to="`/game/${getGameById(trend.mod.game)?.shortName }/mod/${trend.mod.id}`">
         <h2>{{ getGameById(trend.mod.game)?.title }}</h2>
