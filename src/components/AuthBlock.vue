@@ -28,12 +28,14 @@
             <label for="overmodsSignup_email">email</label>
           </div>
           <div class="input_label">
-            <input v-model="password" type="password" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
+            <input v-model="password" @input="updatePassStrenght" type="password" name="overmodsSignup_password" placeholder=" " id="overmodsSignup_password">
             <label for="overmodsSignup_password">password</label>
           </div>
           <div class="input_label">
             <input v-model="passwordConfirm" type="password" name="overmodsSignup_confirm_password" placeholder=" " id="overmodsSignup_confirm_password">
             <label for="overmodsSignup_confirm_password">confirm password</label>
+            <div class="pass_strenght"><div class="active" :style="`width: ${meterWidth}`"></div></div>
+            <div class="strenght_text">{{ text }}</div>
           </div>
           <button type="submit">Sign up</button>
         </form>
@@ -95,5 +97,53 @@ function onSignup(e) {
   e.preventDefault();
   store.dispatch("postSignup", {username: login, email, password});
   onClose();
+}
+
+// passStrenght.js
+
+const startWidth = "0%";
+const meterWidth = ref(startWidth);
+
+const startText = "Password strenght";
+const text = ref(startText);
+
+function updatePassStrenght(){
+  const strength = calculatePassStrength(password);
+  meterWidth.value = `${strength * 20}%`;
+  if (strength == 1){
+    text.value = "Very Weak"
+  } else if (strength == 2){
+    text.value = "Weak"
+  } else if (strength == 3){
+    text.value = "Moderate"
+  } else if (strength == 4){
+    text.value = "Strong"
+  } else if (strength == 5){
+    text.value = "Very strong"
+  } else {
+    text.value = startText;
+  }
+}
+
+function calculatePassStrength(password) {
+  let strength = 0;
+
+  if (password.length >= 8) {
+    strength += 1;
+  }
+  if (/[a-zа-яіїґ]/.test(password)) {
+    strength += 1;
+  }
+  if (/[A-ZА-ЯІЇҐ]/.test(password)) {
+    strength += 1;
+  }
+  if (/[0-9]/.test(password)) {
+    strength += 1;
+  }
+  if (/[^A-Za-zА-Яа-я0-9іІїЇґҐ]/.test(password)) {
+    strength += 1;
+  }
+
+  return strength;
 }
 </script>

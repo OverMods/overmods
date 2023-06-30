@@ -1975,7 +1975,7 @@ a{
 
 		.input_label{
 			position: relative;
-			margin: 15px 0;
+			margin: 10px 0;
 		}
 
 		& label{
@@ -2088,6 +2088,29 @@ a{
 			right: 0;
 			transform: translateX(0);
 		 }
+
+     .pass_strenght{
+      width: 95%;
+      margin-left: 2.5%;
+      height: 5px;
+      border-radius: 20px;
+      background-color: #c86e19;
+      margin-top: 7px;
+      overflow: hidden;
+
+      .active{
+        background-color: #ff7a00;
+        width: 0;
+        height: 100%;
+        border-radius: 20px;
+        transition: .3s;
+      }
+    }
+    .strenght_text{
+      color: #767676;
+      font-size: .7em;
+      font-weight: 900;;
+    }
 	}
   .closeBtn_container{
     position: absolute;
@@ -2394,21 +2417,23 @@ a{
               }
 
               .button{
+                color: #e26d00;
+                
                 & img{
                   height: 14px;
-                  filter: brightness(50%);
+                  filter: brightness(90%);
                   cursor: pointer;
                 }
 
                 &:hover{
-                  filter: brightness(140%);
+                  filter: brightness(110%);
                 }
               }
             }
 
             .desc{
-              font-size: .9em;
-              color: #767676;
+              font-size: clamp(.7em, 1.5vw, .9em);
+              color: #8e8e8e;
               margin: 0 4%;
               margin-bottom: 10px;
             }
@@ -2436,6 +2461,7 @@ a{
                   height: 15px;
                   object-fit: contain;
                   margin-right: 5px;
+                  filter: brightness(90%);
                 }
 
                 & span{
@@ -2446,6 +2472,40 @@ a{
 
                 & span:nth-child(2){
                   text-transform: lowercase;
+                }
+
+                & input{
+                  outline: none;
+                  border: none;
+                  border-bottom: 1px solid #ff7a00;
+                  background-color: rgba(208, 208, 208, 0.25);
+                  margin-left: 15px;
+                  min-width: clamp(140px, 20vw, 230px);
+                  width: 15%;
+                  height: 30px;
+                  padding: 0 10px;
+                  color: #767676;
+                }
+              }
+              
+              .buttons{
+
+                & button{
+                  outline: none;
+                  border: 2px solid gray;
+                  color: gray;
+                  padding: 7px 15px;
+                  margin-top: 20px;
+                  margin-left: 10px;
+                  border-radius: 20px;
+                  background-color: rgba(0, 0, 0, 0);
+                  cursor: pointer;
+                }
+
+                & button[type="submit"]{
+                  background-color: rgba(255, 123, 0, 0.85);
+                  color: #fff;
+                  border: 2px solid rgba(255, 123, 0, 0.85);
                 }
               }
             }

@@ -46,7 +46,5 @@ defineExpose({
 
 onMounted(() => {
   store.dispatch("fetchGameList");
-  //import('../assets/js/gameSearch.js');
-  //import('../assets/js/shorten-gameTitle.js');
 });
 </script>

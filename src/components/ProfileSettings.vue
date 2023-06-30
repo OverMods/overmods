@@ -25,11 +25,13 @@
             </div>
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
               <form onsubmit="return false">
-                <div class="title">Old password: <input type="text"></div>
-                <div class="title">New password: <input type="text"></div>
-                <div class="title">Confirm password: <input type="text"></div>
-                <button type="submit" @click="onSettings(empty)">Save</button>
-                <button @click="onSettings(empty)">Cancel</button>
+                <div class="title">Old password: <input type="password"></div>
+                <div class="title">New password: <input type="password"></div>
+                <div class="title">Confirm password: <input type="password"></div>
+                <div class="buttons">
+                  <button type="submit" @click="onSettings(empty)">Save</button>
+                  <button @click="onSettings(empty)">Cancel</button>
+                </div>
               </form>
             </div>
         </div>
@@ -45,8 +47,10 @@
               <form onsubmit="return false">
                 <div class="title">Old email: <input type="text"></div>
                 <div class="title">New email: <input type="text"></div>
-                <button type="submit" @click="onSettings(empty)">Save</button>
-                <button @click="onSettings(empty)">Cancel</button>
+                <div class="buttons">
+                  <button type="submit" @click="onSettings(empty)">Save</button>
+                  <button @click="onSettings(empty)">Cancel</button>
+                </div>
               </form>
             </div>
         </div>
