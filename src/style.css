@@ -2088,29 +2088,6 @@ a{
 			right: 0;
 			transform: translateX(0);
 		 }
-
-     .pass_strenght{
-      width: 95%;
-      margin-left: 2.5%;
-      height: 5px;
-      border-radius: 20px;
-      background-color: #c86e19;
-      margin-top: 7px;
-      overflow: hidden;
-
-      .active{
-        background-color: #ff7a00;
-        width: 0;
-        height: 100%;
-        border-radius: 20px;
-        transition: .3s;
-      }
-    }
-    .strenght_text{
-      color: #767676;
-      font-size: .7em;
-      font-weight: 900;;
-    }
 	}
   .closeBtn_container{
     position: absolute;
@@ -2172,6 +2149,30 @@ a{
         background-image: url(./assets/images/icons/mark_icon.png);
       }
     }
+  }
+
+  .pass_strenght{
+    width: 95%;
+    max-width: 142.5px;
+    margin-left: 2.5%;
+    height: 5px;
+    border-radius: 20px;
+    background-color: #c86e19;
+    margin-top: 7px;
+    overflow: hidden;
+
+    .active{
+      background-color: #ff7a00;
+      width: 0;
+      height: 100%;
+      border-radius: 20px;
+      transition: .3s;
+    }
+  }
+  .strenght_text{
+    color: #767676;
+    font-size: .7em;
+    font-weight: 900;;
   }
 }
 
@@ -2445,6 +2446,12 @@ a{
 
             .elems{
               margin: 15px 4%;
+
+              .column_elem{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
 
               .title{
                 margin: 0;

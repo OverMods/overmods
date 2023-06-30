@@ -26,8 +26,9 @@
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
               <form onsubmit="return false">
                 <div class="title">Old password: <input type="password"></div>
-                <div class="title">New password: <input type="password"></div>
-                <div class="title">Confirm password: <input type="password"></div>
+                <div class="title">New password: <input v-model="password" @input="updatePassStrenght" type="password"></div>
+                <div class="title">Confirm password: <div class="column_elem"><input type="password"><div class="pass_strenght"><div class="active" :style="`width: ${meterWidth}`"></div></div>
+                <div class="strenght_text">{{ text }}</div></div></div>
                 <div class="buttons">
                   <button type="submit" @click="onSettings(empty)">Save</button>
                   <button @click="onSettings(empty)">Cancel</button>
@@ -84,16 +85,12 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import installScollbar from "../betterScrollbar.js";
 const store = useStore();
 
-const scriptPath = `${import.meta.env.BASE_URL}/js/betterScrollbar.js`;
-
-const script = document.createElement('script');
-
 onMounted(() => {
-  script.src = scriptPath;
-  document.head.appendChild(script);
-});
+  installScollbar();
+})
 
 const empty = 0;
 const passwordBlock = 1;
@@ -109,4 +106,33 @@ function onSettings(b) {
 const user = computed(() => {
   return store.getters.getUser;
 });
+
+// passStrenght.js
+let password = "";
+
+import { calculatePassStrength } from "../passStrength.js";
+
+const startWidth = "0%";
+const meterWidth = ref(startWidth);
+
+const startText = "Password strenght";
+const text = ref(startText);
+
+function updatePassStrenght(){
+  const strength = calculatePassStrength(password);
+  meterWidth.value = `${strength * 20}%`;
+  if (strength == 1){
+    text.value = "Very Weak"
+  } else if (strength == 2){
+    text.value = "Weak"
+  } else if (strength == 3){
+    text.value = "Moderate"
+  } else if (strength == 4){
+    text.value = "Strong"
+  } else if (strength == 5){
+    text.value = "Very strong"
+  } else {
+    text.value = startText;
+  }
+}
 </script>

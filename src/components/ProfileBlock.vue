@@ -65,7 +65,7 @@ import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
 import ProfileModifications from "./ProfileModifications.vue";
 import AdminPanel from "./AdminPanel.vue";
-import installScollbar from "../betterScrollbar.js";
+
 const store = useStore();
 
 const showProfile = computed(() => {
@@ -95,8 +95,4 @@ function selectMenu(m) {
   menu.value = m;
   console.log(m);
 }
-
-onMounted(() => {
-  installScollbar();
-})
 </script>
