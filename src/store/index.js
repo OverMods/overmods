@@ -349,6 +349,12 @@ export default createStore({
             if (user?.avatar) {
                 state.user.avatar = getUploadUrl(user.avatar);
             }
+            if (user?.updatedAt) {
+                state.user.updatedAt = relativeDate(user.updatedAt);
+            }
+            if (user?.passwordChanged) {
+                state.user.passwordChanged = relativeDate(user.passwordChanged);
+            }
             console.log(state.user);
         },
         SET_SHOW_PANEL(state, {panel, show}) {
