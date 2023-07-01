@@ -67,14 +67,19 @@
           <div class="elems" :style="block === avatarBlock ? 'display: inherit' : 'display: none'">
             <form onsubmit="return false">
               <div class="avatar_change">
-                <div class="avatar" :style="user?.avatar ? 'background-image: url('+ user.avatar + ')' : 'background-image: url(' + defaultAvatar + ')'"></div>
-                <div class="file">
-                  <img src="../assets/images/icons/upload_icon.png" alt="">
-                  <p>Drag & Drop image here</p>
-                  <p>OR</p>
-                  <input type="file" id="overmodsAvatarUpload">
-                  <label for="overmodsAvatarUpload">Browse image</label>
-                </div>
+                <div class="avatar" :style="user?.avatar ? 'background-image: url('+ user.avatar + '); background-size: contain;' : 'background-image: url(' + defaultAvatar + ')'"></div>
+                <div class="file" 
+                  :class="{ active: isDragOver }" 
+                  @dragover.prevent="handleDragOver" 
+                  @dragleave="handleDragLeave" 
+                  @drop.prevent="handleDrop">
+                <img v-if="fileURL" :src="fileURL" class="new_avatar_img">
+                <img v-else :src="uploadIcon">
+                <p class="dragText">{{ dragText }}</p>
+                <p v-if="dragText !== null">OR</p>
+                <input @change="handleInputChange" ref="input" type="file" id="overmodsAvatarUpload">
+                <label v-if="dragText !== null" for="overmodsAvatarUpload">Browse image</label>
+              </div>
               </div>
               <div class="buttons">
                 <button type="submit" @click="onSettings(empty)">Save</button>
@@ -107,11 +112,17 @@ import { onMounted, ref, computed } from 'vue';
 import { useStore } from 'vuex';
 import installScollbar from "../betterScrollbar.js";
 import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
+import uploadIcon from '../assets/images/icons/upload_icon.png';
+import { calculatePassStrength } from "../passStrength.js";
 const store = useStore();
 
 onMounted(() => {
   installScollbar();
 })
+
+const user = computed(() => {
+  return store.getters.getUser;
+});
 
 const empty = 0;
 const passwordBlock = 1;
@@ -119,18 +130,65 @@ const emailBlock = 2;
 const avatarBlock = 3;
 const block = ref(empty);
 
+const isDragOver = ref(false);
+const dragText = ref("Drag & Drop to Upload File");
+const fileURL = ref(null);
+const file = ref(null);
+
 function onSettings(b) {
   block.value = b;
+
+  if (b === empty){
+    isDragOver.value = false;
+    dragText.value = "Drag & Drop to Upload File";
+    fileURL.value = null;
+    file.value = null;
+  }
 }
 
-const user = computed(() => {
-  return store.getters.getUser;
-});
+// onAvatarUpload.js
+
+function handleDragOver(event) {
+  event.preventDefault();
+  isDragOver.value = true;
+  dragText.value = "Release to Upload File";
+}
+function handleDragLeave() {
+  isDragOver.value = false;
+  dragText.value = "Drag & Drop to Upload File";
+}
+function handleDrop(event) {
+  event.preventDefault();
+  isDragOver.value = false;
+  dragText.value = null;
+
+  file.value = event.dataTransfer.files[0];
+  viewFile();
+}
+function handleInputChange(event) {
+  file.value = event.target.files[0];
+  isDragOver.value = true;
+  dragText.value = null;
+  viewFile();
+}
+function viewFile() {
+  let fileType = file.value.type;
+  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+  if (validExtensions.includes(fileType)) {
+    let fileReader = new FileReader();
+    fileReader.onload = () => {
+      fileURL.value = fileReader.result;
+    };
+    fileReader.readAsDataURL(file.value);
+  } else {
+    alert("This is not an Image File!");
+    dragText.value = "Drag & Drop to Upload File";
+    file.value = null;
+  }
+}
 
 // passStrenght.js
 let password = "";
-
-import { calculatePassStrength } from "../passStrength.js";
 
 const startWidth = "0%";
 const meterWidth = ref(startWidth);
