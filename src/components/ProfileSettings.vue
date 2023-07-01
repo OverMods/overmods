@@ -21,16 +21,16 @@
         </div>
         <div class="bottom_block">
             <div class="elems" :style="block === passwordBlock ? 'display: none' : 'display: inherit'">
-              <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated 2 days ago</div>
+              <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated {{ user.passwordChanged }}</div>
             </div>
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
-              <form onsubmit="return false">
+              <form @submit="onPassword">
                 <div class="title">Old password: <input type="password"></div>
                 <div class="title">New password: <input v-model="password" @input="updatePassStrenght" type="password"></div>
                 <div class="title">Confirm password: <div class="column_elem"><input type="password"><div class="pass_strenght"><div class="active" :style="`width: ${meterWidth}`"></div></div>
                 <div class="strenght_text">{{ text }}</div></div></div>
                 <div class="buttons">
-                  <button type="submit" @click="onSettings(empty)">Save</button>
+                  <button type="submit">Save</button>
                   <button @click="onSettings(empty)">Cancel</button>
                 </div>
               </form>
@@ -42,14 +42,14 @@
           <div class="title"><span>Email</span><span class="button" @click="onSettings(emailBlock)"><img src="../assets/images/icons/edit.png" alt=""><a>Update</a></span></div></div>
         <div class="bottom_block">
             <div class="elems" :style="block === emailBlock ? 'display: none' : 'display: inherit'">
-              <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> amy******l@gmail.com</div>
+              <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> {{ user.email }}</div>
             </div>
             <div class="elems" :style="block === emailBlock ? 'display: inherit' : 'display: none'">
-              <form onsubmit="return false">
+              <form @submit="onEmail">
                 <div class="title">Old email: <input type="text"></div>
-                <div class="title">New email: <input type="text"></div>
+                <div class="title">New email: <input v-model="email" type="text"></div>
                 <div class="buttons">
-                  <button type="submit" @click="onSettings(empty)">Save</button>
+                  <button type="submit">Save</button>
                   <button @click="onSettings(empty)">Cancel</button>
                 </div>
               </form>
@@ -65,7 +65,7 @@
             <div class="profile_icon"><img :src="user?.avatar ? user.avatar : defaultAvatar">Explore and customize your unique profile avatar in the world of game modifications. Discover, preview, and change your avatar to reflect your individuality and style.</div>
           </div>
           <div class="elems" :style="block === avatarBlock ? 'display: inherit' : 'display: none'">
-            <form onsubmit="return false">
+            <form @submit="onAvatar">
               <div class="avatar_change">
                 <div class="avatar" :style="user?.avatar ? 'background-image: url('+ user.avatar + '); background-size: contain;' : 'background-image: url(' + defaultAvatar + ')'"></div>
                 <div class="file" 
@@ -189,6 +189,32 @@ function viewFile() {
 
 // passStrenght.js
 let password = "";
+let email = "";
+let avatar = null;
+
+function onPassword(e) {
+  e.preventDefault();
+  store.dispatch("patchUser", {password});
+  onSettings(empty);
+}
+
+function onEmail(e) {
+  e.preventDefault();
+  store.dispatch("patchUser", {email});
+  onSettings(empty);
+}
+
+function onAvatarFile(e) {
+  avatar = e.target.files[0];
+}
+
+function onAvatar(e) {
+  e.preventDefault();
+  if (avatar) {
+    store.dispatch("putAvatar", avatar);
+  }
+  onSettings(empty);
+}
 
 const startWidth = "0%";
 const meterWidth = ref(startWidth);

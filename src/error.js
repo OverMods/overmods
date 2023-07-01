@@ -11,7 +11,8 @@ export const errors = {
     ALREADY_AUTHORIZED: declareError(6, "Already logged in", "You are already logged in."),
     NOT_FOUND: declareError(7, "Not found", "The requested resource was not found."),
     FAILED: declareError(8, "Failed", "The operation failed."),
-    USER_ALREADY_EXISTS: declareError(9, "User already exists", "The user already exists.")
+    USER_ALREADY_EXISTS: declareError(9, "User already exists", "The user already exists."),
+    NOT_MODIFIED: declareError(10, "Not modified", "The data you've provided hasn't been updated or changed")
 };
 
 export function fullError(error) {

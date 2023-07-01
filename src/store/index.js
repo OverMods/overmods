@@ -223,6 +223,23 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async putAvatar({ commit }, avatar) {
+            try {
+                const fd = new FormData();
+                fd.append("avatar", avatar);
+
+                const res = await HTTP.put("/user/avatar", fd);
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "avatar", error: res.data.error});
+                    return;
+                }
+                commit("SET_USER", res.data);
+
+                commit("SET_NO_ERROR", "avatar");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -348,6 +365,12 @@ export default createStore({
             state.user = user;
             if (user?.avatar) {
                 state.user.avatar = getUploadUrl(user.avatar);
+            }
+            if (user?.updatedAt) {
+                state.user.updatedAt = relativeDate(user.updatedAt);
+            }
+            if (user?.passwordChanged) {
+                state.user.passwordChanged = relativeDate(user.passwordChanged);
             }
             console.log(state.user);
         },

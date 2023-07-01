@@ -1,13 +1,15 @@
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import customFormatParse from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { marked } from "marked";
 
+dayjs.extend(utc);
 dayjs.extend(customFormatParse);
 dayjs.extend(relativeTime);
 
 export function relativeDate(date) {
-    return dayjs(date, "YY-MM-DD HH:mm:ss").fromNow();
+    return dayjs.utc(date, "YY-MM-DD HH:mm:ss").fromNow();
 }
 
 marked.use({
