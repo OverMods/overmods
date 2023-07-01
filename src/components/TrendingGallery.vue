@@ -21,7 +21,9 @@
 import { onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import simpleSlider from "../simpleSlider.js";
+import { useRouter } from "vue-router";
 const store = useStore();
+const router = useRouter();
 
 const getGameById = computed(() => {
   return store.getters.getGameById;
@@ -32,6 +34,15 @@ const trends = computed(() => {
 
 store.dispatch("fetchGameList");
 store.dispatch("fetchTrends");
+
+router.afterEach((to, from) => {
+  if (to.path === "/") {
+    window.addEventListener('load', () => {
+      simpleSlider();
+    });
+  }
+  return true;
+});
 
 onMounted(() => {
   window.addEventListener('load', () => {

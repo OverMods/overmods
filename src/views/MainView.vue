@@ -48,15 +48,15 @@
             <p v-if="user && user?.siteRating !== null">Your rate:</p>
             <p v-else>Rate our work</p>
             <div class="stars">
-              <input type="radio" id="star5" name="rating" :checked="user?.siteRating == 5 ? true : false">
+              <input @click="onRating(5)" type="radio" id="star5" name="rating" :checked="user?.siteRating == 5 ? true : false">
               <label for="star5"></label>
-              <input type="radio" id="star4" name="rating" :checked="user?.siteRating == 4 ? true : false">
+              <input @click="onRating(4)" type="radio" id="star4" name="rating" :checked="user?.siteRating == 4 ? true : false">
               <label for="star4"></label>
-              <input type="radio" id="star3" name="rating" :checked="user?.siteRating == 3 ? true : false">
+              <input @click="onRating(3)" type="radio" id="star3" name="rating" :checked="user?.siteRating == 3 ? true : false">
               <label for="star3"></label>
-              <input type="radio" id="star2" name="rating" :checked="user?.siteRating == 2 ? true : false">
+              <input @click="onRating(2)" type="radio" id="star2" name="rating" :checked="user?.siteRating == 2 ? true : false">
               <label for="star2"></label>
-              <input type="radio" id="star1" name="rating" :checked="user?.siteRating == 1 ? true : false">
+              <input @click="onRating(1)" type="radio" id="star1" name="rating" :checked="user?.siteRating == 1 ? true : false">
               <label for="star1"></label>
             </div>
           </div>
@@ -105,6 +105,10 @@ const isLoggedIn = computed(() => {
 const user = computed(() => {
   return store.getters.getUser;
 })
+
+function onRating(r) {
+  store.dispatch("patchUser", {siteRating: r});
+}
 
 function onProfile() {
   store.dispatch("setShowPanel", {panel: "profile", show: true});
