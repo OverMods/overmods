@@ -21,7 +21,7 @@
         </div>
         <div class="bottom_block">
             <div class="elems" :style="block === passwordBlock ? 'display: none' : 'display: inherit'">
-              <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated 2 days ago</div>
+              <div class="title"><span><img src="../assets/images/icons/orange/secure_ico.png">Password:</span> updated {{ user.passwordChanged }}</div>
             </div>
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
               <form onsubmit="return false">
@@ -42,7 +42,7 @@
           <div class="title"><span>Email</span><span class="button" @click="onSettings(emailBlock)"><img src="../assets/images/icons/edit.png" alt=""><a>Update</a></span></div></div>
         <div class="bottom_block">
             <div class="elems" :style="block === emailBlock ? 'display: none' : 'display: inherit'">
-              <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> amy******l@gmail.com</div>
+              <div class="title"><span><img src="../assets/images/icons/orange/mail_ico.png">Email:</span> {{ user.email }}</div>
             </div>
             <div class="elems" :style="block === emailBlock ? 'display: inherit' : 'display: none'">
               <form onsubmit="return false">
