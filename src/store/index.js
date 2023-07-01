@@ -209,6 +209,20 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async patchUser({ commit }, user) {
+            try {
+                const res = await HTTP.patch("/user", user);
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "user", error: res.data.error});
+                    return;
+                }
+                commit("SET_USER", res.data);
+
+                commit("SET_NO_ERROR", "user");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
