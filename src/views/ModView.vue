@@ -16,7 +16,7 @@
             <div class="changeble">{{ author.username }}</div>
 
             <div class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
-            <div class="changeble">{{ mod.fileSize }}</div>
+            <div class="changeble">{{ mod.humanFileSize }}</div>
 
             <div class="downloads"><img src="../assets/images/icons/download_icon.png">Downloads</div>
             <div class="changeble">{{ mod.downloaded }}</div>
@@ -28,7 +28,9 @@
           </div>
         </div>
         <div class="buttons">
-          <button @click="download(mod)" class="download"><img src="../assets/images/icons/download_icon.png" alt="">Download</button>
+          <button v-if="mod.fileSize" @click="download(mod)" class="download">
+            <img src="../assets/images/icons/download_icon.png" alt="">Download
+          </button>
           <button class="comments"><img src="../assets/images/icons/comments_icon.png" alt="">Comments</button>
         </div>
       </div>

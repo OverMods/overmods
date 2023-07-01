@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { HTTP, getUploadUrl } from "../http.js";
-import {relativeDate, renderMarkdown} from "../utils.js";
+import { relativeDate, renderMarkdown, humanFileSize } from "../utils.js";
 
 export default createStore({
     state: {
@@ -261,6 +261,9 @@ export default createStore({
                 if (mod.instruction) {
                     mod.instuctionHtml = renderMarkdown(mod.instruction);
                 }
+                if (mod.fileSize) {
+                    mod.humanFileSize = humanFileSize(mod.fileSize);
+                }
                 state.mods.push(mod);
             }
         },
@@ -277,6 +280,9 @@ export default createStore({
             }
             if (mod.uploadedAt) {
                 state.mod.uploadedAt = relativeDate(mod.uploadedAt);
+            }
+            if (mod.fileSize) {
+                mod.humanFileSize = humanFileSize(mod.fileSize);
             }
         },
         SET_AUTHOR(state, author) {
