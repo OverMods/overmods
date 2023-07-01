@@ -58,7 +58,6 @@
     <div class="closeBtn_container">
       <div class="closeBtn" @click="onClose">
         <div class="icon"></div>
-        <p>Continue as a guest</p>
       </div>
     </div>
   </div>

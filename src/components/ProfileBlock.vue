@@ -3,8 +3,7 @@
     <div class="profile">
       <div class="side">
         <div class="short_info">
-          <img :src="user?.avatar" alt="" v-if="user?.avatar !== null">
-          <img src="../assets/images/icons/default_profile_avatar.png" v-else>
+          <img :src="user?.avatar ? user.avatar : defaultAvatar" alt="">
           <div class="role" :role="user?.role">{{ user?.role }}</div>
           <div>{{ user?.username }}</div>
         </div>
@@ -47,9 +46,6 @@
       <div class="closeBtn" @click="onClose">
         <div class="icon"></div>
       </div>
-      <div class="saveBtn" @click="onClose">
-        <div class="icon"></div>
-      </div>
     </div>
   </div>
 </template>
@@ -65,6 +61,8 @@ import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
 import ProfileModifications from "./ProfileModifications.vue";
 import AdminPanel from "./AdminPanel.vue";
+import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
+
 
 const store = useStore();
 

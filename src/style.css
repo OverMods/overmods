@@ -2377,7 +2377,7 @@ a{
           width: 80%;
           min-height: 80px;
           height: auto;
-          background-color: rgba(167, 167, 167, 0.604);
+          background-color: rgba(167, 167, 167, 0.35);
           border-radius: 15px;
           overflow: hidden;
           margin: auto;
@@ -2388,7 +2388,7 @@ a{
             flex-direction: column;
             width: 100%;
             min-height: 50px;
-            background-color: rgba(167, 167, 167, 0.604);
+            background-color: rgba(167, 167, 167, 0.347);
 
             .title{
               display: flex;
@@ -2446,11 +2446,25 @@ a{
 
             .elems{
               margin: 15px 4%;
+              font-size: .9em;
 
               .column_elem{
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+              }
+
+              .profile_icon{
+                display: flex;
+                align-items: center;
+                color: #8e8e8e;
+                
+                & img{
+                  float: left;
+                  width: 50px;
+                  height: 50px;
+                  margin-right: 15px;
+                }
               }
 
               .title{
@@ -2477,10 +2491,6 @@ a{
                   margin-right: 5px;
                 }
 
-                & span:nth-child(2){
-                  text-transform: lowercase;
-                }
-
                 & input{
                   outline: none;
                   border: none;
@@ -2493,6 +2503,15 @@ a{
                   padding: 0 10px;
                   color: #767676;
                 }
+              }
+
+              .text{
+                color: #8e8e8e;
+              }
+
+              & a.title{
+                color: #e26d00;
+                cursor: pointer;
               }
               
               .buttons{
@@ -2513,6 +2532,76 @@ a{
                   background-color: rgba(255, 123, 0, 0.85);
                   color: #fff;
                   border: 2px solid rgba(255, 123, 0, 0.85);
+                }
+              }
+
+              .avatar_change{
+                display: flex;
+                align-items: center;
+    
+                .avatar{
+                  min-width: clamp(200px, 26vw, 280px);
+                  min-height: clamp(200px, 26vw, 280px);
+                  object-fit: contain;
+                  background-color:rgba(169, 169, 169, 0.5);
+                  background-position: center center;
+                  background-repeat: no-repeat;
+                  border-radius: 15px;
+                  margin-right: 10px;
+                }
+    
+                .file{
+                  height: clamp(220px, 26vw, 240px);
+                  max-width: clamp(180px, 26vw, 360px);
+                  width: 100%;
+                  border-radius: 15px;
+                  border: 2px dotted #767676;
+                  cursor: pointer;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  margin-right: 4%;
+    
+                  & img{
+                    width: clamp(45px, 1vw, 60px);
+                    height: clamp(45px, 1vw, 60px);
+                    filter: brightness(70%);
+                    margin-bottom: 10px;
+                  }
+    
+                  & p{
+                    margin: 2px 0;
+                    padding: 0;
+                    font-size: clamp(.8em, 1vw, 1em);
+                  }
+                  
+                  & input[type="file"]{
+                    display: none;
+                  }
+
+                  & label[for="overmodsAvatarUpload"]{
+                    margin-top: 10px;
+                    cursor: pointer;
+                    outline: none;
+                    border-radius: 30px;
+                    border: 2px solid #767676;
+                    color: #767676;
+                    background-color: rgba(0, 0, 0, 0);
+                    font-size: clamp(.8em, 1vw, 1em);
+                    padding: clamp(6px, 1vw, 10px) clamp(17px, 1vw, 25px);
+                  }
+                }
+
+              }
+              @media screen and (max-width: 880px) {
+                
+                .avatar_change{
+                  flex-direction: column;
+
+                  .file{
+                    margin-top: 15px;
+                  }
                 }
               }
             }

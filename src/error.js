@@ -3,7 +3,7 @@ function declareError(code, text, full) {
 }
 
 export const errors = {
-    INVALID_PARAMETER: declareError(1, "Invalid parameter", "The parameter provided is not valid."),
+    INVALID_PARAMETER: declareError(1, "Invalid parameter", "The parameter provided is not valid or empty."),
     UNAUTHORIZED: declareError(2, "Unauthorized", "Access is unauthorized."),
     INSUFFICIENT_PRIVILEGES: declareError(3, "Insufficient privileges", "You do not have sufficient privileges."),
     USER_NOT_FOUND: declareError(4, "User not found", "The user was not found."),
