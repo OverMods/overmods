@@ -27,7 +27,10 @@
               <form @submit="onPassword">
                 <div class="title">Old password: <input v-model="oldPassword" type="password"></div>
                 <div class="title">New password: <input v-model="password" @input="updatePassStrenght" type="password"></div>
-                <div class="title">Confirm password: <div class="column_elem"><input type="password"><div class="pass_strenght"><div class="active" :style="`width: ${meterWidth}`"></div></div>
+                <div class="title">Confirm password: <div class="column_elem">
+                  <input v-model="confirmPassword" type="password"><div class="pass_strenght">
+                  <div class="active" :style="`width: ${meterWidth}`"></div>
+                </div>
                 <div class="strenght_text">{{ text }}</div></div></div>
                 <div class="buttons">
                   <button type="submit">Save</button>
@@ -192,14 +195,19 @@ function handleInputChange(event) {
 
 let oldPassword = "";
 let password = "";
+let confirmPassword = "";
 
 let oldEmail = "";
 let email = "";
 
 function onPassword(e) {
   e.preventDefault();
-  store.dispatch("patchUser", {oldPassword, password});
-  onSettings(empty);
+  if (password === confirmPassword) {
+    store.dispatch("patchUser", {oldPassword, password});
+    onSettings(empty);
+  } else {
+    alert("Password doesn't match with confirm password field.");
+  }
 }
 
 function onEmail(e) {
