@@ -187,7 +187,8 @@ function viewFile() {
   }
 }
 
-// passStrenght.js
+// settingsChange
+
 let password = "";
 let email = "";
 let avatar = null;
@@ -215,6 +216,8 @@ function onAvatar(e) {
   }
   onSettings(empty);
 }
+
+// passStrenght.js
 
 const startWidth = "0%";
 const meterWidth = ref(startWidth);
