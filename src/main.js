@@ -11,9 +11,9 @@ import ModView from "./views/ModView.vue";
 const router = createRouter({
     history: createWebHistory("/overmods"),
     routes: [
-        {path: "/", component: MainView},
-        {path: "/game/:shortName/", component: ModListView, props: true},
-        {path: "/game/:shortName/mod/:id/", component: ModView, props: true}
+        {path: "/", name: 'MainView', component: MainView},
+        {path: "/game/:shortName/",  name: 'ModListView', component: ModListView, props: true},
+        {path: "/game/:shortName/mod/:id/", name: 'ModView', component: ModView, props: true}
     ]
 });
 

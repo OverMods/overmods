@@ -330,25 +330,47 @@ a{
   justify-content: space-between;
   overflow: hidden;
 
-	.back{
-		position: absolute;
-		width: 35px;
-		height: 35px;
-		background-color: rgba(150, 150, 150, 0.2);
-		background-image: url('./assets/images/icons/arrow_back.png');
-		background-repeat: no-repeat;
-		background-position: 43%;
-		background-size: 36%;
-		top: 50%;
-		left: 20px;
-		transform: translateY(-50%);
-		border-radius: 50%;
-	}
+  .left_side{
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  #backButton{
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+    background-color: rgba(150, 150, 150, 0.25);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+
+    & img{
+      filter: brightness(87%);
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      margin-right: 3px;
+    }
+
+    &:hover{
+      background-color: rgba(150, 150, 150, 0.4);
+    }
+  }
+
+  #backButton + .search_container{
+    margin-left: 10px;
+  }
 
 	.search_container{
 		position: relative;
 		width: clamp(175px, 25vw, 270px);
-		margin-left: 70px;
+		margin-left: 65px;
 
 		.search{
 			background-color: rgba(150, 150, 150, 0.2);
@@ -2089,67 +2111,6 @@ a{
 			transform: translateX(0);
 		 }
 	}
-  .closeBtn_container{
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-
-    .closeBtn, .saveBtn{
-      margin: 0 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      background-color: rgba(255, 255, 255, 0.55);
-      color: #3f3f3f;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: .2s;
-  
-      .icon{
-        width: 20px;
-        height: 20px;
-        background-image: url(./assets/images/icons/crosshair_icon.png);
-        background-repeat: no-repeat;
-        background-size: contain;
-      }
-  
-      & p{
-        display: none;
-        margin: 0 10px 0 10px;
-        font-family: SilverForte;
-        font-weight: 1;
-        font-size: .7em;
-      }
-  
-      &:hover{
-        & p{
-          display: block;
-        }
-
-        .icon{
-          margin-left: 15px;
-        }
-  
-        width: auto;
-      }
-    }
-
-    .saveBtn{
-      color: #fff;
-      background-color: rgba(255, 123, 0, 0.75);
-
-      .icon{
-        width: 30px;
-        height: 30px;
-        margin-top: 10px;
-        background-image: url(./assets/images/icons/mark_icon.png);
-      }
-    }
-  }
 
   .pass_strenght{
     width: 95%;
@@ -2256,9 +2217,23 @@ a{
           list-style: none;
           margin: 20px 0;
 
+          &.active{
+            & p{
+              color: #717171;
+            }
+
+            .icon{
+              filter: brightness(85%);
+            } 
+            .arrow{
+              right: 15px;
+            }
+          }
+
           &.disabled{
             & p{
               color: #b7b7b7;
+              cursor: default;
             }
 
             .icon{
@@ -2623,6 +2598,93 @@ a{
 
         /* "MY COMMENTS" */
 
+        .comm_cont{
+          margin: 0 4%;
+          
+          .comm_block{
+            margin-bottom: 40px;
+            max-width: 600px;
+            min-width: 50px;
+
+            .comm_dirr{
+              color: #3f3f3f;
+              font-size: 1.1em;
+              margin-bottom: 5px;
+            }
+            
+            .comm_body{
+              display: flex;
+              align-items: center;
+            }
+
+            & input[type="checkbox"]{
+              display: none;
+
+              &:checked + label{
+                background-image: url(./assets/images/icons/closedBinFull.png);
+              }
+
+              &:checked + label:hover{
+                background-image: url(./assets/images/icons/openedBinFull.png);
+              }
+            }
+
+            & label{
+              width: 30px;
+              height: 30px;
+              min-width: 30px;
+              min-height: 30px;
+              margin-right: 10px;
+              background-image: url(./assets/images/icons/closedBinEmpty.png);
+              background-size: contain;
+              background-repeat: no-repeat;
+              cursor: pointer;
+
+              &:hover{
+                background-image: url(./assets/images/icons/openedBinEmpty.png);
+              }
+            }
+
+            .comm_text{
+              max-width: 500px;
+              background-color: rgba(255, 255, 255, 0.35);
+              border-radius: 15px;
+              padding: 20px;
+              font-size: .9em;
+              position: relative;
+
+              .comm_date{
+                font-size: .9em;
+                position: absolute;
+                bottom: -20px;
+                right: 10px;
+              }
+            }
+          }
+
+          & input[type="submit"]{
+            display: none;
+          }
+        }
+
+        /* MY MODIFICATIONS */
+
+        .mods_cont{
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 8% 0;
+          justify-content: center;
+
+          .mod{
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.35);
+            max-width: 450px;
+            min-width: 300px;
+            border-radius: 15px;
+            margin: 0 4%;
+          }
+        }
       }
     }
 
@@ -2675,13 +2737,53 @@ a{
   }
 
   .closeBtn_container{
-    .closeBtn, .saveBtn{
-      &:hover{
-        .icon{
-          margin-left: 0;
-        }
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
 
-        width: 50px;
+    .closeBtn, .saveBtn{
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.55);
+      color: #3f3f3f;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: .2s;
+  
+      .icon{
+        width: 20px;
+        height: 20px;
+        background-image: url(./assets/images/icons/crosshair_icon.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+
+    .saveBtn{
+      color: #fff;
+      background-color: rgba(255, 123, 0, 0.75);
+
+      .icon{
+        width: 30px;
+        height: 30px;
+        margin-top: 10px;
+        background-image: url(assets/images/icons/mark_icon.png);
+      }
+    }
+  }
+
+  .closeBtn_container{
+    .closeBtn, .saveBtn{
+      transition: .1s;
+
+      &:hover{
+        filter: brightness(90%);
       }
     }
   }

@@ -8,23 +8,23 @@
           <div>{{ user?.username }}</div>
         </div>
         <div class="list">
-          <div @click="selectMenu(MENU_SETTINGS)">
+          <div @click="selectMenu(MENU_SETTINGS)" :class="menu === MENU_SETTINGS ? 'active' : ''">
             <img src="../assets/images/icons/sett_icon.png" alt="" class="icon">
             <p>Settings</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div @click="selectMenu(MENU_COMMENTS)">
+          <div @click="selectMenu(MENU_COMMENTS)" :class="menu === MENU_COMMENTS ? 'active' : ''">
             <img src="../assets/images/icons/myComms_icon.png" alt="" class="icon">
             <p>My comments</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
           <div @click="selectMenu(MENU_MODIFICATIONS)"
-               :class="user?.role !== 'ADMIN' && user?.role !== 'MODDER' ? 'disabled' : ''">
+               :class="`${user?.role !== 'ADMIN' && user?.role !== 'MODDER' ? 'disabled' : ''} ${menu === MENU_MODIFICATIONS ? 'active' : ''}`">
             <img src="../assets/images/icons/myMods_icon.png" alt="" class="icon">
             <p>My modifications</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div @click="selectMenu(MENU_ADMIN)" v-if="user?.role == 'ADMIN'">
+          <div @click="selectMenu(MENU_ADMIN)" v-if="user?.role == 'ADMIN'" :class="menu === MENU_ADMIN ? 'active' : ''">
             <img src="../assets/images/icons/admin_icon.png" alt="" class="icon">
             <p>Admin</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
@@ -46,6 +46,9 @@
       <div class="closeBtn" @click="onClose">
         <div class="icon"></div>
       </div>
+      <label v-if="menu === MENU_COMMENTS || menu === MENU_MODIFICATIONS" for="formSubmit" class="saveBtn">
+        <div class="icon"></div>
+      </label>
     </div>
   </div>
 </template>
@@ -55,7 +58,7 @@
 </style>
 
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
@@ -66,17 +69,22 @@ import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
 
 const store = useStore();
 
+const user = computed(() => {
+  return store.getters.getUser;
+});
+
 const showProfile = computed(() => {
+  if (store.getters.getShowPanel("profile").menu === 'MENU_ADMIN'){
+    selectMenu(MENU_ADMIN);
+  } else {
+    selectMenu(MENU_SETTINGS);
+  }
   return store.getters.getShowPanel("profile");
 });
 
 function onClose() {
   store.dispatch("setShowPanel", {panel: "profile", show: false});
 }
-
-const user = computed(() => {
-  return store.getters.getUser;
-});
 
 function logout() {
   store.dispatch("setShowPanel", {panel: "profile", show: false});
@@ -90,7 +98,11 @@ const MENU_ADMIN = 3;
 const menu = ref(MENU_SETTINGS);
 
 function selectMenu(m) {
+  if (m === MENU_MODIFICATIONS){
+    if (user.value.role !== 'MODDER' && user.value.role !== 'ADMIN'){
+      return;
+    }
+  }
   menu.value = m;
-  console.log(m);
 }
 </script>

@@ -23,12 +23,7 @@ import AuthBlock from "./components/AuthBlock.vue";
 import ProfileBlock from "./components/ProfileBlock.vue";
 import installScrollbar from "./betterScrollbar.js";
 
-//const scriptPath = `${import.meta.env.BASE_URL}/js/betterScrollbar.js`;
-//const script = document.createElement('script');
-
 onMounted(() => {
-  //script.src = scriptPath;
-  //document.head.appendChild(script);
   installScrollbar();
 });
 </script>

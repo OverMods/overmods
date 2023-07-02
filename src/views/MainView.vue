@@ -67,7 +67,7 @@
           <div class="roleIcon" :role="user?.role"></div>
           <div class="username"><img src="../assets/images/icons/author_icon.png" alt="">{{ user?.username }}</div>
           <div class="role"><img src="../assets/images/icons/role_icon.png" alt="">{{ user?.role }}</div>
-          <button @click="onProfile()">More</button>
+          <button @click="onProfile">More</button>
         </div>
         <div class="profile" v-else>
           <img src="../assets/images/icons/default_profile_avatar.png" alt="avatar">
@@ -80,7 +80,7 @@
         <p v-if="!user">Are you a <span class="white_text">mod maker</span>? Share your creative potential! <span class="att_text">Sign up</span> and give your mods wide exposure!</p>
         <p v-else-if="user?.role == 'USER'">Are you a <span class="white_text">mod maker</span>? Share your creative potential! Go to your profile page, send us a form and give your mods wide exposure!</p>
         <p v-else-if="user?.role == 'MODDER'">You, the <span class="att_text">Mod Maker</span> extraordinaire, hold the power to shape worlds and redefine gaming experiences - it's time to take the spotlight, upload your mod now and let your creativity reign supreme!</p>
-        <p v-else-if="user?.role == 'ADMIN'">Go to <span class="att_text">Admin Panel</span></p>
+        <p v-else-if="user?.role == 'ADMIN'">Go to <span @click="onProfile('MENU_ADMIN')" class="att_text">Admin Panel</span></p>
       </div>
     </div>
   </div>
@@ -110,8 +110,12 @@ function onRating(r) {
   store.dispatch("patchUser", {siteRating: r});
 }
 
-function onProfile() {
-  store.dispatch("setShowPanel", {panel: "profile", show: true});
+function onProfile(menu) {
+  if (menu === 'MENU_ADMIN'){
+    store.dispatch("setShowPanel", {panel: "profile", show: {show: true, menu: 'MENU_ADMIN'}});
+  } else {
+    store.dispatch("setShowPanel", {panel: "profile", show: true});
+  }
 }
 
 function onLogin() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="trending_gallery">
+  <div class="trending_gallery" @wheel="galleryScroll">
     <div v-for="trend in trends" class="slide">
       <router-link :to="`/game/${getGameById(trend.mod.game)?.shortName }/mod/${trend.mod.id}`">
         <h2>{{ getGameById(trend.mod.game)?.title }}</h2>
@@ -18,7 +18,7 @@
 </style>
 
 <script setup>
-import { onMounted, computed } from "vue";
+import { computed, onUpdated } from "vue";
 import { useStore } from "vuex";
 import simpleSlider from "../simpleSlider.js";
 import { useRouter } from "vue-router";
@@ -35,7 +35,7 @@ const trends = computed(() => {
 store.dispatch("fetchGameList");
 store.dispatch("fetchTrends");
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   if (to.path === "/") {
     window.addEventListener('load', () => {
       simpleSlider();
@@ -44,10 +44,8 @@ router.afterEach((to, from) => {
   return true;
 });
 
-onMounted(() => {
-  window.addEventListener('load', () => {
-    simpleSlider();
-  });
+onUpdated(() => {
+  simpleSlider();
 });
 </script>
 

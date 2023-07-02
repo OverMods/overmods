@@ -1,9 +1,12 @@
 <template>
   <div class="top_panel">
-		<div class="search_container">
-			<input type="text" class="search" placeholder="Search is unavailable on the homepage" disabled>
-			<img src="../assets/images/icons/search_icon.png" alt="" class="search_icon">
-		</div>
+    <div class="left_side">
+      <button v-if="showBackButton" @click="goBack" id="backButton"><img src="../assets/images/icons/arrow_back.png" alt=""></button>
+      <div class="search_container">
+        <input type="text" class="search" placeholder="Search is unavailable on the homepage" disabled>
+        <img src="../assets/images/icons/search_icon.png" alt="" class="search_icon">
+      </div>
+    </div>
     <div class="right_side">
       <div class="theme">
         <div class="dark">dark
@@ -27,8 +30,22 @@
 </style>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
+import { useRoute, useRouter } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+
+const showBackButton = computed(() => route.name === 'ModListView' || route.name === 'ModView');
+
+const goBack = () => {
+  if (route.name === 'ModView') {
+    router.push({ name: 'ModListView' });
+  } else {
+    router.push({ name: 'MainView' });
+  }
+};
 const store = useStore();
 
 const isLoggedIn = computed(() => {
