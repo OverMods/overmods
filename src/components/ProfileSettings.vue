@@ -25,7 +25,7 @@
             </div>
             <div class="elems" :style="block === passwordBlock ? 'display: inherit' : 'display: none'">
               <form @submit="onPassword">
-                <div class="title">Old password: <input type="password"></div>
+                <div class="title">Old password: <input v-model="oldPassword" type="password"></div>
                 <div class="title">New password: <input v-model="password" @input="updatePassStrenght" type="password"></div>
                 <div class="title">Confirm password: <div class="column_elem"><input type="password"><div class="pass_strenght"><div class="active" :style="`width: ${meterWidth}`"></div></div>
                 <div class="strenght_text">{{ text }}</div></div></div>
@@ -46,7 +46,7 @@
             </div>
             <div class="elems" :style="block === emailBlock ? 'display: inherit' : 'display: none'">
               <form @submit="onEmail">
-                <div class="title">Old email: <input type="text"></div>
+                <div class="title">Old email: <input v-model="oldEmail" type="text"></div>
                 <div class="title">New email: <input v-model="email" type="text"></div>
                 <div class="buttons">
                   <button type="submit">Save</button>
@@ -190,18 +190,21 @@ function handleInputChange(event) {
 
 // settingsChange
 
+let oldPassword = "";
 let password = "";
+
+let oldEmail = "";
 let email = "";
 
 function onPassword(e) {
   e.preventDefault();
-  store.dispatch("patchUser", {password});
+  store.dispatch("patchUser", {oldPassword, password});
   onSettings(empty);
 }
 
 function onEmail(e) {
   e.preventDefault();
-  store.dispatch("patchUser", {email});
+  store.dispatch("patchUser", {oldEmail, email});
   onSettings(empty);
 }
 
