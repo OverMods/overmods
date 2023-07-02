@@ -31,7 +31,7 @@
                 <div class="strenght_text">{{ text }}</div></div></div>
                 <div class="buttons">
                   <button type="submit">Save</button>
-                  <button @click="onSettings(empty)">Cancel</button>
+                  <button type="button" @click="onSettings(empty)">Cancel</button>
                 </div>
               </form>
             </div>
@@ -50,7 +50,7 @@
                 <div class="title">New email: <input v-model="email" type="text"></div>
                 <div class="buttons">
                   <button type="submit">Save</button>
-                  <button @click="onSettings(empty)">Cancel</button>
+                  <button type="button" @click="onSettings(empty)">Cancel</button>
                 </div>
               </form>
             </div>
@@ -83,7 +83,7 @@
               </div>
               <div class="buttons">
                 <button type="submit">Save</button>
-                <button @click="onSettings(empty)">Cancel</button>
+                <button type="button" @click="onSettings(empty)">Cancel</button>
               </div>
             </form>
           </div>
