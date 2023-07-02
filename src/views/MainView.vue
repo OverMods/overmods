@@ -27,7 +27,7 @@
         <img src="../assets/images/icons/modify.png" alt="">
         <p>Expand your game with a wide range of new possibilities, embark on unforgettable adventures, and create your own gameplay!</p>
       </div>
-      <button>Go to mods</button>
+      <!-- <button>Go to mods</button> -->
     </div>
     <div class="block-b">
       <div class="block-a">

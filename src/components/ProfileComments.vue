@@ -3,10 +3,12 @@
     <div class="title"><h2>My comments</h2></div>
     <div class="content">
       <div class="comm_cont">
-        <div class="comm_block">
+        <form onsubmit="return false">
+          <div class="comm_block">
 
-        </div>
-        <img src="" alt="delete">
+          </div>
+          <img src="" alt="delete">
+        </form>
       </div>
     </div>
 </template>
