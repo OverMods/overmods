@@ -82,7 +82,7 @@
               </div>
               </div>
               <div class="buttons">
-                <button type="submit" @click="onSettings(empty)">Save</button>
+                <button type="submit">Save</button>
                 <button @click="onSettings(empty)">Cancel</button>
               </div>
             </form>
@@ -148,6 +148,22 @@ function onSettings(b) {
 
 // onAvatarUpload.js
 
+function viewFile() {
+  let fileType = file.value.type;
+  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
+  if (validExtensions.includes(fileType)) {
+    let fileReader = new FileReader();
+    fileReader.onload = () => {
+      fileURL.value = fileReader.result;
+    };
+    fileReader.readAsDataURL(file.value);
+  } else {
+    alert("This is not an Image File!");
+    dragText.value = "Drag & Drop to Upload File";
+    file.value = null;
+  }
+}
+
 function handleDragOver(event) {
   event.preventDefault();
   isDragOver.value = true;
@@ -171,27 +187,11 @@ function handleInputChange(event) {
   dragText.value = null;
   viewFile();
 }
-function viewFile() {
-  let fileType = file.value.type;
-  let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
-  if (validExtensions.includes(fileType)) {
-    let fileReader = new FileReader();
-    fileReader.onload = () => {
-      fileURL.value = fileReader.result;
-    };
-    fileReader.readAsDataURL(file.value);
-  } else {
-    alert("This is not an Image File!");
-    dragText.value = "Drag & Drop to Upload File";
-    file.value = null;
-  }
-}
 
 // settingsChange
 
 let password = "";
 let email = "";
-let avatar = null;
 
 function onPassword(e) {
   e.preventDefault();
@@ -205,14 +205,11 @@ function onEmail(e) {
   onSettings(empty);
 }
 
-function onAvatarFile(e) {
-  avatar = e.target.files[0];
-}
-
 function onAvatar(e) {
   e.preventDefault();
-  if (avatar) {
-    store.dispatch("putAvatar", avatar);
+  console.log(file.value);
+  if (file.value) {
+    store.dispatch("putAvatar", file.value);
   }
   onSettings(empty);
 }
