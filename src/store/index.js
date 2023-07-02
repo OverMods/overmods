@@ -18,7 +18,9 @@ export default createStore({
         comments: [],
         ratings: {},
         user: null,
-        panels: {}
+        panels: {},
+        myComments: [],
+        myMods: []
     },
     getters: {
         getError: (store) => (name) => store.errors[name],
@@ -35,7 +37,9 @@ export default createStore({
         getRatings: (store) => store.ratings,
         getUser: (store) => store.user,
         isLoggedIn: (store) => store.user !== null,
-        getShowPanel: (store) => (panel) => store.panels[panel] || false
+        getShowPanel: (store) => (panel) => store.panels[panel] || false,
+        getMyComments: (store) => store.myComments,
+        getMyMods: (store) => store.myMods,
     },
     actions: {
         async fetchGameList({ commit }) {
@@ -242,6 +246,32 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async fetchMyComments({ commit }) {
+            try {
+                const res = await HTTP.get("/user/comment");
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "myComments", error: res.data.error});
+                }
+                commit("SET_MY_COMMENTS", res.data);
+
+                commit("SET_NO_ERROR", "myComments");
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async fetchMyMods({ commit }) {
+            try {
+                const res = await HTTP.get("/user/mod");
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "myMods", error: res.data.error});
+                }
+                commit("SET_MY_MODS", res.data);
+
+                commit("SET_NO_ERROR", "myComments");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -308,6 +338,16 @@ export default createStore({
         SET_SHOW_PANEL(state, {panel, show}) {
             state.panels[panel] = show;
             console.log(state.panels);
+        },
+        SET_MY_COMMENTS(state, data) {
+            state.myComments = data.map(json => ({
+                comment: new ModComment(json.comment),
+                mod: new Mod(json.mod),
+                game: new Game(json.game)
+            }));
+        },
+        SET_MY_MODS(state, data) {
+            state.myMods = data.map(json => new Mod(json));
         }
     }
 });
