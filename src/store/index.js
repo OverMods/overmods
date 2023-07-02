@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
-import { HTTP, getUploadUrl } from "../http.js";
-import { relativeDate, renderMarkdown, humanFileSize } from "../utils.js";
+import { HTTP } from "../http.js";
+import { Game } from "../models/game.js";
+import { ModScreenshot, ModComment, ModRating, Mod } from "../models/mod.js";
+import { User } from "../models/user.js";
 
 export default createStore({
     state: {
@@ -16,7 +18,9 @@ export default createStore({
         comments: [],
         ratings: {},
         user: null,
-        panels: {}
+        panels: {},
+        myComments: [],
+        myMods: []
     },
     getters: {
         getError: (store) => (name) => store.errors[name],
@@ -33,7 +37,9 @@ export default createStore({
         getRatings: (store) => store.ratings,
         getUser: (store) => store.user,
         isLoggedIn: (store) => store.user !== null,
-        getShowPanel: (store) => (panel) => store.panels[panel] || false
+        getShowPanel: (store) => (panel) => store.panels[panel] || false,
+        getMyComments: (store) => store.myComments,
+        getMyMods: (store) => store.myMods,
     },
     actions: {
         async fetchGameList({ commit }) {
@@ -240,6 +246,32 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async fetchMyComments({ commit }) {
+            try {
+                const res = await HTTP.get("/user/comment");
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "myComments", error: res.data.error});
+                }
+                commit("SET_MY_COMMENTS", res.data);
+
+                commit("SET_NO_ERROR", "myComments");
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async fetchMyMods({ commit }) {
+            try {
+                const res = await HTTP.get("/user/mod");
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "myMods", error: res.data.error});
+                }
+                commit("SET_MY_MODS", res.data);
+
+                commit("SET_NO_ERROR", "myComments");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -251,132 +283,71 @@ export default createStore({
             state.errors[name] = null;
         },
         SET_GAME_LIST(state, gameList) {
-            state.gameList = [];
-            for (let game of gameList) {
-                state.gameList.push({
-                    id: game.id,
-                    title: game.title,
-                    shortTitle: game.title.replace(/[:\s]/g, '').length > 13
-                        ? game.title.substring(0,13) + "..."
-                        : game.title,
-                    shortName: game.shortName,
-                    logo: getUploadUrl(game.logo)
-                });
-            }
+            state.gameList = gameList.map(json => new Game(json));
         },
         SET_STATS(state, stats) {
             state.stats = stats;
         },
         SET_TRENDS(state, trends) {
-            state.trends = [];
-            for (let trend of trends) {
-                if (trend.mod.logo) {
-                    trend.mod.logo = getUploadUrl(trend.mod.logo);
-                }
-                state.trends.push(trend);
-            }
+            state.trends = trends.map(json => ({mod: new Mod(json.mod), rating: json.rating}));
         },
         SET_GAME(state, game) {
             state.game = game;
         },
         SET_MODS(state, mods) {
-            state.mods = [];
-            for (let mod of mods) {
-                if (mod.logo) {
-                    mod.logo = getUploadUrl(mod.logo);
-                }
-                if (mod.description) {
-                    console.log(mod);
-                    mod.descriptionHtml = renderMarkdown(mod.description);
-                }
-                if (mod.instruction) {
-                    mod.instuctionHtml = renderMarkdown(mod.instruction);
-                }
-                if (mod.fileSize) {
-                    mod.humanFileSize = humanFileSize(mod.fileSize);
-                }
-                state.mods.push(mod);
-            }
+            state.mods = mods.map(json => new Mod(json));
         },
         SET_MOD(state, mod) {
-            state.mod = mod;
-            if (mod.logo) {
-                state.mod.logo = getUploadUrl(mod.logo);
-            }
-            if (mod.description) {
-                state.mod.descriptionHtml = renderMarkdown(mod.description);
-            }
-            if (mod.instruction) {
-                state.mod.instuctionHtml = renderMarkdown(mod.instruction);
-            }
-            if (mod.uploadedAt) {
-                state.mod.uploadedAt = relativeDate(mod.uploadedAt);
-            }
-            if (mod.fileSize) {
-                mod.humanFileSize = humanFileSize(mod.fileSize);
-            }
+            state.mod = new Mod(mod);
         },
         SET_AUTHOR(state, author) {
-            state.author = author;
-            if (author.avatar) {
-                state.author.avatar = getUploadUrl(state.author.avatar);
-            }
+            state.author = new User(author);
         },
         SET_SCREENSHOTS(state, screenshots) {
-            state.screenshots = [];
-            for (let screenshot of screenshots) {
-                screenshot.screenshot = getUploadUrl(screenshot.screenshot);
-                state.screenshots.push(screenshot);
-            }
+            state.screenshots = screenshots.map(json => new ModScreenshot(json));
         },
         SET_COMMENTS(state, comments) {
-            state.comments = [];
-            for (let comment of comments) {
-                if (comment.user.avatar) {
-                    comment.user.avatar = getUploadUrl(comment.user.avatar);
-                }
-                if (comment.user.registredAt) {
-                    comment.user.registredAt = relativeDate(comment.user.registredAt);
-                }
-                if (comment.comment.commentedAt) {
-                    comment.comment.commentedAt = relativeDate(comment.comment.commentedAt);
-                }
-                state.comments.push(comment);
-            }
+            state.comments = comments.map(json => ({
+                user: new User(json.user),
+                comment: new ModComment(json.comment)
+            }));
         },
         SET_RATINGS(state, ratings) {
             state.ratings = {};
-            for (let _rating of ratings) {
-                state.ratings[_rating.user] = _rating.rating;
-            }
+            ratings
+                .map(json => new ModRating(json))
+                .forEach(r => {
+                state.ratings[r.user] = r.rating;
+            });
             console.log(state.ratings);
         },
         ADD_MY_COMMENT(state, data) {
             state.comments.push({
                 user: state.user,
-                comment: {
+                comment: new ModComment({
                     mod: state.mod.id,
                     user: state.user.id,
-                    comment: data.comment
-                }
+                    comment: data
+                })
             });
         },
         SET_USER(state, user) {
-            state.user = user;
-            if (user?.avatar) {
-                state.user.avatar = getUploadUrl(user.avatar);
-            }
-            if (user?.updatedAt) {
-                state.user.updatedAt = relativeDate(user.updatedAt);
-            }
-            if (user?.passwordChanged) {
-                state.user.passwordChanged = relativeDate(user.passwordChanged);
-            }
+            state.user = user ? new User(user) : user;
             console.log(state.user);
         },
         SET_SHOW_PANEL(state, {panel, show}) {
             state.panels[panel] = show;
             console.log(state.panels);
+        },
+        SET_MY_COMMENTS(state, data) {
+            state.myComments = data.map(json => ({
+                comment: new ModComment(json.comment),
+                mod: new Mod(json.mod),
+                game: new Game(json.game)
+            }));
+        },
+        SET_MY_MODS(state, data) {
+            state.myMods = data.map(json => new Mod(json));
         }
     }
 });
