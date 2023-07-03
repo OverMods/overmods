@@ -1,4 +1,5 @@
 <template>
+  <ModAdditionBlock></ModAdditionBlock>
   <br>
   <div class="title">
     <img src="../assets/images/icons/modList_icon.png" alt="">
@@ -38,6 +39,7 @@
       <router-link to="/"><a>Back to main page</a></router-link>
     </div>
   </div>
+  <div v-if="user?.role === 'ADMIN' || user?.role === 'MODDER'" id="add_modification_btn" @click="onModAdd"><img src="../assets/images/icons/crosshair_icon.png" alt="+"></div>
 </template>
 
 <style scoped>
@@ -49,6 +51,7 @@ import { useRoute } from "vue-router";
 import { onMounted, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { relativeDate } from "../utils.js";
+import ModAdditionBlock from "../components/ModAdditionBlock.vue";
 
 const route = useRoute();
 const store = useStore();
@@ -64,6 +67,10 @@ const mods = computed(() => {
 const user = computed(() => {
   return store.getters.getUser;
 });
+
+function onModAdd(menu) {
+  store.dispatch("setShowPanel", {panel: "modAdditionBlock", show: true});
+}
 
 defineProps({
   shortName: {
