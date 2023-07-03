@@ -2670,19 +2670,109 @@ a{
         /* MY MODIFICATIONS */
 
         .mods_cont{
-          width: 100%;
+          width: 92%;
+          margin: 0 4%;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-          gap: 8% 0;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 450px));
+          gap: 0 4%;
           justify-content: center;
 
+          & input[type="submit"]{
+            display: none;
+          }
+
+          .game{
+            color: #3f3f3f;
+            margin-left: 10px;
+            font-size: clamp(.9em, 2vw, 1em);
+          }
+
           .mod{
+            position: relative;
             display: flex;
             background-color: rgba(255, 255, 255, 0.35);
             max-width: 450px;
             min-width: 300px;
+            max-height: 80px;
             border-radius: 15px;
-            margin: 0 4%;
+            margin-bottom: 4%;
+
+            .icon{
+              width: clamp(60px, 5vw, 80px);
+              height: clamp(60px, 5vw, 80px);
+              object-fit: contain;
+              background-color: rgba(255, 255, 255, 0.2);
+              border-radius: 15px;
+            }
+
+            .desc{
+              color: #3f3f3f;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              margin-left: 10px;
+
+              & *{
+                margin: 0;
+                padding: 0;
+              }
+
+              & h3{
+                font-family: VistolSans;
+                font-size: clamp(.8em, 2vw, 1.1em);
+              }
+
+              & p{
+                display: flex;
+                align-items: center;
+                font-size: clamp(.8em, 2vw, 1em);
+
+                & img{
+                  width: 25px;
+                  height: 25px;
+                  object-fit: contain;
+                  filter: brightness(10%);
+                }
+              }
+            }
+
+            & input[type="checkbox"]{
+              display: none;
+
+              + label{
+                position: absolute;
+                top: 7px;
+                right: 10px;
+                width: 25px;
+                height: 25px;
+                background-image: url(./assets/images/icons/closedBinEmpty.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                cursor: pointer;
+
+                &:hover{
+                  background-image: url(./assets/images/icons/openedBinEmpty.png);
+                }
+              }
+
+              &:checked{
+
+                + label{
+                  background-image: url(./assets/images/icons/closedBinFull.png);
+
+                  &:hover{
+                    background-image: url(./assets/images/icons/openedBinFull.png);
+                  }
+                }
+              }
+            }
+
+            .date{
+              position: absolute;
+              bottom: 7px;
+              right: 10px;
+              font-size: clamp(.8em, 1.5vw, 1em);
+            }
           }
         }
       }
@@ -2718,6 +2808,12 @@ a{
             &:hover{
               .arrow{
                 right: 7px !important;
+              }
+            }
+
+            &.active{
+              .arrow{
+                right: 7px;
               }
             }
           }

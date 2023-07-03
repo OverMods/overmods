@@ -61,6 +61,10 @@ const mods = computed(() => {
   return store.getters.getMods;
 });
 
+const user = computed(() => {
+  return store.getters.getUser;
+});
+
 defineProps({
   shortName: {
     type: String,
