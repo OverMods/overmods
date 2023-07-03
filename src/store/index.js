@@ -272,6 +272,22 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async deleteComments({ commit }, {isMyComments, ids}) {
+            try {
+                const res = await HTTP.delete("/mod/comment", {
+                    data: {ids}
+                });
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "deleteComments", error: res.data.error});
+                    return;
+                }
+                commit("DELETE_COMMENTS", {isMyComments, data: res.data});
+
+                commit("SET_NO_ERROR", "deleteComments");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -348,6 +364,18 @@ export default createStore({
         },
         SET_MY_MODS(state, data) {
             state.myMods = data.map(json => new Mod(json));
+        },
+        DELETE_COMMENTS(state, {isMyComments, data}) {
+            const deleted = Object.keys(data)
+                .filter(id => data[id] === true)
+                .map(id => parseInt(id));
+            if (isMyComments) {
+                state.myComments = state.myComments
+                    .filter(comment => !deleted.includes(comment.comment.id));
+            } else {
+                state.comments = state.comments
+                    .filter(comment => !deleted.includes(comment.comment.id));
+            }
         }
     }
 });
