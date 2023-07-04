@@ -3,69 +3,22 @@
     <div class="title"><h2>My modifications</h2></div>
     <div class="content">
       <form onsubmit="return false" class="mods_cont">
-        <div class="mod_cont">
-          <div class="game">Minecraft ></div>
+        <div v-for="mod in myMods" class="mod_cont" :key="mod.mod.id">
+          <div class="game">{{ mod.game.title }} ></div>
           <div class="mod">
-            <img src="../assets/images/materials/mods examples/647f25bc16564.png" class="icon">
+            <img :src="mod.mod.logo" class="icon">
             <div class="desc">
-              <h3>Plenty of Golems</h3>
-              <p><img src="../assets/images/icons/improve.png" alt="">1283 / 4.2</p>
+              <h3>{{ mod.mod.title }}</h3>
+              <p><img src="../assets/images/icons/improve.png" alt="">
+                {{ mod.mod.downloaded }} / {{ 5 }}
+              </p>
             </div>
-            <input type="checkbox" id="c1">
-            <label for="c1"></label>
-            <div class="date">25.05.2023</div>
-          </div>
-        </div>
-        <div class="mod_cont">
-          <div class="game">Minecraft ></div>
-          <div class="mod">
-            <img src="../assets/images/materials/mods examples/647f25bc16564.png" class="icon">
-            <div class="desc">
-              <h3>Plenty of Golems</h3>
-              <p><img src="../assets/images/icons/improve.png" alt="">1283 / 4.2</p>
-            </div>
-            <input type="checkbox" id="c2">
-            <label for="c2"></label>
-            <div class="date">25.05.2023</div>
-          </div>
-        </div>
-        <div class="mod_cont">
-          <div class="game">Minecraft ></div>
-          <div class="mod">
-            <img src="../assets/images/materials/mods examples/647f25bc16564.png" class="icon">
-            <div class="desc">
-              <h3>Plenty of Golems</h3>
-              <p><img src="../assets/images/icons/improve.png" alt="">1283 / 4.2</p>
-            </div>
-            <input type="checkbox" id="c3">
-            <label for="c3"></label>
-            <div class="date">25.05.2023</div>
-          </div>
-        </div>
-        <div class="mod_cont">
-          <div class="game">Minecraft ></div>
-          <div class="mod">
-            <img src="../assets/images/materials/mods examples/647f25bc16564.png" class="icon">
-            <div class="desc">
-              <h3>Plenty of Golems</h3>
-              <p><img src="../assets/images/icons/improve.png" alt="">1283 / 4.2</p>
-            </div>
-            <input type="checkbox" id="c4">
-            <label for="c4"></label>
-            <div class="date">25.05.2023</div>
-          </div>
-        </div>
-        <div class="mod_cont">
-          <div class="game">Minecraft ></div>
-          <div class="mod">
-            <img src="../assets/images/materials/mods examples/647f25bc16564.png" class="icon">
-            <div class="desc">
-              <h3>Some long name of the modif...</h3>
-              <p><img src="../assets/images/icons/improve.png" alt="">1283 / 4.2</p>
-            </div>
-            <input type="checkbox" id="c5">
-            <label for="c5"></label>
-            <div class="date">25.05.2023</div>
+            <input type="checkbox"
+                   :id="`m${mod.mod.id}`"
+                   :value="mod.mod.id"
+                   v-model="ids">
+            <label :for="`m${mod.mod.id}`"></label>
+            <div class="date">{{ mod.mod.uploadedAt }}</div>
           </div>
         </div>
         <input type="submit" id="formSubmit">
@@ -76,3 +29,17 @@
 <style scoped>
 
 </style>
+
+<script setup>
+import { onMounted, computed, ref } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+
+const myMods = computed(() => store.getters.getMyMods);
+
+let ids = ref([]);
+
+onMounted(() => {
+  store.dispatch("fetchMyMods");
+});
+</script>

@@ -363,7 +363,10 @@ export default createStore({
             }));
         },
         SET_MY_MODS(state, data) {
-            state.myMods = data.map(json => new Mod(json));
+            state.myMods = data.map(json => ({
+                mod: new Mod(json.mod),
+                game: new Game(json.game)
+            }));
         },
         DELETE_COMMENTS(state, {isMyComments, data}) {
             const deleted = Object.keys(data)
