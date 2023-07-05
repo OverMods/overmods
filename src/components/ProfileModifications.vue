@@ -2,7 +2,7 @@
   <div class="logo"></div>
     <div class="title"><h2>My modifications</h2></div>
     <div class="content">
-      <form onsubmit="return false" class="mods_cont">
+      <form @submit="onDeleteMods" class="mods_cont">
         <div v-for="mod in myMods" class="mod_cont" :key="mod.mod.id">
           <div class="game">{{ mod.game.title }} ></div>
           <div class="mod">
@@ -38,6 +38,10 @@ const store = useStore();
 const myMods = computed(() => store.getters.getMyMods);
 
 let ids = ref([]);
+function onDeleteMods(e) {
+  e.preventDefault();
+  store.dispatch("deleteMods", {isMyMods: true, ids: ids.value});
+}
 
 onMounted(() => {
   store.dispatch("fetchMyMods");
