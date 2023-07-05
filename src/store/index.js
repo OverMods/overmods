@@ -3,6 +3,7 @@ import { HTTP } from "../http.js";
 import { Game } from "../models/game.js";
 import { ModScreenshot, ModComment, ModRating, Mod } from "../models/mod.js";
 import { User } from "../models/user.js";
+import { RequestRole } from "../models/requestRole.js";
 
 export default createStore({
     state: {
@@ -20,7 +21,8 @@ export default createStore({
         user: null,
         panels: {},
         myComments: [],
-        myMods: []
+        myMods: [],
+        roleRequests: []
     },
     getters: {
         getError: (store) => (name) => store.errors[name],
@@ -40,6 +42,7 @@ export default createStore({
         getShowPanel: (store) => (panel) => store.panels[panel] || false,
         getMyComments: (store) => store.myComments,
         getMyMods: (store) => store.myMods,
+        getRoleRequests: (store) => store.roleRequests
     },
     actions: {
         async fetchGameList({ commit }) {
@@ -304,6 +307,34 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async fetchRoleRequests({ commit }) {
+            try {
+                const res = await HTTP.get("/request/role");
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "roleRequests", error: res.data.error});
+                    return;
+                }
+                commit("SET_ROLE_REQUESTS", res.data);
+
+                commit("SET_NO_ERROR", "roleRequests");
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async considerRoleRequest({ commit }, {id, decision}) {
+            try {
+                const res = await HTTP.post(`/request/role/${id}/consider`, {decision});
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "considerRoleRequest", error: res.data.error});
+                    return;
+                }
+                commit("REPLACE_ROLE_REQUEST", res.data);
+
+                commit("SET_NO_ERROR", "considerRoleRequest");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -406,6 +437,16 @@ export default createStore({
             } else {
                 state.mods = state.mods
                     .filter(mod => !deleted.includes(mod.id));
+            }
+        },
+        SET_ROLE_REQUESTS(state, data) {
+            state.roleRequests = data.map(json => new RequestRole(json));
+        },
+        REPLACE_ROLE_REQUEST(state, data) {
+            const request = new RequestRole(data);
+            const idx = state.roleRequests.findIndex(r => r.id === request.id);
+            if (idx !== -1) {
+                state.roleRequests[idx] = request;
             }
         }
     }
