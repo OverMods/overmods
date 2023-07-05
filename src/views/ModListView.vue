@@ -28,7 +28,7 @@
       <div class="info">
         <div class="version">{{ mod.gameVersion }}<div class="iconI"></div></div>
         <div class="downloads">{{ mod.downloaded }}<div class="iconI"></div></div>
-        <div class="date">{{ relativeDate(mod.uploadedAt) }}<div class="iconI"></div></div>
+        <div class="date">{{ mod.uploadedAt }}<div class="iconI"></div></div>
         <div class="hoverElem"><span>Mod page</span></div>
       </div>
     </router-link>
