@@ -7,13 +7,15 @@ import App from './App.vue'
 import MainView from "./views/MainView.vue";
 import ModListView from "./views/ModListView.vue";
 import ModView from "./views/ModView.vue";
+import AdminView from "./views/AdminView.vue";
 
 const router = createRouter({
     history: createWebHistory("/overmods"),
     routes: [
         {path: "/", name: 'MainView', component: MainView},
         {path: "/game/:shortName/",  name: 'ModListView', component: ModListView, props: true},
-        {path: "/game/:shortName/mod/:id/", name: 'ModView', component: ModView, props: true}
+        {path: "/game/:shortName/mod/:id/", name: 'ModView', component: ModView, props: true},
+        {path: "/admin", name: 'AdminView', component: AdminView, props: true},
     ]
 });
 

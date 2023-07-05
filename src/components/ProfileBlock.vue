@@ -24,11 +24,11 @@
             <p>My modifications</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
           </div>
-          <div @click="selectMenu(MENU_ADMIN)" v-if="user?.role == 'ADMIN'" :class="menu === MENU_ADMIN ? 'active' : ''">
+          <router-link to="/admin"><div v-if="user?.role == 'ADMIN'">
             <img src="../assets/images/icons/admin_icon.png" alt="" class="icon">
-            <p>Admin</p>
+            <p>Go to admin</p>
             <img src="../assets/images/icons/arrow.png" alt="" class="arrow">
-          </div>
+          </div></router-link>
         </div>
         <div class="logout" @click="logout()">
           <img src="../assets/images/icons/logout_icon.png" alt="">
@@ -39,7 +39,6 @@
         <ProfileSettings v-if="menu === MENU_SETTINGS"></ProfileSettings>
         <ProfileComments v-if="menu === MENU_COMMENTS"></ProfileComments>
         <ProfileModifications v-if="menu === MENU_MODIFICATIONS"></ProfileModifications>
-        <AdminPanel v-if="menu === MENU_ADMIN"></AdminPanel>
       </div>
     </div>
     <div class="closeBtn_container">
@@ -63,7 +62,6 @@ import { useStore } from "vuex";
 import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
 import ProfileModifications from "./ProfileModifications.vue";
-import AdminPanel from "./AdminPanel.vue";
 import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
 
 
@@ -74,11 +72,7 @@ const user = computed(() => {
 });
 
 const showProfile = computed(() => {
-  if (store.getters.getShowPanel("profile").menu === 'MENU_ADMIN'){
-    selectMenu(MENU_ADMIN);
-  } else {
-    selectMenu(MENU_SETTINGS);
-  }
+  selectMenu(MENU_SETTINGS);
   return store.getters.getShowPanel("profile");
 });
 
@@ -94,7 +88,6 @@ function logout() {
 const MENU_SETTINGS = 0;
 const MENU_COMMENTS = 1;
 const MENU_MODIFICATIONS = 2;
-const MENU_ADMIN = 3;
 const menu = ref(MENU_SETTINGS);
 
 function selectMenu(m) {

@@ -39,7 +39,7 @@
       <router-link to="/"><a>Back to main page</a></router-link>
     </div>
   </div>
-  <div v-if="user?.role === 'ADMIN' || user?.role === 'MODDER'" id="add_modification_btn" @click="onModAdd"><img src="../assets/images/icons/crosshair_icon.png" alt="+"></div>
+  <router-link to="/admin" v-if="user?.role === 'ADMIN' || user?.role === 'MODDER'" id="add_modification_btn" @click="onModAdd"><img src="../assets/images/icons/crosshair_icon.png" alt="+"></router-link>
 </template>
 
 <style scoped>
@@ -68,9 +68,9 @@ const user = computed(() => {
   return store.getters.getUser;
 });
 
-function onModAdd(menu) {
-  store.dispatch("setShowPanel", {panel: "modAdditionBlock", show: true});
-}
+// function onModAdd(menu) {
+//   store.dispatch("setShowPanel", {panel: "modAdditionBlock", show: true});
+// }
 
 defineProps({
   shortName: {
