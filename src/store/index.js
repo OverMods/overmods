@@ -288,6 +288,22 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async deleteMods({ commit }, {isMyMods, ids}) {
+            try {
+                const res = await HTTP.delete("/mod", {
+                    data: {ids}
+                });
+                if (res.data.error) {
+                    commit("SET_ERROR", {name: "deleteMods", error: res.data.error});
+                    return;
+                }
+                commit("DELETE_MODS", {isMyMods, data: res.data});
+
+                commit("SET_NO_ERROR", "deleteMods");
+            } catch (e) {
+                console.log(e);
+            }
         }
     },
     mutations: {
@@ -378,6 +394,18 @@ export default createStore({
             } else {
                 state.comments = state.comments
                     .filter(comment => !deleted.includes(comment.comment.id));
+            }
+        },
+        DELETE_MODS(state, {isMyMods, data}) {
+            const deleted = Object.keys(data)
+                .filter(id => data[id] === true)
+                .map(id => parseInt(id));
+            if (isMyMods) {
+                state.myMods = state.myMods
+                    .filter(mod => !deleted.includes(mod.id));
+            } else {
+                state.mods = state.mods
+                    .filter(mod => !deleted.includes(mod.id));
             }
         }
     }
