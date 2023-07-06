@@ -7,6 +7,8 @@ export class ModScreenshot extends Model {
         }
         this.mod = json.mod;
         this.screenshot = this.convertFile(json.screenshot);
+        this.title = json.title;
+        this.description = json.description;
     }
 }
 
