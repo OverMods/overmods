@@ -10,13 +10,14 @@ export default function simpleSlider() {
     gallery.scrollLeft += delta * slideWidth;
   });
 
+  const slideCount = slides.length;
   for (let i = 0; i < 3; i++) {
-    const cloneSlide = slides[i].cloneNode(true);
+    const cloneSlide = slides[i % slideCount].cloneNode(true);
     gallery.appendChild(cloneSlide);
   }
 
-  for (let i = slides.length - 3; i < slides.length; i++) {
-    const cloneSlide = slides[i].cloneNode(true);
+  for (let i = Math.max(0, slides.length - 3); i < slides.length; i++) {
+    const cloneSlide = slides[i % slideCount].cloneNode(true);
     gallery.insertBefore(cloneSlide, slides[0]);
   }
 

@@ -44,6 +44,9 @@ export class Mod extends Model {
         if (json.logo) {
             this.logo = this.convertFile(json.logo);
         }
+        this.author = json.author;
+        this.authorTitle = json.authorTitle;
+        this.rating = json.rating;
         this.uploadedAt = this.convertDate(json.uploadedAt);
         this.description = json.description;
         if (json.description) {
