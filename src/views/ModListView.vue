@@ -9,9 +9,9 @@
   <div class="filters">
     <img src="../assets/images/icons/funnel_icon.png" alt="">
     <span noHover>Sort by:</span>
-    <span>A-Z</span>
-    <span class="active">Downloads</span>
-    <span>Upload date</span>
+    <span @click="toggleSort('title')">A-Z</span>
+    <span @click="toggleSort('downloaded')" >Downloads</span>
+    <span @click="toggleSort('uploadedAt')">Upload date</span>
   </div>
   <div class="list">
     <router-link v-if="mods?.length > 0"
@@ -71,6 +71,10 @@ const user = computed(() => {
 // function onModAdd(menu) {
 //   store.dispatch("setShowPanel", {panel: "modAdditionBlock", show: true});
 // }
+
+function toggleSort(sortMode) {
+  store.dispatch("toggleModListSort", sortMode);
+}
 
 defineProps({
   shortName: {
