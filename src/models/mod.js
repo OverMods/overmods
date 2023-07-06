@@ -60,6 +60,6 @@ export class Mod extends Model {
         }
         this.downloaded = json.downloaded;
         this.file = json.file ? this.convertFile(json.file) : json.file;
-        this.fileSize = this.convertFileSize(json.fileSize);
+        this.fileSize = json.fileSize ? this.convertFileSize(json.fileSize) : null;
     }
 }

@@ -15,8 +15,8 @@
             <div class="author"><img src="../assets/images/icons/author_icon.png">Author</div>
             <div class="changeble">{{ author.username }}</div>
 
-            <div class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
-            <div class="changeble">{{ mod.fileSize }}</div>
+            <div v-if="true" class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
+            <div v-if="true" class="changeble">{{ mod.fileSize }}</div>
 
             <div class="downloads"><img src="../assets/images/icons/download_icon.png">Downloads</div>
             <div class="changeble">{{ mod.downloaded }}</div>
