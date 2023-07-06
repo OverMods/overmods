@@ -10,13 +10,13 @@
             <div class="changeble">{{ mod.gameVersion }}</div>
 
             <div class="modVersion"><img src="../assets/images/icons/version_icon.png" alt="">Mod version</div>
-            <div class="changeble">1.0</div>
+            <div class="changeble">{{ mod.modVersion }}</div>
 
             <div class="author"><img src="../assets/images/icons/author_icon.png">Author</div>
             <div class="changeble">{{ author.username }}</div>
 
             <div class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
-            <div class="changeble">{{ mod.humanFileSize }}</div>
+            <div class="changeble">{{ mod.fileSize }}</div>
 
             <div class="downloads"><img src="../assets/images/icons/download_icon.png">Downloads</div>
             <div class="changeble">{{ mod.downloaded }}</div>

@@ -50,6 +50,7 @@ export class Mod extends Model {
             this.descriptionHtml = this.convertMarkdown(json.description);
         }
         this.gameVersion = json.gameVersion;
+        this.modVersion = json.modVersion;
         this.instruction = json.instruction;
         if (json.instruction) {
             this.instructionHtml = this.convertMarkdown(json.instruction);

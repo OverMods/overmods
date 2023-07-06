@@ -26,7 +26,7 @@
         <p class="description" v-html="mod.descriptionHtml"></p>
       </div>
       <div class="info">
-        <div class="version">{{ mod.gameVersion }}<div class="iconI"></div></div>
+        <div class="version">{{ mod.modVersion }}<div class="iconI"></div></div>
         <div class="downloads">{{ mod.downloaded }}<div class="iconI"></div></div>
         <div class="date">{{ mod.uploadedAt }}<div class="iconI"></div></div>
         <div class="hoverElem"><span>Mod page</span></div>
