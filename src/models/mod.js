@@ -47,6 +47,9 @@ export class Mod extends Model {
         this.author = json.author;
         this.authorTitle = json.authorTitle;
         this.rating = json.rating;
+        if (json.rating) {
+            this.ratingInt = Math.round(json.rating);
+        }
         this.uploadedAt = this.convertDate(json.uploadedAt);
         this.description = json.description;
         if (json.description) {
