@@ -68,7 +68,7 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <form class="write_comment" @submit="postComment">
-          <ProfileAvatar :user="user"></ProfileAvatar>
+          <ProfileAvatar v-if="user" :user="user"></ProfileAvatar>
           <textarea id="overmodsCommentArea"
                     v-if="isLoggedIn"
                     v-model="comment"
@@ -95,7 +95,7 @@
         </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
-            <ProfileAvatar :user="comment.user"></ProfileAvatar>
+            <ProfileAvatar v-if="comment.user" :user="comment.user"></ProfileAvatar>
             <div class="right">
               <div class="profile_name">
                 {{ comment.user.username }}<span v-if="comment.user.role !== 'USER'">[{{ comment.user.role }}]</span>

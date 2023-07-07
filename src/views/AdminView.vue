@@ -77,11 +77,14 @@
             <div class="line_block">Installation</div>
             <div class="lines"></div>
             <div class="text">
-              <div ref="instructionText" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" contenteditable id="instructionText">
-                <span>Write here how to install your modification.</span>
-              </div>
+              <!--<div oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" contenteditable id="instructionText">
+                <span ref="instructionText">Write here how to install your modification.</span>
+              </div>-->
+              <textarea @input="instructionText = $event.target.value"/>
             </div>
-            <button @click="insertLink">Insert Link</button>
+            <!--<button @click="insertLink">Insert Link</button>-->
+            <button @click="renderPreview">Debug render preview</button>
+            <div v-html="instructionHtml"></div>
           </div>
           <div class="comments">
             <div class="line_block_mirror">Comments</div>
@@ -124,6 +127,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import { renderMarkdown } from "../utils.js";
 
 const store = useStore();
 
@@ -131,30 +135,11 @@ const user = computed(() => {
   return store.getters.getUser;
 })
 
-const instructionText = ref(null);
-
-const insertLink = () => {
-  const selectedText = window.getSelection().toString();
-
-  if (selectedText && isInInstructionText()) {
-    const link = prompt('Enter the link URL:');
-    const linkElement = document.createElement('a');
-    linkElement.href = link;
-    linkElement.textContent = selectedText;
-
-    const range = window.getSelection().getRangeAt(0);
-    range.deleteContents();
-    range.insertNode(linkElement);
-  }
-}
-const isInInstructionText = () => {
-  const selection = window.getSelection();
-  if (selection.rangeCount > 0) {
-    const range = selection.getRangeAt(0);
-    const container = range.commonAncestorContainer;
-    return instructionText.value.contains(container);
-  }
-  return false;
+const instructionText = "";
+const instructionHtml = ref(null);
+function renderPreview() {
+  //console.log(instructionText);//, renderMarkdown(instructionText));
+  instructionHtml.value = renderMarkdown("# Test\n [link](https://example.com)");
 }
 
 function onProfile() {

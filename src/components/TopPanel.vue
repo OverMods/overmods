@@ -18,7 +18,7 @@
       </div>
         <div class="profile" @click="onProfile" v-if="isLoggedIn">
           Profile
-          <ProfileAvatar :user="user" type="profile_icon"></ProfileAvatar>
+          <ProfileAvatar v-if="user" :user="user" type="profile_icon"></ProfileAvatar>
         </div>
     </div>
 	</div>

@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="side">
         <div class="short_info">
-          <ProfileAvatar :user="user"></ProfileAvatar>
+          <ProfileAvatar v-if="user" :user="user"></ProfileAvatar>
           <div class="role" :role="user?.role">{{ user?.role }}</div>
           <div>{{ user?.username }}</div>
         </div>
