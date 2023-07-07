@@ -12,8 +12,16 @@ export function relativeDate(date) {
     return dayjs.utc(date, "YY-MM-DD HH:mm:ss").fromNow();
 }
 
+export function isDateAfter(first, second) {
+    const a = dayjs.utc(first, "YY-MM-DD HH:mm:ss");
+    const b = dayjs.utc(second, "YY-MM-DD HH:mm:ss");
+    return a.isAfter(b);
+}
+
 marked.use({
-    breaks: true
+    breaks: true,
+    mangle: false,
+    headerIds: false
 });
 
 export function renderMarkdown(markdown) {

@@ -1,5 +1,11 @@
 import { Model } from "./model.js";
 
+export const ROLE_COLORS = {
+    "ADMIN": "ac6969",
+    "MODDER": "696cac",
+    "USER": "ac9b69"
+}
+
 export class User extends Model {
     fromJson(json) {
         this.setId(json.id);

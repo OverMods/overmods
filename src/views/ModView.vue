@@ -10,13 +10,13 @@
             <div class="changeble">{{ mod.gameVersion }}</div>
 
             <div class="modVersion"><img src="../assets/images/icons/version_icon.png" alt="">Mod version</div>
-            <div class="changeble">1.0</div>
+            <div class="changeble">{{ mod.modVersion }}</div>
 
             <div class="author"><img src="../assets/images/icons/author_icon.png">Author</div>
             <div class="changeble">{{ author.username }}</div>
 
             <div class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
-            <div class="changeble">{{ mod.humanFileSize }}</div>
+            <div class="changeble">{{ mod.fileSize }}</div>
 
             <div class="downloads"><img src="../assets/images/icons/download_icon.png">Downloads</div>
             <div class="changeble">{{ mod.downloaded }}</div>
@@ -24,7 +24,7 @@
             <div class="changeble">{{ mod.uploadedAt }}</div>
 
             <div class="rating"><img src="../assets/images/icons/star.png" rate>Rating</div>
-            <div class="changeble">{{ 5 }}</div>
+            <div class="changeble">{{ mod.rating }}</div>
           </div>
         </div>
         <div class="buttons">
@@ -68,8 +68,7 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <form class="write_comment" @submit="postComment">
-          <img class="profile_avatar" :src="isLoggedIn && user.avatar ? user.avatar : defaultAvatar"
-               :style="isLoggedIn && user.avatar ? '' : 'background-color: #949494;'">
+          <ProfileAvatar :user="user"></ProfileAvatar>
           <textarea id="overmodsCommentArea"
                     v-if="isLoggedIn"
                     v-model="comment"
@@ -96,9 +95,10 @@
         </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
-            <img class="profile_avatar" :src="comment.user.avatar ? comment.user.avatar : defaultAvatar">
+            <ProfileAvatar :user="comment.user"></ProfileAvatar>
             <div class="right">
-              <div class="profile_name">{{ comment.user.username }}
+              <div class="profile_name" :style="`color: #${ROLE_COLORS[comment.user.role]}`">
+                {{ comment.user.username }}
                 <div class="rating">
                   <div v-for="i in 5" :class="`star ${i <= ratings[comment.user.id] ? 'active' : ''}`"></div>
                 </div>
@@ -120,8 +120,9 @@
 import { onMounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { HTTP, getUploadUrl } from "../http.js";
-import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
+import { getUploadUrl } from "../http.js";
+import { ROLE_COLORS } from "../models/user.js";
+import ProfileAvatar from "../components/ProfileAvatar.vue";
 
 const route = useRoute();
 const store = useStore();

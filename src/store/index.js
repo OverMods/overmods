@@ -4,6 +4,7 @@ import { Game } from "../models/game.js";
 import { ModScreenshot, ModComment, ModRating, Mod } from "../models/mod.js";
 import { User } from "../models/user.js";
 import { RequestRole } from "../models/requestRole.js";
+import { isDateAfter } from "../utils.js";
 
 export default createStore({
     state: {
@@ -22,7 +23,8 @@ export default createStore({
         panels: {},
         myComments: [],
         myMods: [],
-        roleRequests: []
+        roleRequests: [],
+        modListSort: {}
     },
     getters: {
         getError: (store) => (name) => store.errors[name],
@@ -42,7 +44,8 @@ export default createStore({
         getShowPanel: (store) => (panel) => store.panels[panel] || false,
         getMyComments: (store) => store.myComments,
         getMyMods: (store) => store.myMods,
-        getRoleRequests: (store) => store.roleRequests
+        getRoleRequests: (store) => store.roleRequests,
+        getModListSort: (store) => store.modListSort,
     },
     actions: {
         async fetchGameList({ commit }) {
@@ -335,6 +338,9 @@ export default createStore({
             } catch (e) {
                 console.log(e);
             }
+        },
+        async toggleModListSort({ commit }, sortMode) {
+            commit("TOGGLE_MOD_LIST_SORT", sortMode);
         }
     },
     mutations: {
@@ -448,6 +454,30 @@ export default createStore({
             if (idx !== -1) {
                 state.roleRequests[idx] = request;
             }
+        },
+        TOGGLE_MOD_LIST_SORT(state, sortMode) {
+            let smod = state.modListSort[sortMode];
+            if (smod === undefined) {
+                smod = true;
+            } else {
+                smod = !smod;
+            }
+
+            switch (sortMode) {
+                case "title":
+                    state.mods = state.mods.sort((a, b) => a.title > b.title);
+                    break;
+                case "downloaded":
+                    state.mods = state.mods.sort((a, b) => a.downloaded > b.downloaded);
+                    break;
+                case "uploadedAt":
+                    state.mods = state.mods.sort((a, b) => isDateAfter(a.uploadedAt, b.uploadedAt));
+                    break;
+            }
+            if (!smod) {
+                state.mods = state.mods.reverse();
+            }
+            state.modListSort[sortMode] = smod;
         }
     }
 });

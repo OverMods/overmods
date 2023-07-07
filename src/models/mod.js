@@ -7,6 +7,8 @@ export class ModScreenshot extends Model {
         }
         this.mod = json.mod;
         this.screenshot = this.convertFile(json.screenshot);
+        this.title = json.title;
+        this.description = json.description;
     }
 }
 
@@ -42,18 +44,25 @@ export class Mod extends Model {
         if (json.logo) {
             this.logo = this.convertFile(json.logo);
         }
+        this.author = json.author;
+        this.authorTitle = json.authorTitle;
+        this.rating = json.rating;
+        if (json.rating) {
+            this.ratingInt = Math.round(json.rating);
+        }
         this.uploadedAt = this.convertDate(json.uploadedAt);
         this.description = json.description;
         if (json.description) {
             this.descriptionHtml = this.convertMarkdown(json.description);
         }
         this.gameVersion = json.gameVersion;
+        this.modVersion = json.modVersion;
         this.instruction = json.instruction;
         if (json.instruction) {
             this.instructionHtml = this.convertMarkdown(json.instruction);
         }
         this.downloaded = json.downloaded;
         this.file = json.file ? this.convertFile(json.file) : json.file;
-        this.fileSize = this.convertFileSize(json.fileSize);
+        this.fileSize = json.fileSize ? this.convertFileSize(json.fileSize) : null;
     }
 }
