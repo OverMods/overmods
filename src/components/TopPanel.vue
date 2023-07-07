@@ -18,8 +18,7 @@
       </div>
         <div class="profile" @click="onProfile" v-if="isLoggedIn">
           Profile
-          <img v-if="user?.avatar" :src="user?.avatar" class="profile_icon">
-          <img v-else src="../assets/images/icons/default_profile_avatar.png" class="profile_icon">
+          <ProfileAvatar :user="user" type="profile_icon"></ProfileAvatar>
         </div>
     </div>
 	</div>
@@ -33,6 +32,7 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from 'vue-router';
+import ProfileAvatar from "./ProfileAvatar.vue";
 
 const route = useRoute();
 const router = useRouter();

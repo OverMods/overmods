@@ -3,7 +3,7 @@
     <div class="profile">
       <div class="side">
         <div class="short_info">
-          <img :src="user?.avatar ? user.avatar : defaultAvatar" alt="">
+          <ProfileAvatar :user="user"></ProfileAvatar>
           <div class="role" :role="user?.role">{{ user?.role }}</div>
           <div>{{ user?.username }}</div>
         </div>
@@ -59,10 +59,10 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import ProfileAvatar from "./ProfileAvatar.vue";
 import ProfileSettings from "./ProfileSettings.vue";
 import ProfileComments from "./ProfileComments.vue";
 import ProfileModifications from "./ProfileModifications.vue";
-import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
 
 
 const store = useStore();
