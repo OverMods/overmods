@@ -19,7 +19,9 @@ export function isDateAfter(first, second) {
 }
 
 marked.use({
-    breaks: true
+    breaks: true,
+    mangle: false,
+    headerIds: false
 });
 
 export function renderMarkdown(markdown) {
