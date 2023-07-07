@@ -76,11 +76,11 @@
           <div class="howToInstall">
             <div class="line_block">Installation</div>
             <div class="lines"></div>
-            
+            <div class="text">
               <div ref="instructionText" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" contenteditable id="instructionText">
-                <span></span>
+                <span>Write here how to install your modification.</span>
               </div>
-            
+            </div>
             <button @click="insertLink">Insert Link</button>
           </div>
           <div class="comments">

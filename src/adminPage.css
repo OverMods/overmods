@@ -150,7 +150,8 @@
           }
         }
         #instructionText{
-          max-width: 50%;
+          max-width: 60%;
+          min-width: inherit;
           border-radius: 5px;
           padding: 2px;
 

@@ -3,7 +3,7 @@
   <br>
   <div class="title">
     <img src="../assets/images/icons/modList_icon.png" alt="">
-    <p>Mods for game {{ game?.title }}</p>
+    <p>{{ game?.title }} mods</p>
     <div class="line"></div>
   </div>
   <div class="filters">

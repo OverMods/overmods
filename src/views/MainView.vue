@@ -62,8 +62,7 @@
           </div>
         </div>
         <div class="profile" v-if="isLoggedIn" >
-          <img :src="user?.avatar" alt="avatar" v-if="user?.avatar !== null">
-          <img src="../assets/images/icons/default_profile_avatar.png" alt="avatar" v-else>
+          <ProfileAvatar :user="user"></ProfileAvatar>
           <div class="roleIcon" :role="user?.role"></div>
           <div class="username"><img src="../assets/images/icons/author_icon.png" alt="">{{ user?.username }}</div>
           <div class="role"><img src="../assets/images/icons/role_icon.png" alt="">{{ user?.role }}</div>
@@ -94,6 +93,7 @@
 import { onMounted, computed, ref } from "vue";
 import { useStore } from "vuex";
 import TrendingGallery from "../components/TrendingGallery.vue";
+import ProfileAvatar from "../components/ProfileAvatar.vue";
 const store = useStore();
 
 const stats = computed(() => {

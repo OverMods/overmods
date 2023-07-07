@@ -92,7 +92,7 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div v-if="user.role === 'USER'" class="container">
         <div class="top_block">
           <div class="title"><span>Became a modder</span></div>
         </div>
