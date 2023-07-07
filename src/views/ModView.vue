@@ -67,8 +67,11 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <form class="write_comment" @submit="postComment">
-          <img class="profile_avatar" :src="isLoggedIn && user.avatar ? user.avatar : defaultAvatar"
-               :style="isLoggedIn && user.avatar ? '' : 'background-color: #949494;'">
+          <img v-if="user?.avatar" class="profile_avatar" :src="user.avatar" alt="avatar">
+          <img v-else-if="isLoggedIn" class="profile_avatar" :src="defaultAvatar" alt="avatar"
+               :style="`background-color: #${user.color}`">
+          <img v-else class="profile_avatar" :src="defaultAvatar" alt="avatar"
+               style="'background-color: #949494;'">
           <textarea id="overmodsCommentArea"
                     v-if="isLoggedIn"
                     v-model="comment"
@@ -95,7 +98,8 @@
         </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
-            <img class="profile_avatar" :src="comment.user.avatar ? comment.user.avatar : defaultAvatar">
+            <img v-if="comment.user.avatar" class="profile_avatar" :src="comment.user.avatar">
+            <img v-else class="profile_avatar" :src="defaultAvatar" :style="`background-color: #${comment.user.color}`">
             <div class="right">
               <div class="profile_name">{{ comment.user.username }}
                 <div class="rating">
