@@ -96,7 +96,8 @@
           <div class="comment" v-for="comment in comments">
             <ProfileAvatar :user="comment.user"></ProfileAvatar>
             <div class="right">
-              <div class="profile_name">{{ comment.user.username }}
+              <div class="profile_name" :style="`color: #${ROLE_COLORS[comment.user.role]}`">
+                {{ comment.user.username }}
                 <div class="rating">
                   <div v-for="i in 5" :class="`star ${i <= ratings[comment.user.id] ? 'active' : ''}`"></div>
                 </div>
@@ -118,7 +119,8 @@
 import { onMounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import { HTTP, getUploadUrl } from "../http.js";
+import { getUploadUrl } from "../http.js";
+import { ROLE_COLORS } from "../models/user.js";
 import ProfileAvatar from "../components/ProfileAvatar.vue";
 
 const route = useRoute();
