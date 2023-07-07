@@ -1,6 +1,6 @@
 <template>
-  <div class="trending_gallery" @wheel="galleryScroll">
-    <div v-for="trend in trends" class="slide">
+  <div class="trending_gallery" ref="gallery" @wheel="galleryScroll">
+    <div v-for="trend in trends" ref="slides" class="slide">
       <router-link :to="`/game/${getGameById(trend.mod.game)?.shortName }/mod/${trend.mod.id}`">
         <h2>{{ getGameById(trend.mod.game)?.title }}</h2>
         <p>{{ trend.mod.title }}</p>
@@ -18,12 +18,11 @@
 </style>
 
 <script setup>
-import { computed, onUpdated } from "vue";
+import { computed, onUpdated, onMounted, watch } from "vue";
 import { useStore } from "vuex";
-import simpleSlider from "../simpleSlider.js";
-import { useRouter } from "vue-router";
+import simpleSlider from '../simpleSlider.js';
+
 const store = useStore();
-const router = useRouter();
 
 const getGameById = computed(() => {
   return store.getters.getGameById;
@@ -32,20 +31,18 @@ const trends = computed(() => {
   return store.getters.getTrends;
 });
 
+let trendsLength = 0;
+
+watch(trends, () => {
+  trendsLength = trends.value.length;
+});
+
 store.dispatch("fetchGameList");
 store.dispatch("fetchTrends");
 
-router.afterEach((to) => {
-  if (to.path === "/") {
-    window.addEventListener('load', () => {
-      simpleSlider();
-    });
-  }
-  return true;
-});
-
 onUpdated(() => {
-  simpleSlider();
+  if (trendsLength < 2){
+    simpleSlider();
+  }
 });
 </script>
-

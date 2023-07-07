@@ -21,16 +21,16 @@
           <div class="top">
             <div class="mod_logo"></div>
             <div class="info_block">
-              <h2>Click to change</h2>
+              <input class="mod_name" value="Mod name" oninput="this.style.width = ''; this.style.width = this.scrollWidth + 'px'">
               <div class="info">
                 <div class="version"><img src="../assets/images/icons/version_icon.png">Game version</div>
-                <div class="changeble">-</div>
+                <input class="changeble" value="1.0" oninput="this.style.width = ''; this.style.width = this.scrollWidth + 'px'">
 
                 <div class="modVersion"><img src="../assets/images/icons/version_icon.png" alt="">Mod version</div>
-                <div class="changeble">-</div>
+                <input class="changeble" value="1.0" oninput="this.style.width = ''; this.style.width = this.scrollWidth + 'px'">
 
                 <div class="author"><img src="../assets/images/icons/author_icon.png">Author</div>
-                <div class="changeble">-</div>
+                <input class="changeble" :value="user?.username" oninput="this.style.width = ''; this.style.width = this.scrollWidth + 'px'">
 
                 <div class="size"><img src="../assets/images/icons/file_icon.png">Size</div>
                 <div class="changeble">-</div>
@@ -54,8 +54,7 @@
           <div class="description">
             <div class="line_block">Description</div>
             <div class="lines"></div>
-            <div>-</div>
-          </div>
+            <p><textarea oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'">Write here the description for your modification.</textarea></p>          </div>
           <div class="screenshots">
             <div class="line_block_mirror">Screenshots</div>
             <div class="lines_mirror"></div>
@@ -64,11 +63,10 @@
                 <img alt="">
                 <div class="img_info">
                   <div class="text_block">
-                    <div class="title">-
+                    <div class="title"><input type="text" value="//code to show mod name from the input above" oninput="this.style.width = ''; this.style.width = this.scrollWidth + 'px'">
                       <div class="underline"></div>
                     </div>
-                    <div class="line"></div>
-                    <div class="desc"></div>
+                    <textarea class="desc" placeholder="//icon" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
                     <p>Click here to view full screenshot</p>
                   </div>
                 </div>
@@ -78,7 +76,12 @@
           <div class="howToInstall">
             <div class="line_block">Installation</div>
             <div class="lines"></div>
-            <div>-</div>
+            
+              <div ref="instructionText" oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'" contenteditable id="instructionText">
+                <span></span>
+              </div>
+            
+            <button @click="insertLink">Insert Link</button>
           </div>
           <div class="comments">
             <div class="line_block_mirror">Comments</div>
@@ -119,7 +122,7 @@
 </style>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
@@ -127,6 +130,32 @@ const store = useStore();
 const user = computed(() => {
   return store.getters.getUser;
 })
+
+const instructionText = ref(null);
+
+const insertLink = () => {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText && isInInstructionText()) {
+    const link = prompt('Enter the link URL:');
+    const linkElement = document.createElement('a');
+    linkElement.href = link;
+    linkElement.textContent = selectedText;
+
+    const range = window.getSelection().getRangeAt(0);
+    range.deleteContents();
+    range.insertNode(linkElement);
+  }
+}
+const isInInstructionText = () => {
+  const selection = window.getSelection();
+  if (selection.rangeCount > 0) {
+    const range = selection.getRangeAt(0);
+    const container = range.commonAncestorContainer;
+    return instructionText.value.contains(container);
+  }
+  return false;
+}
 
 function onProfile() {
   store.dispatch("setShowPanel", {panel: "profile", show: true});

@@ -50,7 +50,6 @@
                 <div class="title">{{ mod.title }}
                   <div class="underline"></div>
                 </div>
-                <div class="line"></div>
                 <div class="desc"></div>
                 <p>Click here to view full screenshot</p>
               </div>
@@ -61,7 +60,9 @@
       <div class="howToInstall">
         <div class="line_block">Installation</div>
         <div class="lines"></div>
-        <div v-html="mod.instructionHtml"></div>
+        <ol>
+          <div v-html="mod.instructionHtml"></div>
+        </ol>
       </div>
       <div class="comments">
         <div class="line_block_mirror">Comments</div>

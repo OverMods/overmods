@@ -541,7 +541,7 @@ a{
 		width: 100%;
 		height: clamp(170px, 43vw, 250px);
 		overflow-x: scroll;
-		scroll-behavior: smooth;
+    scroll-behavior: smooth;
 		padding-left: 12px;
 		user-select: none;
 
