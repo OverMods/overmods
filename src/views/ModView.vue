@@ -67,11 +67,7 @@
         <div class="line_block_mirror">Comments</div>
         <div class="lines_mirror"></div>
         <form class="write_comment" @submit="postComment">
-          <img v-if="user?.avatar" class="profile_avatar" :src="user.avatar" alt="avatar">
-          <img v-else-if="isLoggedIn" class="profile_avatar" :src="defaultAvatar" alt="avatar"
-               :style="`background-color: #${user.color}`">
-          <img v-else class="profile_avatar" :src="defaultAvatar" alt="avatar"
-               style="'background-color: #949494;'">
+          <ProfileAvatar :user="user"></ProfileAvatar>
           <textarea id="overmodsCommentArea"
                     v-if="isLoggedIn"
                     v-model="comment"
@@ -98,8 +94,7 @@
         </form>
         <div class="show_comments">
           <div class="comment" v-for="comment in comments">
-            <img v-if="comment.user.avatar" class="profile_avatar" :src="comment.user.avatar">
-            <img v-else class="profile_avatar" :src="defaultAvatar" :style="`background-color: #${comment.user.color}`">
+            <ProfileAvatar :user="comment.user"></ProfileAvatar>
             <div class="right">
               <div class="profile_name">{{ comment.user.username }}
                 <div class="rating">
@@ -124,7 +119,7 @@ import { onMounted, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import { HTTP, getUploadUrl } from "../http.js";
-import defaultAvatar from '../assets/images/icons/default_profile_avatar.png';
+import ProfileAvatar from "../components/ProfileAvatar.vue";
 
 const route = useRoute();
 const store = useStore();
