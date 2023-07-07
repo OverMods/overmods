@@ -558,6 +558,10 @@ a{
 			box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 			cursor: pointer;
 
+      & *{
+        cursor: pointer;
+      }
+
 			& h2{
 				z-index: 10;
 				position: absolute;
@@ -604,31 +608,6 @@ a{
 				transition: .2s ease;
 			}
 
-			.picture[over]{
-				background-image: url('./assets/images/materials/game previews/overwatch.png');
-
-				+ button{
-					background-color: #cd9e98;
-				}
-
-			}
-			.picture[metro]{
-				background-image: url('./assets/images/materials/game previews/metro2033.jpg');
-
-				+ button{
-					background-color: #595b5e;
-				}
-
-			}
-			.picture[mine]{
-				background-image: url('./assets/images/materials/game previews/minecraftleg.avif');
-
-				+ button{
-					background-color: #79bfe5;
-				}
-
-			}
-
 			& button{
 				position: absolute;
 				right: 20px;
@@ -646,15 +625,6 @@ a{
 				& button{
 					transform: scale(13.5);
 					opacity: .5;
-				}
-				& .picture[over] + button{
-					box-shadow: -2px -2px 1px #cd9e98;
-				}
-				& .picture[metro] + button{
-					box-shadow: -2px -2px 1px #595b5e;
-				}
-				& .picture[mine] + button{
-					box-shadow: -2px -2px 1px #79bfe5;
 				}
 				& h2{
 					bottom: 80px;
@@ -675,10 +645,11 @@ a{
 					width: 100%;
 				}
 
+        & button{
+          box-shadow: -2px -2px 1px inherit !important;
+        }
 			}
-
 		}
-
 	}
 
 	.trending_gallery::-webkit-scrollbar{

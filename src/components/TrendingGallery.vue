@@ -5,14 +5,17 @@
         <h2>{{ getGameById(trend.mod.game)?.title }}</h2>
         <p>{{ trend.mod.title }}</p>
         <span>hover here</span>
-        <div v-if="trend.mod.logo" over class="picture" :style="`background-image: url('${trend.mod.logo}')`"></div>
-        <div v-else over class="picture"></div>
+        <div v-if="trend.mod.logo" class="picture" :style="`background-image: url('${trend.mod.logo}')`"></div>
+        <div v-else class="picture"></div>
 
         <img v-if="trend.mod.logo" @load="onImageLoad($event, trend.mod.id)"
              :src="trend.mod.logo" alt="" style="display: none"/>
         <img v-else @load="onImageLoad($event, trend.mod.id)"
              src="../assets/images/materials/game%20previews/overwatch.png" alt="" style="display: none"/>
-        <button :style="`background-color: #${colors[trend.mod.id]};`"></button>
+        <button :style="
+        `background-color: #${colors[trend.mod.id]}`"
+        :onmouseover="`this.style.boxShadow = '-2px -2px 1px #${colors[trend.mod.id]}';`"
+        onmouseout="this.style.boxShadow = 'none';"></button>
       </router-link>
     </div>
   </div>
