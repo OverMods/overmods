@@ -7,7 +7,11 @@
         <span>hover here</span>
         <div v-if="trend.mod.logo" over class="picture" :style="`background-image: url('${trend.mod.logo}')`"></div>
         <div v-else over class="picture"></div>
-        <img @load="onImageLoad($event, trend.mod.id)" :src="trend.mod.logo" alt="" style="display: none"/>
+
+        <img v-if="trend.mod.logo" @load="onImageLoad($event, trend.mod.id)"
+             :src="trend.mod.logo" alt="" style="display: none"/>
+        <img v-else @load="onImageLoad($event, trend.mod.id)"
+             src="../assets/images/materials/game%20previews/overwatch.png" alt="" style="display: none"/>
         <button :style="`background-color: #${colors[trend.mod.id]};`"></button>
       </router-link>
     </div>
