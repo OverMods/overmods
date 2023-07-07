@@ -1,7 +1,6 @@
 <template>
   <div class="trending_gallery" @wheel="galleryScroll">
-    <div v-for="trend in trends" class="slide" :key="trend.mod.id"
-      @mouseover="hovers[trend.mod.id] = true" @mouseout="hovers[trend.mod.id] = false">
+    <div v-for="trend in trends" class="slide" :key="trend.mod.id">
       <router-link :to="`/game/${getGameById(trend.mod.game)?.shortName }/mod/${trend.mod.id}`">
         <h2>{{ getGameById(trend.mod.game)?.title }}</h2>
         <p>{{ trend.mod.title }}</p>
@@ -13,10 +12,8 @@
              :src="trend.mod.logo" alt="" style="display: none"/>
         <img v-else @load="onImageLoad($event, trend.mod.id)"
              src="../assets/images/materials/game%20previews/overwatch.png" alt="" style="display: none"/>
-        <button :style="
-        `background-color: #${colors[trend.mod.id]}`"
-        :onmouseover="`this.style.boxShadow = '-2px -2px 1px #${colors[trend.mod.id]}';`"
-        onmouseout="this.style.boxShadow = 'none';"></button>
+        <button :style="`
+        --current-color: #${colors[trend.mod.id]}`"></button>
       </router-link>
     </div>
   </div>

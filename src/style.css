@@ -619,6 +619,7 @@ a{
 				outline: none;
 				opacity: 1;
 				transition: .3s ease;
+        background-color: var(--current-color);
 			}
 
 			&:hover{
@@ -646,7 +647,7 @@ a{
 				}
 
         & button{
-          box-shadow: -2px -2px 1px inherit !important;
+          box-shadow: -2px -2px 1px var(--current-color) !important;
         }
 			}
 		}
